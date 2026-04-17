@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { List, X, SunDim, MoonStars } from '@phosphor-icons/react';
 import { CLASS_META } from '../../lib/constants';
 
 const Navbar = ({ theme, onToggleTheme }) => {
@@ -31,11 +31,11 @@ const Navbar = ({ theme, onToggleTheme }) => {
           <div className="relative">
             <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
             {/* Badge Style for JPG Logo */}
-            <div className="relative w-10 h-10 rounded-xl overflow-hidden border-2 border-primary bg-white shadow-[4px_4px_0px_rgba(16,185,129,0.2)] group-hover:shadow-none group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all">
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden border-2 border-primary bg-white shadow-[4px_4px_0px_rgba(16,185,129,0.2)] group-hover:shadow-none group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all flex items-center justify-center">
               <img 
                 src={CLASS_META.logo} 
                 alt="Logo" 
-                className="w-full h-full object-contain p-0.5"
+                className="w-full h-full object-contain block p-1"
               />
             </div>
           </div>
@@ -68,7 +68,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
             className="p-3 rounded-full bg-surface/50 border border-border text-muted hover:text-primary hover:border-primary/30 transition-all flex items-center justify-center"
             title="Toggle Theme"
           >
-            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            {theme === 'dark' ? <SunDim weight="duotone" size={20} /> : <MoonStars weight="duotone" size={20} />}
           </button>
         </div>
 
@@ -78,13 +78,13 @@ const Navbar = ({ theme, onToggleTheme }) => {
             onClick={onToggleTheme}
             className="p-2.5 rounded-xl bg-surface/50 text-muted hover:text-primary transition-colors"
           >
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            {theme === 'dark' ? <SunDim weight="duotone" size={24} /> : <MoonStars weight="duotone" size={24} />}
           </button>
           <button 
             onClick={() => setIsOpen(!isOpen)} 
             className="p-2.5 rounded-xl bg-surface/50 text-main hover:text-primary transition-colors"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X weight="bold" size={28} /> : <List weight="duotone" size={28} />}
           </button>
         </div>
       </div>
@@ -100,7 +100,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
             className="fixed inset-0 bg-background/95 backdrop-blur-2xl z-[60] flex flex-col items-center justify-center space-y-8 lg:hidden"
           >
             <button onClick={() => setIsOpen(false)} className="absolute top-8 right-8 p-4 text-main hover:text-primary transition-colors">
-              <X size={32} />
+              <X weight="bold" size={36} />
             </button>
             
             {links.map((link, idx) => (
