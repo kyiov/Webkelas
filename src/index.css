@@ -5,16 +5,16 @@
 
 @layer base {
   :root {
-    --bg-color: #020617;
-    --text-main: #f1f5f9;
+    --bg-color: #1e201e;
+    --text-main: #ecdfcc;
     --text-muted: #94a3b8;
-    --border-color: rgba(255, 255, 255, 0.05);
-    --card-bg: #0f172a;
-    --grid-color: rgba(30, 41, 59, 0.4);
+    --border-color: rgba(236, 223, 204, 0.1);
+    --card-bg: #3c3d37;
+    --grid-color: rgba(105, 117, 101, 0.1);
     
-    --primary: #10b981; 
-    --primary-hover: #34d399;
-    --primary-glow: rgba(16, 185, 129, 0.1);
+    --primary: #697565; 
+    --primary-hover: #82954b;
+    --primary-glow: rgba(105, 117, 101, 0.15);
     
     --radius-xl: 32px;
     --radius-lg: 20px;
@@ -22,26 +22,26 @@
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     --shadow-color: rgba(0, 0, 0, 0.4);
 
-    --glass-blur: 12px;
-    --glass-opacity: 0.03;
-    --glass-border: rgba(255, 255, 255, 0.05);
+    --glass-blur: 16px;
+    --glass-opacity: 0.1;
+    --glass-border: rgba(236, 223, 204, 0.05);
   }
 
   [data-theme="light"] {
-    --bg-color: #f8fafc;
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --border-color: rgba(0, 0, 0, 0.05);
+    --bg-color: #ecdfcc;
+    --text-main: #1e201e;
+    --text-muted: #697565;
+    --border-color: rgba(30, 32, 30, 0.1);
     --card-bg: #ffffff;
-    --grid-color: rgba(15, 23, 42, 0.1);
+    --grid-color: rgba(105, 117, 101, 0.05);
     
-    --primary: #059669; 
-    --primary-hover: #10b981;
-    --primary-glow: rgba(5, 150, 105, 0.05);
+    --primary: #3c3d37; 
+    --primary-hover: #1e201e;
+    --primary-glow: rgba(60, 61, 55, 0.05);
     
     --shadow-color: rgba(0, 0, 0, 0.1);
-    --glass-opacity: 0.7;
-    --glass-border: rgba(0, 0, 0, 0.05);
+    --glass-opacity: 0.8;
+    --glass-border: rgba(30, 32, 30, 0.05);
   }
 
   body {
@@ -55,6 +55,20 @@
     overflow-x: hidden;
     scroll-behavior: smooth;
     transition: background-color 0.5s ease, color 0.5s ease;
+    position: relative;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    filter: contrast(150%) brightness(100%);
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 1;
   }
 
   /* Shared UI Classes from @har */
@@ -66,6 +80,8 @@
     border-radius: var(--radius-xl);
     box-shadow: 0 8px 32px var(--shadow-color);
     transition: var(--transition-smooth);
+    position: relative;
+    z-index: 2;
   }
 
   [data-theme="dark"] .glass-card {
@@ -104,8 +120,8 @@
   }
 
   ::selection {
-    background: #10b981;
-    color: #020617;
+    background: var(--primary);
+    color: var(--bg-color);
   }
 
   /* Reveal animations from @har */
