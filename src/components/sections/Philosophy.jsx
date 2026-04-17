@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Zap, Heart } from '@phosphor-icons/react';
+import { ShieldCheck, Lightning, Heart } from '@phosphor-icons/react';
 import GlassCard from '../ui/GlassCard';
 import { CLASS_META } from '../../lib/constants';
 
