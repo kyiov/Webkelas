@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Settings, Trash2, Plus, 
-  Image as ImageIcon, MessageSquare, 
-  X, Check, Lock, Shield
-} from 'lucide-react';
+  Gear, Trash, PlusCircle, 
+  Image as ImageIcon, ChatTeardropDots, 
+  X, Check, LockSimple, ShieldCheck
+} from '@phosphor-icons/react';
 import { api } from '../../lib/api';
 import GlassCard from '../ui/GlassCard';
 
@@ -121,7 +121,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
         <div className="p-8 border-b border-border flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-              <Settings size={20} />
+              <Gear weight="duotone" size={20} />
             </div>
             <div>
               <h2 className="text-xl font-black text-main uppercase tracking-tighter">System Control</h2>
@@ -129,7 +129,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
             </div>
           </div>
           <button onClick={onClose} className="p-2 rounded-xl hover:bg-surface/50 text-muted hover:text-main transition-colors">
-            <X size={24} />
+            <X weight="bold" size={24} />
           </button>
         </div>
 
@@ -165,7 +165,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
               <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                 <div className="flex space-x-4">
                   {[
-                    { id: 'messages', icon: MessageSquare, label: 'Echoes' },
+                    { id: 'messages', icon: ChatTeardropDots, label: 'Echoes' },
                     { id: 'gallery', icon: ImageIcon, label: 'Archives' }
                   ].map(tab => (
                     <button 
@@ -176,7 +176,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                         ${activeTab === tab.id ? 'bg-primary text-background font-black' : 'bg-surface/50 text-muted hover:text-main'}
                       `}
                     >
-                      <tab.icon size={14} />
+                      <tab.icon weight="duotone" size={14} />
                       <span>{tab.label}</span>
                     </button>
                   ))}
@@ -209,7 +209,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                         className="bg-transparent border-b border-border p-2 font-mono text-[10px] uppercase focus:border-primary outline-none"
                       />
                       <button onClick={addMessage} className="p-3 bg-primary/10 text-primary rounded-xl hover:bg-primary transition-all hover:text-background">
-                        <Plus size={20} />
+                        <PlusCircle weight="duotone" size={20} />
                       </button>
                     </div>
 
@@ -222,7 +222,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                             <span className="font-mono text-[8px] uppercase tracking-widest text-muted">{m.author} &bull; {m.date || 'Today'} &bull; {m.time}</span>
                           </div>
                           <button onClick={() => deleteMessage(m.id)} className="p-2 text-muted hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
-                            <Trash2 size={18} />
+                            <Trash weight="duotone" size={18} />
                           </button>
                         </div>
                       ))}
@@ -245,7 +245,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                         className="bg-transparent border-b border-border p-2 font-black uppercase text-[10px] focus:border-primary outline-none"
                       />
                       <button onClick={addGallery} className="p-3 bg-primary/10 text-primary rounded-xl hover:bg-primary transition-all hover:text-background">
-                        <Plus size={20} />
+                        <PlusCircle weight="duotone" size={20} />
                       </button>
                     </div>
 
@@ -256,7 +256,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                           <img src={img.src} className="w-full h-full object-cover grayscale transition-all group-hover:grayscale-0" />
                           <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
                              <button onClick={() => deleteGallery(idx)} className="p-3 bg-red-500/20 text-red-500 rounded-full hover:bg-red-500 hover:text-main transition-all">
-                               <Trash2 size={20} />
+                               <Trash weight="duotone" size={20} />
                              </button>
                           </div>
                           <div className="absolute bottom-4 left-4 right-4">
