@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Zap, Heart } from 'lucide-react';
+import { ShieldCheck, Zap, Heart } from '@phosphor-icons/react';
 import GlassCard from '../ui/GlassCard';
 import { CLASS_META } from '../../lib/constants';
 
@@ -32,7 +32,7 @@ const Philosophy = () => {
             className="space-y-10"
           >
             <motion.div variants={item} className="flex items-center space-x-4 text-primary">
-              <ShieldCheck size={28} />
+              <ShieldCheck weight="duotone" size={28} />
               <span className="font-mono text-xs uppercase tracking-[0.4em] font-bold">Foundation</span>
             </motion.div>
 

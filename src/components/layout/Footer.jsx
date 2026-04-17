@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Globe, Heart, Rocket, Shield } from 'lucide-react';
+import { Envelope, Globe, Heart } from '@phosphor-icons/react';
 import { CLASS_META } from '../../lib/constants';
 
 const Footer = () => {
@@ -19,14 +19,13 @@ const Footer = () => {
           </div>
 
           <h2 className="text-3xl font-black text-main uppercase tracking-[0.3em] mb-4">
-
             {CLASS_META.name} <span className="text-primary italic">Legacy.</span>
           </h2>
           
           <div className="flex justify-center space-x-10 mb-12">
-            {[Mail, Globe, Heart].map((Icon, idx) => (
+            {[Envelope, Globe, Heart].map((Icon, idx) => (
               <a key={idx} href="#" className="text-muted hover:text-primary transition-colors p-2">
-                <Icon size={20} />
+                <Icon weight="duotone" size={20} />
               </a>
             ))}
           </div>

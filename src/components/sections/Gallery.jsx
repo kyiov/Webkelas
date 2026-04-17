@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { api } from '../../lib/api';
 import GlassCard from '../ui/GlassCard';
-import { Camera } from 'lucide-react';
+import { Camera } from '@phosphor-icons/react';
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
@@ -25,7 +25,7 @@ const Gallery = () => {
         <div className="flex justify-between items-end mb-24">
           <div className="space-y-4">
              <div className="flex items-center space-x-4 text-primary">
-               <Camera size={20} />
+               <Camera weight="duotone" size={20} />
                <span className="font-mono text-xs uppercase tracking-[0.4em] font-black">Archive</span>
              </div>
              <h2 className="text-6xl md:text-8xl font-black text-main tracking-tighter uppercase leading-[0.8]">
