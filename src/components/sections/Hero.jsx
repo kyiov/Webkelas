@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowDown } from 'lucide-react';
+import { Sparkle, ArrowDown } from '@phosphor-icons/react';
 
 const Hero = () => {
   return (
@@ -57,7 +57,7 @@ const Hero = () => {
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 opacity-30"
       >
         <span className="font-mono text-[8px] uppercase tracking-widest">Scroll</span>
-        <ArrowDown size={14} className="text-primary" />
+        <ArrowDown weight="bold" size={14} className="text-primary" />
       </motion.div>
     </section>
   );

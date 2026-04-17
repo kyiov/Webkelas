@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Send, Sparkles, X, User } from 'lucide-react';
+import { ChatTeardropDots, PaperPlaneTilt, Sparkle, X, UserCircle } from '@phosphor-icons/react';
 import { api } from '../../lib/api';
 import GlassCard from '../ui/GlassCard';
 
@@ -56,7 +56,7 @@ const SecretWall = () => {
             className="space-y-10"
           >
             <div className="flex items-center space-x-4 text-primary">
-               <MessageCircle size={24} />
+               <ChatTeardropDots weight="duotone" size={24} />
                <span className="font-mono text-xs uppercase tracking-[0.4em] font-black">Community</span>
             </div>
             
@@ -70,7 +70,7 @@ const SecretWall = () => {
               className="flex items-center space-x-6 group"
             >
               <div className="w-14 h-14 rounded-full border border-border flex items-center justify-center text-main group-hover:bg-primary group-hover:text-background group-hover:border-primary transition-all shadow-lg group-hover:shadow-primary/20">
-                <Send size={22} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <PaperPlaneTilt weight="duotone" size={22} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </div>
               <span className="font-mono text-[10px] font-black uppercase tracking-[0.4em] text-muted group-hover:text-primary transition-colors">Submit an Echo</span>
             </motion.button>
@@ -84,7 +84,7 @@ const SecretWall = () => {
                   animate={{ opacity: 1 }}
                   className="flex flex-col items-center justify-center py-20 text-muted opacity-30"
                 >
-                  <MessageCircle size={48} className="mb-4" />
+                  <ChatTeardropDots weight="duotone" size={48} className="mb-4" />
                   <p className="font-mono text-xs uppercase tracking-widest">No echoes yet. Be the first.</p>
                 </motion.div>
               ) : (
@@ -98,7 +98,7 @@ const SecretWall = () => {
                     className="!p-10 !bg-white/[0.01] hover:!border-primary/40 transition-all group"
                   >
                     <div className="flex items-start space-x-4 mb-6">
-                       <Sparkles size={16} className="text-primary mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                       <Sparkle weight="duotone" size={16} className="text-primary mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                        <p className="text-main text-xl md:text-2xl font-bold tracking-tight leading-snug">
                          "{m.text}"
                        </p>
@@ -146,7 +146,7 @@ const SecretWall = () => {
                 onClick={() => setIsModalOpen(false)}
                 className="absolute top-6 right-6 text-muted hover:text-main transition-colors"
               >
-                <X size={24} />
+                <X weight="bold" size={24} />
               </button>
 
               <div className="mb-10">
@@ -170,7 +170,7 @@ const SecretWall = () => {
                 <div className="space-y-3">
                   <label className="font-mono text-[9px] uppercase tracking-[0.3em] text-primary font-bold ml-2">Name (Optional)</label>
                   <div className="relative">
-                    <User size={16} className="absolute left-6 top-1/2 -translate-y-1/2 text-muted/50" />
+                    <UserCircle weight="duotone" size={20} className="absolute left-6 top-1/2 -translate-y-1/2 text-muted/50" />
                     <input 
                       type="text"
                       value={newAuthor}
@@ -189,7 +189,7 @@ const SecretWall = () => {
                   {isSubmitting ? 'Sending...' : (
                     <>
                       <span>Transmit Echo</span>
-                      <Send size={16} />
+                      <PaperPlaneTilt weight="bold" size={16} />
                     </>
                   )}
                 </button>
