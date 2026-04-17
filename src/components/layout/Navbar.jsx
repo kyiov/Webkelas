@@ -16,7 +16,6 @@ const Navbar = ({ theme, onToggleTheme }) => {
   const links = [
     { name: 'Core', href: '#home' },
     { name: 'Philosophy', href: '#philosophy' },
-    { name: 'Timeline', href: '#schedule' },
     { name: 'Archives', href: '#gallery' },
     { name: 'Echoes', href: '#messages' },
   ];

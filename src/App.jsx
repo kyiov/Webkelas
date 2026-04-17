@@ -8,7 +8,6 @@ import Footer from './components/layout/Footer';
 // Sections
 import Hero from './components/sections/Hero';
 import Philosophy from './components/sections/Philosophy';
-import Schedule from './components/sections/Schedule';
 import Gallery from './components/sections/Gallery';
 import SecretWall from './components/sections/SecretWall';
 import AdminDashboard from './components/sections/AdminDashboard';
@@ -67,7 +66,6 @@ const App = () => {
           
           <div className="space-y-32 mb-32">
              <Philosophy />
-             <Schedule />
              <Gallery />
              <SecretWall />
           </div>
