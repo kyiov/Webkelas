@@ -6,11 +6,7 @@ export const SCHEDULE_DATA = {
   Jumat: ['Senam Pagi', 'Bahasa Daerah', 'Bimbingan Konseling'],
 };
 
-export const MESSAGES = [
-  { id: 1, text: "Tetap solid XII A1!", author: "Anonim", time: "Baru saja" },
-  { id: 2, text: "Success for UTBK guys 🚀", author: "Pejuang PTN", time: "3 jam yang lalu" },
-  { id: 3, text: "Kelas tersolid yang pernah ada.", author: "Alumni", time: "Kemarin" },
-];
+export const MESSAGES = [];
 
 export const GALLERY_IMAGES = [
   { src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800", title: "Study Hard" },
