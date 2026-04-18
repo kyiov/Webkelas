@@ -55,17 +55,17 @@ const ChatBubble = () => {
             className="mb-4 w-[350px] sm:w-[400px] h-[500px] glass-card !bg-base-200/90 border border-white/10 shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="p-4 bg-primary text-white flex items-center justify-between">
+            <div className="p-4 bg-primary text-primary-content flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <ChatTeardropDots weight="duotone" size={24} />
                 <div>
-                  <h3 className="font-black uppercase tracking-tighter text-lg leading-none">The Echoes</h3>
-                  <p className="text-[10px] uppercase tracking-widest opacity-70">Community Archive</p>
+                  <h3 className="font-black uppercase tracking-tighter text-lg leading-none">Chatting</h3>
+                  <p className="text-[10px] uppercase tracking-widest opacity-70">Community Voice</p>
                 </div>
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="btn btn-ghost btn-xs btn-circle text-white hover:bg-white/10"
+                className="btn btn-ghost btn-xs btn-circle text-primary-content hover:bg-white/10"
               >
                 <Minus weight="bold" size={16} />
               </button>
@@ -79,8 +79,8 @@ const ChatBubble = () => {
               {messages.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center opacity-20 text-center p-10">
                   <ChatTeardropDots size={48} weight="duotone" />
-                  <p className="text-[10px] uppercase tracking-widest mt-4 leading-relaxed">
-                    No echoes captured in the archive yet. Be the first to transmit.
+                  <p className="text-[10px] uppercase tracking-widest mt-4 leading-relaxed text-base-content">
+                    No messages in the chat yet. Start the conversation!
                   </p>
                 </div>
               ) : (
@@ -91,13 +91,13 @@ const ChatBubble = () => {
                         <UserCircle size={32} weight="duotone" />
                       </div>
                     </div>
-                    <div className="chat-header opacity-50 text-[9px] mb-1 uppercase tracking-widest font-bold">
+                    <div className="chat-header opacity-50 text-[9px] mb-1 uppercase tracking-widest font-bold text-base-content">
                       {m.author}
                     </div>
                     <div className={`chat-bubble text-sm shadow-md border border-white/5 py-2 px-4 min-h-0 ${idx % 2 === 0 ? 'bg-base-300 text-base-content' : 'bg-primary text-primary-content'}`}>
                       {m.text}
                     </div>
-                    <div className="chat-footer opacity-30 text-[8px] uppercase tracking-tighter mt-1">
+                    <div className="chat-footer opacity-50 text-[8px] uppercase tracking-tighter mt-1 font-black text-base-content">
                       {m.time}
                     </div>
                   </div>

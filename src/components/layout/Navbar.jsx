@@ -37,9 +37,9 @@ const Navbar = ({ currentTheme, onThemeChange }) => {
       
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 font-bold gap-2">
-          <li><a href="#Home" className="rounded-full hover:bg-primary hover:text-white transition-all px-6">Home</a></li>
-          <li><a href="#about" className="rounded-full hover:bg-primary hover:text-white transition-all px-6">About</a></li>
-          <li><a href="#gallery" className="rounded-full hover:bg-primary hover:text-white transition-all px-6">Gallery</a></li>
+          <li><a href="#Home" className="rounded-full hover:bg-primary hover:text-primary-content transition-all px-6 text-base-content">Home</a></li>
+          <li><a href="#about" className="rounded-full hover:bg-primary hover:text-primary-content transition-all px-6 text-base-content">About</a></li>
+          <li><a href="#gallery" className="rounded-full hover:bg-primary hover:text-primary-content transition-all px-6 text-base-content">Gallery</a></li>
         </ul>
       </div>
 

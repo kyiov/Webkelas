@@ -66,5 +66,31 @@ export const api = {
       localStorage.setItem('webkelas_gallery', JSON.stringify(updated));
       return updated;
     }
+  },
+
+  async deleteMessage(id) {
+    try {
+      const response = await fetch(`${API_URL}/messages/${id}`, { method: 'DELETE' });
+      if (!response.ok) throw new Error('Delete failed');
+      return this.getMessages();
+    } catch (e) {
+      const local = JSON.parse(localStorage.getItem('webkelas_messages') || '[]');
+      const updated = local.filter(m => m.id !== id);
+      localStorage.setItem('webkelas_messages', JSON.stringify(updated));
+      return updated;
+    }
+  },
+
+  async deleteGallery(id) {
+    try {
+      const response = await fetch(`${API_URL}/gallery/${id}`, { method: 'DELETE' });
+      if (!response.ok) throw new Error('Delete failed');
+      return this.getGallery();
+    } catch (e) {
+      const local = JSON.parse(localStorage.getItem('webkelas_gallery') || '[]');
+      const updated = local.filter(img => img.id !== id);
+      localStorage.setItem('webkelas_gallery', JSON.stringify(updated));
+      return updated;
+    }
   }
 };

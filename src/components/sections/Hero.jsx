@@ -25,18 +25,18 @@ const Hero = () => {
           </div>
           
           <div className="flex flex-col lg:flex-row gap-4 justify-center items-center">
-            <div className="stats shadow bg-white/10 backdrop-blur-md border border-white/10 text-white !rounded-3xl">
+            <div className="stats shadow bg-base-200/50 backdrop-blur-md border border-base-content/10 text-base-content !rounded-3xl">
               <div className="stat place-items-center">
-                <div className="stat-title text-white/60">Total Members</div>
-                <div className="stat-value" id="AngkaGradientBlue">37</div>
+                <div className="stat-title opacity-60">Total Members</div>
+                <div className="stat-value text-primary">37</div>
               </div>
-              <div className="stat place-items-center border-x border-white/10">
-                <div className="stat-title text-white/60">Male</div>
-                <div className="stat-value" id="AngkaGradientBlue">25</div>
+              <div className="stat place-items-center border-x border-base-content/10">
+                <div className="stat-title opacity-60">Male</div>
+                <div className="stat-value text-primary">25</div>
               </div>
               <div className="stat place-items-center">
-                <div className="stat-title text-white/60">Female</div>
-                <div className="stat-value" id="AngkaGradientPink">12</div>
+                <div className="stat-title opacity-60">Female</div>
+                <div className="stat-value text-secondary">12</div>
               </div>
             </div>
           </div>

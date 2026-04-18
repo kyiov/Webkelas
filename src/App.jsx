@@ -60,11 +60,11 @@ const App = () => {
           <section id="about" className="py-10 fade-in">
             <div className="max-w-4xl mx-auto text-center space-y-6">
               <div className="badge badge-primary badge-outline p-4 font-black uppercase tracking-widest">About Us</div>
-              <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter">
+              <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-base-content">
                 Big Family <span className="text-primary italic">XII A1.</span>
               </h2>
-              <p className="text-sm font-black uppercase tracking-[0.3em] opacity-40">Tahun Kelulusan {CLASS_META.graduationYear}</p>
-              <p className="text-lg lg:text-xl opacity-70 leading-relaxed">
+              <p className="text-sm font-black uppercase tracking-[0.3em] opacity-40 text-base-content">Tahun Kelulusan {CLASS_META.graduationYear}</p>
+              <p className="text-lg lg:text-xl opacity-70 leading-relaxed text-base-content">
                 Kami adalah keluarga besar {CLASS_META.name} dari {CLASS_META.school}. 
                 Web ini adalah arsip digital perjalanan kami, tempat menyimpan kenangan, 
                 pesan, dan kebersamaan yang tak terbatas.

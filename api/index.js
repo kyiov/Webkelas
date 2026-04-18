@@ -63,6 +63,28 @@ app.post('/api/gallery', async (req, res) => {
   res.json(data[0]);
 });
 
+app.delete('/api/messages/:id', async (req, res) => {
+  const { id } = req.params;
+  const { error } = await supabase
+    .from('messages')
+    .delete()
+    .eq('id', id);
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.json({ success: true });
+});
+
+app.delete('/api/gallery/:id', async (req, res) => {
+  const { id } = req.params;
+  const { error } = await supabase
+    .from('gallery')
+    .delete()
+    .eq('id', id);
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.json({ success: true });
+});
+
 // Only listen if NOT running on Vercel
 if (process.env.VERCEL !== '1') {
   app.listen(PORT, () => {

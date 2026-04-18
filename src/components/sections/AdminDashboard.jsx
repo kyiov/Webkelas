@@ -94,9 +94,8 @@ const AdminDashboard = ({ isOpen, onClose }) => {
     setNewItem({ ...newItem, src: '', title: '' });
   };
 
-  const deleteGallery = async (idx) => {
-    const updated = gallery.filter((_, i) => i !== idx);
-    await api.updateGallery(updated);
+  const deleteGallery = async (id) => {
+    const updated = await api.deleteGallery(id);
     setGallery(updated);
   };
 
@@ -213,10 +212,10 @@ const AdminDashboard = ({ isOpen, onClose }) => {
 
                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                           {gallery.map((img, idx) => (
-                            <div key={idx} className="relative aspect-square rounded-2xl overflow-hidden group border border-white/5">
-                               <img src={img.src} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" />
+                            <div key={img.id || idx} className="relative aspect-square rounded-2xl overflow-hidden group border border-white/5">
+                               <img src={img.src} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" alt={img.title} />
                                <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                  <button onClick={() => deleteGallery(idx)} className="btn btn-error btn-circle"><Trash size={20} weight="duotone" /></button>
+                                  <button onClick={() => deleteGallery(img.id)} className="btn btn-error btn-circle"><Trash size={20} weight="duotone" /></button>
                                </div>
                             </div>
                           ))}
