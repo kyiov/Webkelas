@@ -39,23 +39,23 @@ const Gallery = () => {
       {/* Scrapbook Grid Area with Constraints */}
       <div 
         ref={constraintsRef}
-        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-10 px-6 w-full max-w-7xl mx-auto min-h-[400px]"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 w-full max-w-7xl mx-auto min-h-[400px]"
       >
         {images.map((img, idx) => (
           <motion.div
             key={idx}
             drag
             dragConstraints={constraintsRef}
-            dragElastic={0.1}
+            dragElastic={0.05}
             dragMomentum={false}
             initial={{ opacity: 0, y: 20, rotate: idx % 2 === 0 ? -1 : 1 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.05, zIndex: 50 }}
-            whileDrag={{ scale: 1.1, zIndex: 100, rotate: 0 }}
-            className="paper-card p-3 irregular-border border-2 border-black/5 shadow-lg cursor-grab active:cursor-grabbing bg-white dark:bg-[#fdf6e3] relative w-full aspect-[3/4] flex flex-col"
+            viewport={{ once: true, margin: "-50px" }}
+            whileHover={{ scale: 1.02, zIndex: 50 }}
+            whileDrag={{ scale: 1.05, zIndex: 100, rotate: 0 }}
+            className="paper-card p-3 irregular-border border-2 border-black/5 shadow-lg cursor-grab active:cursor-grabbing bg-white dark:bg-[#fdf6e3] relative w-full aspect-[4/3] flex flex-col will-change-transform"
           >
-            <div className="tape !w-16 !h-6"></div>
+            <div className="tape !w-20 !h-7 !-top-4"></div>
             <div className="overflow-hidden rounded-sm flex-1 bg-base-300">
               <img 
                 src={img.src} 
@@ -65,7 +65,7 @@ const Gallery = () => {
               />
             </div>
             <div className="mt-3 text-center">
-               <p className="text-[10px] sm:text-xs font-black uppercase tracking-tighter opacity-70 text-neutral line-clamp-1">{img.title}</p>
+               <p className="text-xs font-black uppercase tracking-tighter opacity-70 text-neutral line-clamp-1 scrapbook-font">{img.title}</p>
             </div>
           </motion.div>
         ))}
