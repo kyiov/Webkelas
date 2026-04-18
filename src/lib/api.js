@@ -33,7 +33,13 @@ export const api = {
         id: Date.now(), 
         text, 
         author, 
-        time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) 
+        time: new Date().toLocaleString('id-ID', { 
+          day: '2-digit', 
+          month: 'short', 
+          year: 'numeric', 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        }) 
       };
       const updated = [newMessage, ...local];
       localStorage.setItem('webkelas_messages', JSON.stringify(updated));
