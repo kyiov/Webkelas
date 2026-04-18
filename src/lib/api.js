@@ -1,58 +1,70 @@
-import { MESSAGES as DEFAULT_MESSAGES, GALLERY_IMAGES as DEFAULT_GALLERY } from './constants';
+// Use relative path for production (Vercel) and absolute for local development
+const API_URL = import.meta.env.PROD ? '/api' : 'http://localhost:3001/api';
 
-// Local storage keys for simple persistence without a full backend for now
-const MESSAGES_KEY = 'webkelas_messages';
-const GALLERY_KEY = 'webkelas_gallery';
-
-/**
- * Minimal Data API Layer
- * Designed to be easily replaced by Supabase (mirroring @har architecture)
- */
 export const api = {
-  // --- MESSAGES ---
   async getMessages() {
-    const data = localStorage.getItem(MESSAGES_KEY);
-    return data ? JSON.parse(data) : DEFAULT_MESSAGES;
+    try {
+      const response = await fetch(`${API_URL}/messages`);
+      if (!response.ok) throw new Error('Network response was not ok');
+      return await response.json();
+    } catch (e) {
+      console.warn("Backend not running or error, falling back to localStorage");
+      return JSON.parse(localStorage.getItem('webkelas_messages') || '[]');
+    }
   },
 
-  async saveMessage(text, author = 'Anonim') {
-    const messages = await this.getMessages();
-    const now = new Date();
-    const newMessage = {
-      id: Date.now(),
-      text,
-      author,
-      time: now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
-      date: now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }),
-      fullTimestamp: now.toISOString()
-    };
-    const updated = [newMessage, ...messages];
-    localStorage.setItem(MESSAGES_KEY, JSON.stringify(updated));
-    return updated;
+  async saveMessage(text, author) {
+    try {
+      const response = await fetch(`${API_URL}/messages`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, author })
+      });
+      const data = await response.json();
+      
+      // Also sync to local for offline/fallback support
+      const local = JSON.parse(localStorage.getItem('webkelas_messages') || '[]');
+      localStorage.setItem('webkelas_messages', JSON.stringify([data, ...local]));
+      
+      return this.getMessages();
+    } catch (e) {
+      const local = JSON.parse(localStorage.getItem('webkelas_messages') || '[]');
+      const newMessage = { 
+        id: Date.now(), 
+        text, 
+        author, 
+        time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) 
+      };
+      const updated = [newMessage, ...local];
+      localStorage.setItem('webkelas_messages', JSON.stringify(updated));
+      return updated;
+    }
   },
 
-  async deleteMessage(id) {
-    const messages = await this.getMessages();
-    const updated = messages.filter(m => m.id !== id);
-    localStorage.setItem(MESSAGES_KEY, JSON.stringify(updated));
-    return updated;
-  },
-
-  // --- GALLERY ---
   async getGallery() {
-    const data = localStorage.getItem(GALLERY_KEY);
-    return data ? JSON.parse(data) : DEFAULT_GALLERY;
+    try {
+      const response = await fetch(`${API_URL}/gallery`);
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+      return data.length > 0 ? data : JSON.parse(localStorage.getItem('webkelas_gallery') || '[]');
+    } catch (e) {
+      return JSON.parse(localStorage.getItem('webkelas_gallery') || '[]');
+    }
   },
 
-  async updateGallery(newImages) {
-    localStorage.setItem(GALLERY_KEY, JSON.stringify(newImages));
-    return newImages;
-  },
-
-  async addImage(src, title = 'New Moment') {
-    const gallery = await this.getGallery();
-    const updated = [{ src, title }, ...gallery];
-    localStorage.setItem(GALLERY_KEY, JSON.stringify(updated));
-    return updated;
+  async addImage(src, title) {
+    try {
+      const response = await fetch(`${API_URL}/gallery`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ src, title })
+      });
+      return this.getGallery();
+    } catch (e) {
+      const local = JSON.parse(localStorage.getItem('webkelas_gallery') || '[]');
+      const updated = [{ src, title }, ...local];
+      localStorage.setItem('webkelas_gallery', JSON.stringify(updated));
+      return updated;
+    }
   }
 };

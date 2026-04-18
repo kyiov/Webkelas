@@ -6,10 +6,6 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--bg-color)",
-        surface: "rgba(255, 255, 255, 0.05)",
-      },
       fontFamily: {
         sans: ["Fredoka", "Poppins", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
@@ -18,6 +14,6 @@ export default {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["dark", "cupcake", "retro"],
+    themes: ["cupcake", "dark", "cyberpunk"],
   },
 }
