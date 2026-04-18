@@ -15,8 +15,14 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://webkelas-eleven.vercel.app/" />
-    <script type="module" crossorigin src="/Webkelas/assets/index-9Rzaz7oV.js"></script>
-    <link rel="stylesheet" crossorigin href="/Webkelas/assets/index-BTdvjd0Y.css">
+    <script>
+      (function() {
+        const theme = localStorage.getItem('webkelas_theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    <script type="module" crossorigin src="/Webkelas/assets/index-Dv1X9zQr.js"></script>
+    <link rel="stylesheet" crossorigin href="/Webkelas/assets/index-Bak95nnW.css">
   </head>
   <body>
     <div id="root"></div>
