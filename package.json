@@ -1,13 +1,27 @@
 {
   "name": "webkelas",
+  "version": "1.0.0",
+  "description": "Platform arsip digital dan interaksi komunitas untuk keluarga besar XII A1 SMAN 1 Rasau Jaya.",
+  "author": "Har404-err <abdulmuhar564@gmail.com>",
+  "license": "MIT",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Har404-err/Webkelas.git"
+  },
+  "keywords": [
+    "scrapbook",
+    "class-archive",
+    "react",
+    "framer-motion",
+    "daisyui"
+  ],
   "scripts": {
     "dev": "nodemon --exec vite --host --port 8080",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
