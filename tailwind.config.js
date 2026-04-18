@@ -11,13 +11,13 @@ export default {
         surface: "rgba(255, 255, 255, 0.05)",
       },
       fontFamily: {
-        sans: ["Fredoka", "Poppins", "Outfit", "sans-serif"],
+        sans: ["Fredoka", "Poppins", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
     },
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: true,
+    themes: ["dark", "cupcake", "retro"],
   },
 }

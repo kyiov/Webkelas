@@ -4,80 +4,33 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --primary-color: #575c84;
-    --secondary-color: #686e9d;
-    --tertiary-color: #e06bd5;
-    --quaternary-color: #18fff3;
-    --quinary-color: #ff775c;
-    --senary-color: #ff4359;
-    --septenary-color: #76ffb0;
-    --bg: #4b39c6;
-    --bg1: #e06bd5;
-  }
-
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    background: #1e1e1e;
     font-family: "Fredoka", sans-serif;
-    color: white;
     overflow-x: hidden;
   }
 
+  /* Background Removed as requested */
   #Home {
     position: relative;
     width: 100%;
-    min-height: 100vh;
-    background: radial-gradient(
-        circle,
-        rgba(224, 107, 213, 0.7) 0%,
-        rgba(75, 57, 198, 0.8) 100%
-      ),
-      url("https://raw.githubusercontent.com/EkiZR/Web-Kelas-V2/main/public/Background.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
-  }
-
-  #Home::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: linear-gradient(to top, rgba(30, 30, 30, 1) 20%, rgba(30, 30, 30, 0));
-    z-index: -1;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .glass-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   }
 
   #Glow {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
-  }
-
-  #AngkaGradientBlue {
-    background: linear-gradient(to bottom right, #96dcff, #14a6ef 55%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  #AngkaGradientPink {
-    background: linear-gradient(to top right, #fab6e7, #d41a77 80%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   }
 
   /* Custom Scrollbar */
@@ -85,10 +38,10 @@
     width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #1e1e1e;
+    background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--tertiary-color);
+    background: #888;
     border-radius: 10px;
   }
 }

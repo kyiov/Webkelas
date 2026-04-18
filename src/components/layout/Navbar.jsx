@@ -3,12 +3,7 @@ import { CLASS_META } from '../../lib/constants';
 import { List, Palette } from '@phosphor-icons/react';
 
 const Navbar = ({ currentTheme, onThemeChange }) => {
-  const themes = [
-    "light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", 
-    "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", 
-    "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", 
-    "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"
-  ];
+  const themes = ["dark", "cupcake", "retro"];
 
   return (
     <div className="navbar bg-transparent absolute top-0 z-50 lg:px-[10%]">
@@ -19,8 +14,8 @@ const Navbar = ({ currentTheme, onThemeChange }) => {
           </label>
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-2xl bg-base-100 rounded-box w-52 glass-card border border-white/10">
             <li><a href="#Home">Home</a></li>
+            <li><a href="#about">About</a></li>
             <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#tabs">Info</a></li>
             <li><a href="#messages">Echoes</a></li>
           </ul>
         </div>
@@ -31,8 +26,8 @@ const Navbar = ({ currentTheme, onThemeChange }) => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 font-bold space-x-4">
           <li><a href="#Home" className="hover:text-primary transition-colors">Home</a></li>
+          <li><a href="#about" className="hover:text-primary transition-colors">About</a></li>
           <li><a href="#gallery" className="hover:text-primary transition-colors">Gallery</a></li>
-          <li><a href="#tabs" className="hover:text-primary transition-colors">Info</a></li>
           <li><a href="#messages" className="hover:text-primary transition-colors">Echoes</a></li>
         </ul>
       </div>
@@ -41,7 +36,7 @@ const Navbar = ({ currentTheme, onThemeChange }) => {
           <label tabIndex={0} className="btn btn-ghost btn-circle">
             <Palette size={24} weight="duotone" className="text-primary" />
           </label>
-          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow-2xl bg-base-100 rounded-box w-52 max-h-96 overflow-y-auto border border-white/10 custom-scrollbar mt-4">
+          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow-2xl bg-base-100 rounded-box w-52 border border-white/10 mt-4">
             <li className="menu-title uppercase text-[10px] tracking-widest opacity-50">Select Theme</li>
             {themes.map((t) => (
               <li key={t}>
