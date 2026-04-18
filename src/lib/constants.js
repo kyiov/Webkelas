@@ -19,5 +19,5 @@ export const CLASS_META = {
   graduationYear: "2026",
   ig: "https://instagram.com/",
   tiktok: "https://tiktok.com/",
-  logo: "https://c.termai.cc/i156/US20V.jpg"
+  logo: "/favicon.jpg"
 };
