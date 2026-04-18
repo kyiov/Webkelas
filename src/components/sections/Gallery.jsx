@@ -23,29 +23,26 @@ const Gallery = () => {
   const row2 = images.slice(half);
 
   const CarouselRow = ({ items, reverse = false }) => (
-    <div className="flex overflow-hidden group py-4">
+    <div className="flex overflow-hidden group py-4 select-none">
       <motion.div 
         animate={{ 
           x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] 
         }}
         transition={{ 
-          duration: 30, 
+          duration: 40, // Slower for less CPU strain
           repeat: Infinity, 
           ease: "linear" 
         }}
-        className="flex gap-6 whitespace-nowrap"
+        className="flex gap-6 whitespace-nowrap will-change-transform"
       >
         {[...items, ...items].map((img, idx) => (
-          <div key={idx} className="w-72 lg:w-96 shrink-0 h-48 lg:h-64 relative rounded-[2rem] overflow-hidden border border-base-content/5 shadow-2xl group/item">
+          <div key={idx} className="w-64 lg:w-96 shrink-0 h-40 lg:h-64 relative rounded-[2rem] overflow-hidden border border-base-content/5 shadow-xl group/item bg-base-300">
             <img 
               src={img.src} 
               alt={img.title} 
-              className="w-full h-full object-cover transition-transform duration-700 group-hover/item:scale-110" 
+              loading="lazy"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-105" 
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity p-6 flex flex-col justify-end">
-               <h4 className="text-white font-black uppercase tracking-tighter text-lg">{img.title}</h4>
-               <p className="text-white/60 text-[10px] uppercase tracking-widest">Archive Record</p>
-            </div>
           </div>
         ))}
       </motion.div>
@@ -56,17 +53,17 @@ const Gallery = () => {
     <motion.section 
       id="gallery" 
       className="py-20 overflow-hidden"
-      initial={{ opacity: 0, y: 100 }}
+      initial={{ opacity: 0, y: 30 }} // Reduced movement
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 1, ease: "easeOut" }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6 }}
     >
       <motion.div 
-        className="flex flex-col items-center mb-16 text-center px-4"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        className="flex flex-col items-center mb-12 text-center px-4"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.2, duration: 0.8 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
       >
          <div className="badge badge-outline badge-primary mb-6 p-4 font-black uppercase tracking-widest">
            <Camera weight="duotone" size={16} className="mr-2" /> Visual Stream
@@ -74,26 +71,12 @@ const Gallery = () => {
          <h2 className="text-6xl lg:text-8xl font-black tracking-tighter uppercase mb-4 leading-none">
            Big Family <span className="text-primary italic">Gallery.</span>
          </h2>
-         <p className="max-w-2xl text-sm opacity-50 uppercase tracking-[0.2em]">Infinite scrolling memories from the archive.</p>
+         <p className="max-w-2xl text-xs opacity-50 uppercase tracking-[0.2em]">Infinite scrolling memories from the archive.</p>
       </motion.div>
 
       <div className="space-y-4">
-        <motion.div
-          initial={{ x: 100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 1 }}
-        >
-          <CarouselRow items={row1} />
-        </motion.div>
-        <motion.div
-          initial={{ x: -100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 1 }}
-        >
-          <CarouselRow items={row2} reverse={true} />
-        </motion.div>
+        <CarouselRow items={row1} />
+        <CarouselRow items={row2} reverse={true} />
       </div>
     </motion.section>
   );

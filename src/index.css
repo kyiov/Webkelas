@@ -21,6 +21,11 @@ section {
   contain-intrinsic-size: 1px 500px;
 }
 
+.will-change-transform {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
 .glass-card {
   background-color: var(--fallback-b1,oklch(var(--b1)/0.8));
   /* Lighter blur for performance */

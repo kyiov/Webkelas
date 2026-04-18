@@ -59,11 +59,11 @@ const App = () => {
           {/* About Section */}
           <motion.section 
             id="about" 
-            className="py-10"
-            initial={{ opacity: 0, y: 50 }}
+            className="py-10 will-change-transform"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
           >
             <div className="max-w-4xl mx-auto text-center space-y-6">
               <div className="badge badge-primary badge-outline p-4 font-black uppercase tracking-widest">About Us</div>
