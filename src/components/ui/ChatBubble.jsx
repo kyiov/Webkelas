@@ -44,6 +44,15 @@ const ChatBubble = () => {
     }
   };
 
+  const getAvatarColor = (name) => {
+    const colors = [
+      'bg-primary', 'bg-secondary', 'bg-accent', 
+      'bg-info', 'bg-success', 'bg-warning', 'bg-error'
+    ];
+    const index = (name || 'A').charCodeAt(0) % colors.length;
+    return colors[index];
+  };
+
   return (
     <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end">
       <AnimatePresence>
@@ -52,7 +61,7 @@ const ChatBubble = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-4 w-[350px] sm:w-[400px] h-[500px] glass-card !bg-base-200/90 border border-base-content/10 shadow-2xl flex flex-col overflow-hidden"
+            className="mb-4 w-[350px] sm:w-[400px] h-[500px] glass-card bg-base-200 border border-base-content/10 shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="p-4 bg-primary text-primary-content flex items-center justify-between">
@@ -74,7 +83,7 @@ const ChatBubble = () => {
             {/* Messages Area */}
             <div 
               ref={scrollRef}
-              className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar bg-base-100/30"
+              className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar bg-base-100/50"
             >
               {messages.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center opacity-20 text-center p-10">
@@ -86,15 +95,15 @@ const ChatBubble = () => {
               ) : (
                 messages.map((m, idx) => (
                   <div key={m.id} className={`chat ${idx % 2 === 0 ? 'chat-start' : 'chat-end'}`}>
-                    <div className="chat-image avatar placeholder">
-                      <div className="bg-primary text-primary-content rounded-full w-8 shadow-md">
-                        <span className="text-xs font-black uppercase">{(m.author || 'A').charAt(0)}</span>
+                    <div className="chat-image avatar">
+                      <div className={`${getAvatarColor(m.author)} text-white rounded-full w-8 h-8 shadow-md border-2 border-base-100 flex items-center justify-center`}>
+                        <UserCircle size={20} weight="duotone" />
                       </div>
                     </div>
                     <div className="chat-header opacity-50 text-[9px] mb-1 uppercase tracking-widest font-bold text-base-content">
                       {m.author}
                     </div>
-                    <div className={`chat-bubble text-sm shadow-md border border-base-content/5 py-2 px-4 min-h-0 ${idx % 2 === 0 ? 'bg-base-300 text-base-content' : 'bg-primary text-primary-content'}`}>
+                    <div className={`chat-bubble text-sm shadow-sm border border-base-content/5 py-2 px-4 min-h-0 ${idx % 2 === 0 ? 'bg-base-300 text-base-content' : 'bg-primary text-primary-content'}`}>
                       {m.text}
                     </div>
                     <div className="chat-footer opacity-50 text-[8px] uppercase tracking-tighter mt-1 font-black text-base-content">
@@ -110,7 +119,7 @@ const ChatBubble = () => {
               <form onSubmit={handleSubmit} className="space-y-3">
                 <div className="relative">
                   <textarea 
-                    className="textarea textarea-bordered w-full h-20 bg-base-100/50 border-base-content/10 focus:border-primary transition-all text-sm resize-none pr-10 custom-scrollbar"
+                    className="textarea textarea-bordered w-full h-20 bg-base-100/80 border-base-content/10 focus:border-primary transition-all text-sm resize-none pr-10 custom-scrollbar text-base-content"
                     placeholder="Type your message..."
                     value={newText}
                     onChange={(e) => setNewText(e.target.value)}
@@ -127,7 +136,7 @@ const ChatBubble = () => {
                 <input 
                   type="text" 
                   placeholder="Your Name (Optional)" 
-                  className="input input-bordered input-xs w-full bg-base-100/50 border-base-content/10 focus:border-primary transition-all uppercase tracking-widest text-[9px] font-bold"
+                  className="input input-bordered input-xs w-full bg-base-100/80 border-base-content/10 focus:border-primary transition-all uppercase tracking-widest text-[9px] font-bold text-base-content"
                   value={newAuthor}
                   onChange={(e) => setNewAuthor(e.target.value)}
                 />
