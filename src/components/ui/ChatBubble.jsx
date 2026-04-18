@@ -61,11 +61,12 @@ const ChatBubble = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-4 w-[350px] sm:w-[400px] h-[500px] glass-card bg-base-200 border border-base-content/10 shadow-2xl flex flex-col overflow-hidden"
+            className="mb-4 w-[320px] sm:w-[380px] h-[500px] paper-card irregular-border border-2 border-black/5 shadow-2xl flex flex-col overflow-hidden scrapbook-font"
           >
             {/* Header */}
-            <div className="p-4 bg-primary text-primary-content flex items-center justify-between">
-              <div className="flex items-center gap-3">
+            <div className="p-4 bg-primary/10 text-primary flex items-center justify-between border-b-2 border-dashed border-primary/20 relative">
+              <div className="tape !w-24 !h-7 !-top-3"></div>
+              <div className="flex items-center gap-3 mt-2">
                 <ChatTeardropDots weight="duotone" size={24} />
                 <div>
                   <h3 className="font-black uppercase tracking-tighter text-lg leading-none">Chatting</h3>
@@ -74,7 +75,7 @@ const ChatBubble = () => {
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="btn btn-ghost btn-xs btn-circle text-primary-content hover:bg-primary-content/10"
+                className="btn btn-ghost btn-xs btn-circle text-primary hover:bg-primary/10 mt-2"
               >
                 <Minus weight="bold" size={16} />
               </button>
@@ -83,30 +84,30 @@ const ChatBubble = () => {
             {/* Messages Area */}
             <div 
               ref={scrollRef}
-              className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar bg-base-100/50"
+              className="flex-1 overflow-y-auto p-4 space-y-6 custom-scrollbar bg-[radial-gradient(#00000010_1px,transparent_1px)] bg-[size:15px_15px]"
             >
               {messages.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center opacity-20 text-center p-10">
                   <ChatTeardropDots size={48} weight="duotone" />
-                  <p className="text-[10px] uppercase tracking-widest mt-4 leading-relaxed text-base-content">
-                    No messages in the chat yet. Start the conversation!
+                  <p className="text-xs uppercase tracking-widest mt-4 leading-relaxed font-bold">
+                    Kosong nih. <br/> Yuk mulai ngobrol!
                   </p>
                 </div>
               ) : (
                 messages.map((m, idx) => (
                   <div key={m.id} className={`chat ${idx % 2 === 0 ? 'chat-start' : 'chat-end'}`}>
                     <div className="chat-image avatar">
-                      <div className={`${getAvatarColor(m.author)} text-white rounded-full w-8 h-8 shadow-md border-2 border-base-100 flex items-center justify-center`}>
+                      <div className={`${getAvatarColor(m.author)} text-white rounded-full w-8 h-8 shadow-md border-2 border-white flex items-center justify-center`}>
                         <UserCircle size={20} weight="duotone" />
                       </div>
                     </div>
-                    <div className="chat-header opacity-50 text-[9px] mb-1 uppercase tracking-widest font-bold text-base-content">
+                    <div className="chat-header opacity-50 text-[10px] mb-1 uppercase tracking-widest font-black">
                       {m.author}
                     </div>
-                    <div className={`chat-bubble text-sm shadow-sm border border-base-content/5 py-2 px-4 min-h-0 ${idx % 2 === 0 ? 'bg-base-300 text-base-content' : 'bg-primary text-primary-content'}`}>
+                    <div className={`chat-bubble text-sm shadow-md py-2 px-4 min-h-0 irregular-border border border-black/5 ${idx % 2 === 0 ? 'bg-white text-neutral rotate-1' : 'bg-primary text-white -rotate-1'}`}>
                       {m.text}
                     </div>
-                    <div className="chat-footer opacity-50 text-[8px] uppercase tracking-tighter mt-1 font-black text-base-content">
+                    <div className="chat-footer opacity-40 text-[9px] uppercase tracking-tighter mt-1 font-bold italic">
                       {m.time}
                     </div>
                   </div>
@@ -115,12 +116,12 @@ const ChatBubble = () => {
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-base-200 border-t border-base-content/5">
+            <div className="p-4 bg-white/50 backdrop-blur-sm border-t-2 border-dashed border-black/5">
               <form onSubmit={handleSubmit} className="space-y-3">
                 <div className="relative">
                   <textarea 
-                    className="textarea textarea-bordered w-full h-20 bg-base-100/80 border-base-content/10 focus:border-primary transition-all text-sm resize-none pr-10 custom-scrollbar text-base-content"
-                    placeholder="Type your message..."
+                    className="textarea textarea-bordered w-full h-20 bg-white border-2 border-black/5 focus:border-primary transition-all text-sm resize-none pr-10 custom-scrollbar text-neutral-800 placeholder:opacity-30"
+                    placeholder="Tulis pesan rahasia..."
                     value={newText}
                     onChange={(e) => setNewText(e.target.value)}
                     required
@@ -135,8 +136,8 @@ const ChatBubble = () => {
                 </div>
                 <input 
                   type="text" 
-                  placeholder="Your Name (Optional)" 
-                  className="input input-bordered input-xs w-full bg-base-100/80 border-base-content/10 focus:border-primary transition-all uppercase tracking-widest text-[9px] font-bold text-base-content"
+                  placeholder="Nama Kamu (Opsional)" 
+                  className="input input-bordered input-xs w-full bg-white border-2 border-black/5 focus:border-primary transition-all uppercase tracking-widest text-[10px] font-black text-neutral-800"
                   value={newAuthor}
                   onChange={(e) => setNewAuthor(e.target.value)}
                 />
