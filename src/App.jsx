@@ -7,8 +7,8 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
 import Gallery from './components/sections/Gallery';
-import SecretWall from './components/sections/SecretWall';
 import AdminDashboard from './components/sections/AdminDashboard';
+import ChatBubble from './components/ui/ChatBubble';
 import { CLASS_META } from './lib/constants';
 
 const App = () => {
@@ -61,8 +61,9 @@ const App = () => {
             <div className="max-w-4xl mx-auto text-center space-y-6">
               <div className="badge badge-primary badge-outline p-4 font-black uppercase tracking-widest">About Us</div>
               <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter">
-                Legacy <span className="text-primary italic">Batch 2026.</span>
+                Big Family <span className="text-primary italic">XII A1.</span>
               </h2>
+              <p className="text-sm font-black uppercase tracking-[0.3em] opacity-40">Tahun Kelulusan {CLASS_META.graduationYear}</p>
               <p className="text-lg lg:text-xl opacity-70 leading-relaxed">
                 Kami adalah keluarga besar {CLASS_META.name} dari {CLASS_META.school}. 
                 Web ini adalah arsip digital perjalanan kami, tempat menyimpan kenangan, 
@@ -72,7 +73,6 @@ const App = () => {
           </section>
 
           <Gallery />
-          <SecretWall />
         </div>
       </main>
 
@@ -90,13 +90,7 @@ const App = () => {
         )}
       </AnimatePresence>
 
-      <button 
-        onClick={() => setIsAdminOpen(true)}
-        className="fixed bottom-6 right-6 z-50 btn btn-circle btn-primary btn-sm opacity-20 hover:opacity-100 transition-opacity"
-        aria-label="Admin Dashboard"
-      >
-        <Gear size={16} weight="duotone" />
-      </button>
+      <ChatBubble />
 
       {isPending && (
         <div className="fixed top-4 right-4 z-[100]">

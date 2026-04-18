@@ -17,9 +17,12 @@ const Hero = () => {
           <h1 className="text-7xl lg:text-9xl font-black tracking-tighter mb-4" id="Glow">
             WELCOME
           </h1>
-          <h2 className="text-lg lg:text-xl font-bold tracking-[10px] uppercase opacity-70 mb-10">
+          <h2 className="text-lg lg:text-xl font-bold tracking-[10px] uppercase opacity-70 mb-4">
             TO {CLASS_META.name}
           </h2>
+          <div className="badge badge-primary badge-outline py-4 px-6 font-bold uppercase tracking-[4px] mb-10 text-[10px]">
+            Tahun Kelulusan {CLASS_META.graduationYear}
+          </div>
           
           <div className="flex flex-col lg:flex-row gap-4 justify-center items-center">
             <div className="stats shadow bg-white/10 backdrop-blur-md border border-white/10 text-white !rounded-3xl">

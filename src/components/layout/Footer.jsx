@@ -1,5 +1,5 @@
 import React from 'react';
-import { InstagramLogo, TiktokLogo, MapPin, Heart } from '@phosphor-icons/react';
+import { InstagramLogo, TiktokLogo, MapPin } from '@phosphor-icons/react';
 import { CLASS_META } from '../../lib/constants';
 
 const Footer = () => {
@@ -13,7 +13,7 @@ const Footer = () => {
         </div>
         <div>
           <p className="font-black text-2xl tracking-tighter uppercase">
-            {CLASS_META.name} <span className="text-primary italic">Legacy.</span>
+            {CLASS_META.name} <span className="text-primary italic">Big Family.</span>
           </p>
           <p className="text-xs font-bold opacity-60 uppercase tracking-widest flex items-center justify-center gap-2 mt-2">
             <MapPin weight="duotone" size={14} className="text-primary" />
@@ -37,7 +37,7 @@ const Footer = () => {
       <div className="flex flex-col items-center gap-2">
         <p className="text-[10px] opacity-30 uppercase tracking-[0.3em] font-bold">Class of {CLASS_META.batch} &bull; Established in MMXXVI</p>
         <div className="flex items-center gap-2 text-[10px] opacity-20 uppercase tracking-widest">
-          Made with <Heart weight="fill" className="text-red-500" /> by XII A1 Team
+          Made by Har
         </div>
       </div>
     </footer>
