@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CLASS_META } from '../../lib/constants';
-import { List, Palette, CheckCircle } from '@phosphor-icons/react';
+import { List, Sun, Moon } from '@phosphor-icons/react';
 
 const Navbar = ({ currentTheme, onThemeChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -13,16 +13,21 @@ const Navbar = ({ currentTheme, onThemeChange }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const toggleTheme = () => {
+    const nextTheme = currentTheme === 'dark' ? 'cupcake' : 'dark';
+    onThemeChange(nextTheme);
+  };
+
   return (
     <div className={`navbar fixed top-0 z-[100] transition-all duration-500 lg:px-[10%] ${
-      isScrolled ? 'bg-base-100/80 backdrop-blur-md py-2 shadow-lg border-b border-white/5' : 'bg-transparent py-4'
+      isScrolled ? 'bg-base-100/80 backdrop-blur-md py-2 shadow-lg border-b border-base-content/5' : 'bg-transparent py-4'
     }`}>
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden hover:bg-primary/10 transition-colors">
             <List size={24} weight="bold" />
           </label>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-2xl bg-base-100 rounded-[2rem] w-64 border border-white/10 p-4">
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-2xl bg-base-100 rounded-[2rem] w-64 border border-base-content/10 p-4">
             <li className="menu-title uppercase text-[10px] tracking-[0.3em] opacity-40 mb-2">Navigation</li>
             <li><a href="#Home" className="py-3 rounded-xl">Home</a></li>
             <li><a href="#about" className="py-3 rounded-xl">About</a></li>
@@ -43,41 +48,18 @@ const Navbar = ({ currentTheme, onThemeChange }) => {
       </div>
 
       <div className="navbar-end space-x-3">
-        {/* Theme Dropdown */}
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle hover:bg-primary/10 transition-colors">
-            <Palette size={24} weight="duotone" className="text-primary" />
-          </label>
-          <ul tabIndex={0} className="dropdown-content z-[1] menu p-3 shadow-2xl bg-base-200 rounded-[2rem] w-64 border border-white/10 mt-4 grid grid-cols-1 gap-2">
-            <li className="menu-title uppercase text-[10px] tracking-[0.3em] opacity-40 mb-2 px-2">Visual Palette</li>
-            <div className="grid grid-cols-1 gap-1">
-              {["dark", "cupcake"].map((t) => (
-                <li key={t}>
-                  <button 
-                    className={`flex items-center justify-between py-3 px-4 rounded-2xl transition-all ${
-                      currentTheme === t ? 'bg-primary text-primary-content font-bold' : 'hover:bg-base-300'
-                    }`}
-                    onClick={() => {
-                      onThemeChange(t);
-                      // Force close dropdown after selection
-                      document.activeElement.blur();
-                    }}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="flex gap-1">
-                        <div className="w-2 h-4 rounded-full bg-primary"></div>
-                        <div className="w-2 h-4 rounded-full bg-secondary"></div>
-                        <div className="w-2 h-4 rounded-full bg-accent"></div>
-                      </div>
-                      <span className="capitalize text-xs tracking-widest">{t}</span>
-                    </div>
-                    {currentTheme === t && <CheckCircle size={16} weight="fill" />}
-                  </button>
-                </li>
-              ))}
-            </div>
-          </ul>
-        </div>
+        {/* Theme Toggle Button */}
+        <button 
+          onClick={toggleTheme}
+          className="btn btn-ghost btn-circle hover:bg-primary/10 transition-all duration-300"
+          title={`Switch to ${currentTheme === 'dark' ? 'Light' : 'Dark'} Mode`}
+        >
+          {currentTheme === 'dark' ? (
+            <Sun size={24} weight="duotone" className="text-yellow-400" />
+          ) : (
+            <Moon size={24} weight="duotone" className="text-primary" />
+          )}
+        </button>
 
         <div className="avatar group cursor-pointer">
           <div className="w-10 rounded-2xl border-2 border-primary group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 overflow-hidden shadow-lg shadow-primary/20">

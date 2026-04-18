@@ -27,15 +27,15 @@ const Hero = () => {
             <div className="stats shadow bg-base-200/50 backdrop-blur-md border border-base-content/10 text-base-content !rounded-3xl">
               <div className="stat place-items-center">
                 <div className="stat-title opacity-60">Total Members</div>
-                <div className="stat-value text-primary">37</div>
+                <div className="stat-value text-primary">0</div>
               </div>
               <div className="stat place-items-center border-x border-base-content/10">
                 <div className="stat-title opacity-60">Male</div>
-                <div className="stat-value text-primary">25</div>
+                <div className="stat-value text-primary">0</div>
               </div>
               <div className="stat place-items-center">
                 <div className="stat-title opacity-60">Female</div>
-                <div className="stat-value text-secondary">12</div>
+                <div className="stat-value text-secondary">0</div>
               </div>
             </div>
           </div>
