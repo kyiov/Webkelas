@@ -1,7 +1,6 @@
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
+const { createClient } = require('@supabase/supabase-js');
 const cors = require('cors');
-const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -9,70 +8,63 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Initialize Database
-// On Vercel, the filesystem is read-only. We use /tmp for a writable (though ephemeral) database.
-const isVercel = process.env.VERCEL === '1';
-const dbPath = isVercel ? '/tmp/database.sqlite' : path.resolve(__dirname, 'database.sqlite');
+// Initialize Supabase Client
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
 
-const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) console.error('Database connection error:', err.message);
-  else console.log(`Connected to the SQLite database at ${dbPath}`);
-});
+if (!supabaseUrl || !supabaseKey) {
+  console.error('Supabase credentials missing! Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY env vars.');
+}
 
-// Create Tables
-db.serialize(() => {
-  db.run(`
-    CREATE TABLE IF NOT EXISTS messages (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      text TEXT NOT NULL,
-      author TEXT DEFAULT 'Anonim',
-      time DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-  `);
-
-  db.run(`
-    CREATE TABLE IF NOT EXISTS gallery (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      src TEXT NOT NULL,
-      title TEXT
-    )
-  `);
-});
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // API Routes
-app.get('/api/messages', (req, res) => {
-  db.all("SELECT * FROM messages ORDER BY id DESC", [], (err, rows) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
-  });
+app.get('/api/messages', async (req, res) => {
+  const { data, error } = await supabase
+    .from('messages')
+    .select('*')
+    .order('id', { ascending: false });
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data);
 });
 
-app.post('/api/messages', (req, res) => {
+app.post('/api/messages', async (req, res) => {
   const { text, author } = req.body;
   const time = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-  db.run("INSERT INTO messages (text, author, time) VALUES (?, ?, ?)", [text, author, time], function(err) {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ id: this.lastID, text, author, time });
-  });
+  
+  const { data, error } = await supabase
+    .from('messages')
+    .insert([{ text, author, time }])
+    .select();
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data[0]);
 });
 
-app.get('/api/gallery', (req, res) => {
-  db.all("SELECT * FROM gallery", [], (err, rows) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
-  });
+app.get('/api/gallery', async (req, res) => {
+  const { data, error } = await supabase
+    .from('gallery')
+    .select('*');
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data);
 });
 
-app.post('/api/gallery', (req, res) => {
+app.post('/api/gallery', async (req, res) => {
   const { src, title } = req.body;
-  db.run("INSERT INTO gallery (src, title) VALUES (?, ?)", [src, title], function(err) {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json({ id: this.lastID, src, title });
-  });
+  
+  const { data, error } = await supabase
+    .from('gallery')
+    .insert([{ src, title }])
+    .select();
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data[0]);
 });
 
-// Only listen if running locally
-if (!isVercel) {
+// Only listen if NOT running on Vercel
+if (process.env.VERCEL !== '1') {
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
   });
