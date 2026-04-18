@@ -4,7 +4,6 @@ import { Gear } from '@phosphor-icons/react';
 
 // Components
 import Navbar from './components/layout/Navbar';
-import FloatingDock from './components/layout/FloatingDock';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
 import Gallery from './components/sections/Gallery';
@@ -48,7 +47,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-base-100 selection:bg-primary selection:text-primary-content scrapbook-font overflow-x-hidden">
       <header>
-        <FloatingDock currentTheme={theme} onThemeChange={handleThemeChange} />
+        <Navbar currentTheme={theme} onThemeChange={handleThemeChange} />
       </header>
 
       <main>

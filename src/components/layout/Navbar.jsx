@@ -19,19 +19,19 @@ const Navbar = ({ currentTheme, onThemeChange }) => {
   };
 
   return (
-    <div className={`navbar fixed top-0 z-[100] transition-all duration-500 lg:px-[10%] ${
-      isScrolled ? 'bg-base-100/80 backdrop-blur-md py-2 shadow-lg border-b border-base-content/5' : 'bg-transparent py-4'
+    <div className={`navbar fixed top-0 z-[100] transition-all duration-500 lg:px-[10%] scrapbook-font ${
+      isScrolled ? 'bg-base-100/80 backdrop-blur-md py-2 shadow-lg border-b border-base-content/10' : 'bg-transparent py-4'
     }`}>
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden hover:bg-primary/10 transition-colors">
             <List size={24} weight="bold" />
           </label>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-2xl bg-base-100 rounded-[2rem] w-64 border border-base-content/10 p-4">
-            <li className="menu-title uppercase text-[10px] tracking-[0.3em] opacity-40 mb-2">Navigation</li>
-            <li><a href="#Home" className="py-3 rounded-xl">Home</a></li>
-            <li><a href="#about" className="py-3 rounded-xl">About</a></li>
-            <li><a href="#gallery" className="py-3 rounded-xl">Gallery</a></li>
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-4 shadow-2xl paper-card irregular-border border-2 border-black/5 w-64">
+            <li className="menu-title uppercase text-[10px] tracking-[0.3em] opacity-40 mb-2 font-black">Navigation</li>
+            <li><a href="#Home" className="py-3 rounded-xl font-bold">Home</a></li>
+            <li><a href="#about" className="py-3 rounded-xl font-bold">About</a></li>
+            <li><a href="#gallery" className="py-3 rounded-xl font-bold">Gallery</a></li>
           </ul>
         </div>
         <a className="btn btn-ghost normal-case text-2xl font-black tracking-tighter group" href="#Home">
