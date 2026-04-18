@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChatTeardropDots, PaperPlaneTilt, X, UserCircle, Minus } from '@phosphor-icons/react';
+import { ChatTeardropDots, PaperPlaneTilt, UserCircle, Minus } from '@phosphor-icons/react';
 import { api } from '../../lib/api';
 
-const ChatBubble = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const ChatBubble = ({ isOpen, setIsOpen }) => {
   const [messages, setMessages] = useState([]);
   const [newText, setNewText] = useState('');
   const [newAuthor, setNewAuthor] = useState('');
@@ -18,7 +17,7 @@ const ChatBubble = () => {
 
   useEffect(() => {
     fetchMessages();
-    const interval = setInterval(fetchMessages, 10000); // Poll every 10s for new messages
+    const interval = setInterval(fetchMessages, 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -54,14 +53,14 @@ const ChatBubble = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end">
+    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[60] flex flex-col items-center pointer-events-none">
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-4 w-[320px] sm:w-[380px] h-[500px] paper-card irregular-border border-2 border-black/5 shadow-2xl flex flex-col overflow-hidden scrapbook-font"
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            className="w-[320px] sm:w-[380px] h-[500px] paper-card irregular-border border-2 border-black/5 shadow-2xl flex flex-col overflow-hidden scrapbook-font pointer-events-auto"
           >
             {/* Header */}
             <div className="p-4 bg-primary/10 text-primary flex items-center justify-between border-b-2 border-dashed border-primary/20 relative">
@@ -146,43 +145,6 @@ const ChatBubble = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Toggle Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className={`btn btn-circle shadow-2xl relative ${isOpen ? 'btn-neutral' : 'btn-primary'} w-14 h-14`}
-      >
-        <AnimatePresence mode="wait">
-          {isOpen ? (
-            <motion.div
-              key="close"
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-            >
-              <X size={24} weight="bold" className="text-primary-content" />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="open"
-              initial={{ rotate: 90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -90, opacity: 0 }}
-              className="relative"
-            >
-              <ChatTeardropDots size={28} weight="duotone" className="text-primary-content" />
-              {messages.length > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-content opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-content"></span>
-                </span>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.button>
     </div>
   );
 };

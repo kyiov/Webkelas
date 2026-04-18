@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { House, Camera, ChatTeardropDots, Palette, Sun, Moon } from '@phosphor-icons/react';
 
-const FloatingDock = ({ currentTheme, onThemeChange }) => {
+const FloatingDock = ({ currentTheme, onThemeChange, isChatOpen, onChatToggle }) => {
   let mouseX = useMotionValue(Infinity);
 
   const toggleTheme = () => {
@@ -13,22 +13,32 @@ const FloatingDock = ({ currentTheme, onThemeChange }) => {
     { title: 'Home', icon: House, href: '#Home' },
     { title: 'About', icon: Palette, href: '#about' },
     { title: 'Gallery', icon: Camera, href: '#gallery' },
-    { title: 'Echoes', icon: ChatTeardropDots, href: '#messages' },
   ];
 
   return (
     <motion.div
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
-      className="fixed top-6 left-1/2 -translate-x-1/2 flex h-16 items-start gap-4 rounded-3xl bg-base-100/70 px-4 pt-3 backdrop-blur-xl border border-base-content/10 shadow-2xl z-[100] transition-all duration-300"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 flex h-16 items-center gap-4 rounded-3xl bg-base-100/70 px-4 backdrop-blur-xl border border-base-content/10 shadow-2xl z-[100] transition-all duration-300"
     >
       {navItems.map((item, idx) => (
         <IconContainer mouseX={mouseX} key={idx} {...item} />
       ))}
-      <div className="h-2/3 w-px bg-base-content/10 mx-1 self-center" />
+      
+      {/* Chat Toggle in Dock */}
+      <IconContainer 
+        mouseX={mouseX} 
+        title="Chatting" 
+        icon={ChatTeardropDots} 
+        onClick={onChatToggle}
+        isActive={isChatOpen}
+      />
+
+      <div className="h-2/3 w-px bg-base-content/10 mx-1" />
+      
       <motion.button
         onClick={toggleTheme}
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors self-center"
+        className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-colors"
       >
         {currentTheme === 'dark' ? <Sun size={20} weight="duotone" /> : <Moon size={20} weight="duotone" />}
       </motion.button>
@@ -36,7 +46,7 @@ const FloatingDock = ({ currentTheme, onThemeChange }) => {
   );
 };
 
-function IconContainer({ mouseX, title, icon: Icon, href }) {
+function IconContainer({ mouseX, title, icon: Icon, href, onClick, isActive }) {
   let ref = useRef(null);
 
   let distance = useTransform(mouseX, (val) => {
@@ -58,18 +68,32 @@ function IconContainer({ mouseX, title, icon: Icon, href }) {
     damping: 12,
   });
 
+  const content = (
+    <motion.div
+      ref={ref}
+      style={{ width, height }}
+      className={`relative flex items-center justify-center rounded-full transition-colors shadow-lg scrapbook-font ${
+        isActive ? 'bg-primary text-white' : 'bg-base-300/50 text-base-content hover:bg-primary/20'
+      }`}
+    >
+      <Icon size={24} weight={isActive ? "fill" : "duotone"} />
+      <span className="absolute -top-12 left-1/2 -translate-x-1/2 scale-0 rounded-lg bg-neutral px-3 py-1 text-xs text-neutral-content group-hover:scale-100 transition-transform font-bold whitespace-nowrap">
+        {title}
+      </span>
+    </motion.div>
+  );
+
+  if (onClick) {
+    return (
+      <button onClick={onClick} className="group self-center">
+        {content}
+      </button>
+    );
+  }
+
   return (
-    <a href={href} className="self-center">
-      <motion.div
-        ref={ref}
-        style={{ width, height }}
-        className="relative flex items-center justify-center rounded-full bg-base-300/50 text-base-content hover:bg-primary hover:text-white group transition-colors shadow-lg scrapbook-font"
-      >
-        <Icon size={24} weight="duotone" />
-        <span className="absolute top-16 left-1/2 -translate-x-1/2 scale-0 rounded-lg bg-neutral px-3 py-1 text-xs text-neutral-content group-hover:scale-100 transition-transform font-bold whitespace-nowrap">
-          {title}
-        </span>
-      </motion.div>
+    <a href={href} className="group self-center">
+      {content}
     </a>
   );
 }

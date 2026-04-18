@@ -15,6 +15,7 @@ import { CLASS_META } from './lib/constants';
 const App = () => {
   const [mounted, setMounted] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem('webkelas_theme') || 'dark');
   const [isPending, startTransition] = useTransition();
 
@@ -46,9 +47,14 @@ const App = () => {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen bg-base-100 selection:bg-primary selection:text-primary-content scrapbook-font overflow-x-hidden">
+    <div className="min-h-screen bg-base-100 selection:bg-primary selection:text-primary-content scrapbook-font overflow-x-hidden pb-32">
       <header>
-        <FloatingDock currentTheme={theme} onThemeChange={handleThemeChange} />
+        <FloatingDock 
+          currentTheme={theme} 
+          onThemeChange={handleThemeChange}
+          isChatOpen={isChatOpen}
+          onChatToggle={() => setIsChatOpen(!isChatOpen)}
+        />
       </header>
 
       <main>
@@ -100,7 +106,7 @@ const App = () => {
         )}
       </AnimatePresence>
 
-      <ChatBubble />
+      <ChatBubble isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
 
       {isPending && (
         <div className="fixed top-4 right-4 z-[100]">
