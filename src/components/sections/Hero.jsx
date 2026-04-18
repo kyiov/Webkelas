@@ -13,7 +13,6 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="max-w-4xl"
         >
-          <h5 className="text-xl lg:text-2xl font-semibold opacity-80 mb-2">Hi, Visitor!</h5>
           <h1 className="text-7xl lg:text-9xl font-black tracking-tighter mb-4" id="Glow">
             WELCOME
           </h1>
@@ -40,15 +39,6 @@ const Hero = () => {
               </div>
             </div>
           </div>
-
-          <motion.div 
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="mt-20 opacity-30 flex flex-col items-center gap-2"
-          >
-            <span className="text-[10px] uppercase tracking-[5px]">Scroll</span>
-            <ArrowDown size={16} weight="bold" />
-          </motion.div>
         </motion.div>
       </div>
     </div>

@@ -35,7 +35,7 @@ const Footer = () => {
       </nav>
       
       <div className="flex flex-col items-center gap-2">
-        <p className="text-[10px] opacity-30 uppercase tracking-[0.3em] font-bold">Class of {CLASS_META.batch} &bull; Established in MMXXVI</p>
+        <p className="text-[10px] opacity-30 uppercase tracking-[0.3em] font-bold">Class of {CLASS_META.graduationYear} &bull; {CLASS_META.batch}</p>
         <div className="flex items-center gap-2 text-[10px] opacity-20 uppercase tracking-widest">
           Made by Har
         </div>
