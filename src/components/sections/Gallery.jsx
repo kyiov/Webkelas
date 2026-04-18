@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
+  const constraintsRef = React.useRef(null);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -20,7 +21,7 @@ const Gallery = () => {
   return (
     <motion.section 
       id="gallery" 
-      className="py-20 relative flex flex-col items-center"
+      className="py-20 relative flex flex-col items-center overflow-x-hidden"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -35,22 +36,27 @@ const Gallery = () => {
          <p className="max-w-2xl text-xs opacity-60 uppercase tracking-[0.2em] text-neutral font-bold">Potongan cerita yang tersimpan rapi.</p>
       </div>
 
-      {/* Scrapbook Grid Area */}
-      <div className="flex flex-wrap justify-center gap-12 px-6 w-full max-w-7xl mx-auto">
+      {/* Scrapbook Grid Area with Constraints */}
+      <div 
+        ref={constraintsRef}
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-10 px-6 w-full max-w-7xl mx-auto min-h-[400px]"
+      >
         {images.map((img, idx) => (
           <motion.div
             key={idx}
             drag
-            dragMomentum={true}
-            initial={{ opacity: 0, y: 20, rotate: idx % 2 === 0 ? -2 : 2 }}
+            dragConstraints={constraintsRef}
+            dragElastic={0.1}
+            dragMomentum={false}
+            initial={{ opacity: 0, y: 20, rotate: idx % 2 === 0 ? -1 : 1 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.05, zIndex: 50 }}
             whileDrag={{ scale: 1.1, zIndex: 100, rotate: 0 }}
-            className="paper-card p-4 irregular-border border-2 border-black/5 shadow-xl cursor-grab active:cursor-grabbing bg-white dark:bg-[#fdf6e3] relative w-72 lg:w-96"
+            className="paper-card p-3 irregular-border border-2 border-black/5 shadow-lg cursor-grab active:cursor-grabbing bg-white dark:bg-[#fdf6e3] relative w-full aspect-[3/4] flex flex-col"
           >
-            <div className="tape !w-20 !h-8"></div>
-            <div className="overflow-hidden rounded-sm h-48 lg:h-64 bg-base-300">
+            <div className="tape !w-16 !h-6"></div>
+            <div className="overflow-hidden rounded-sm flex-1 bg-base-300">
               <img 
                 src={img.src} 
                 alt={img.title} 
@@ -58,8 +64,8 @@ const Gallery = () => {
                 className="w-full h-full object-cover pointer-events-none" 
               />
             </div>
-            <div className="mt-4 text-center">
-               <p className="text-sm font-black uppercase tracking-tighter opacity-70 text-neutral line-clamp-1">{img.title}</p>
+            <div className="mt-3 text-center">
+               <p className="text-[10px] sm:text-xs font-black uppercase tracking-tighter opacity-70 text-neutral line-clamp-1">{img.title}</p>
             </div>
           </motion.div>
         ))}
