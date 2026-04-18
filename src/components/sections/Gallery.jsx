@@ -37,7 +37,8 @@ const Gallery = () => {
               <div key={idx} id={`slide${idx}`} className="carousel-item relative">
                 <div className="card w-80 lg:w-96 bg-base-100 shadow-2xl border border-white/5 overflow-hidden group-hover:scale-[1.02] transition-transform">
                   <figure className="aspect-video relative">
-                    <img src={img.src} alt={img.title} className="w-full h-full object-cover" />
+                    <img src={img.src} alt={img.title} className="w-full h-full object-cover" loading="lazy" />
+
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <div className="absolute bottom-4 left-6 right-6">
                        <h3 className="text-white font-bold uppercase tracking-widest text-sm">{img.title}</h3>

@@ -15,15 +15,32 @@
     color: var(--fallback-bc,oklch(var(--bc)));
     min-height: 100vh;
   }
+/* Performance Optimizations for INP */
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
 
+.glass-card {
+  background-color: var(--fallback-b1,oklch(var(--b1)/0.8));
+  /* Lighter blur for performance */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid var(--fallback-bc,oklch(var(--bc)/0.05));
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 2rem;
+  /* Isolate rendering */
+  contain: content;
+  will-change: transform;
+}
+
+/* Disable expensive effects on mobile/reduced motion */
+@media (prefers-reduced-motion: reduce) {
   .glass-card {
-    background-color: var(--fallback-b1,oklch(var(--b1)/0.6));
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--fallback-bc,oklch(var(--bc)/0.1));
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 2rem;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
+}
 
   ::-webkit-scrollbar {
     width: 6px;
