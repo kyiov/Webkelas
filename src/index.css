@@ -9,12 +9,51 @@
   }
 
   body {
-    font-family: "Fredoka", sans-serif;
+    font-family: "Gochi Hand", cursive;
     transition: background-color 0.3s ease;
     background-color: var(--fallback-b1,oklch(var(--b1)));
     color: var(--fallback-bc,oklch(var(--bc)));
     min-height: 100vh;
+    background-image: radial-gradient(var(--fallback-bc,oklch(var(--bc)/0.03)) 1px, transparent 1px);
+    background-size: 20px 20px;
   }
+
+/* Scrapbook Utilities */
+.scrapbook-font {
+  font-family: "Gochi Hand", cursive;
+}
+
+.paper-card {
+  background: white;
+  color: #1a1a1a;
+  box-shadow: 2px 5px 15px rgba(0,0,0,0.1);
+  border-radius: 2px;
+  position: relative;
+}
+
+[data-theme='dark'] .paper-card {
+  background: #fdf6e3; /* Creamy paper even in dark mode for contrast */
+}
+
+.tape {
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px);
+  transform: rotate(-5deg);
+  top: -15px;
+  left: 50%;
+  margin-left: -50px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-left: 2px solid rgba(0,0,0,0.05);
+  border-right: 2px solid rgba(0,0,0,0.05);
+}
+
+.irregular-border {
+  border-radius: 2% 6% 5% 4% / 1% 1% 2% 4%;
+}
+
 /* Performance Optimizations for INP */
 section {
   content-visibility: auto;

@@ -4,6 +4,7 @@ import { Gear } from '@phosphor-icons/react';
 
 // Components
 import Navbar from './components/layout/Navbar';
+import FloatingDock from './components/layout/FloatingDock';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
 import Gallery from './components/sections/Gallery';
@@ -45,9 +46,9 @@ const App = () => {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen bg-base-100 selection:bg-primary selection:text-primary-content">
+    <div className="min-h-screen bg-base-100 selection:bg-primary selection:text-primary-content scrapbook-font overflow-x-hidden">
       <header>
-        <Navbar currentTheme={theme} onThemeChange={handleThemeChange} />
+        <FloatingDock currentTheme={theme} onThemeChange={handleThemeChange} />
       </header>
 
       <main>
@@ -65,14 +66,15 @@ const App = () => {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
           >
-            <div className="max-w-4xl mx-auto text-center space-y-6">
-              <div className="badge badge-primary badge-outline p-4 font-black uppercase tracking-widest">About Us</div>
-              <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-base-content leading-none">
+            <div className="max-w-4xl mx-auto text-center space-y-6 paper-card p-10 lg:p-16 irregular-border border-2 border-black/5">
+              <div className="tape"></div>
+              <div className="badge badge-primary badge-outline p-4 font-black uppercase tracking-widest scrapbook-font">About Us</div>
+              <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-neutral leading-none">
                 Big Family <br />
                 <span className="text-primary italic">{CLASS_META.name}.</span>
               </h2>
-              <p className="text-sm font-black uppercase tracking-[0.3em] opacity-40 text-base-content italic">Graduation Class of {CLASS_META.graduationYear}</p>
-              <p className="text-lg lg:text-xl opacity-70 leading-relaxed text-base-content">
+              <p className="text-sm font-black uppercase tracking-[0.3em] opacity-40 text-neutral italic">Graduation Class of {CLASS_META.graduationYear}</p>
+              <p className="text-lg lg:text-xl opacity-70 leading-relaxed text-neutral font-medium">
                 Kami adalah keluarga besar {CLASS_META.name} dari {CLASS_META.school}. 
                 Web ini adalah arsip digital perjalanan kami, tempat menyimpan kenangan, 
                 pesan, dan kebersamaan yang tak terbatas.
