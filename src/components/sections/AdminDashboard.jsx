@@ -22,7 +22,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
   const [isLocked, setIsLocked] = useState(false);
   const [lockTimeLeft, setLockTimeLeft] = useState(0);
 
-  const ADMIN_PASS = 'xiia1Smansa2326#';
+  const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASSWORD || 'xiia1Smansa2326#';
 
   useEffect(() => {
     if (authenticated) {
@@ -103,19 +103,19 @@ const AdminDashboard = ({ isOpen, onClose }) => {
 
   return (
     <div className="modal modal-open">
-      <div className="modal-box w-11/12 max-w-5xl glass-card !bg-neutral !border-white/10 !rounded-[3rem] p-0 overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="modal-box w-11/12 max-w-5xl glass-card !bg-base-100 !border-base-content/10 !rounded-[3rem] p-0 overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="p-8 border-b border-white/5 flex justify-between items-center bg-white/5">
+        <div className="p-8 border-b border-base-content/5 flex justify-between items-center bg-base-200/50">
           <div className="flex items-center space-x-4">
             <div className="p-3 bg-primary/20 rounded-2xl text-primary">
               <Gear weight="duotone" size={24} />
             </div>
             <div>
-              <h2 className="text-2xl font-black uppercase tracking-tighter">System Control</h2>
-              <p className="text-[8px] uppercase tracking-[0.4em] opacity-40">Admin Panel v2.0</p>
+              <h2 className="text-2xl font-black uppercase tracking-tighter text-base-content">System Control</h2>
+              <p className="text-[8px] uppercase tracking-[0.4em] opacity-40 text-base-content">Admin Panel v2.0</p>
             </div>
           </div>
-          <button onClick={onClose} className="btn btn-ghost btn-circle">
+          <button onClick={onClose} className="btn btn-ghost btn-circle text-base-content">
             <X size={24} weight="bold" />
           </button>
         </div>
@@ -123,27 +123,59 @@ const AdminDashboard = ({ isOpen, onClose }) => {
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
           {!authenticated ? (
-            <div className="max-w-md mx-auto py-20">
-               <form onSubmit={handleLogin} className="space-y-6 text-center">
-                  {isLocked ? (
-                    <div className="alert alert-error !rounded-2xl">
-                      <LockSimple weight="bold" />
-                      <span>System Locked: {Math.floor(lockTimeLeft / 60)}:{(lockTimeLeft % 60).toString().padStart(2, '0')}</span>
+            <div className="max-w-md mx-auto py-12">
+               <motion.div 
+                 initial={{ opacity: 0, y: 20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 className="card bg-base-200 shadow-xl border border-white/5 !rounded-[2.5rem] overflow-hidden"
+               >
+                 <div className="card-body items-center text-center p-10">
+                    <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
+                       <LockSimple weight="duotone" size={40} />
                     </div>
-                  ) : (
-                    <>
-                      <h3 className="text-xl font-bold uppercase tracking-widest opacity-60">Authentication Required</h3>
-                      <input 
-                        type="password"
-                        placeholder="Terminal Key"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className={`input input-bordered w-full bg-white/5 border-white/10 text-center font-mono text-lg focus:border-primary !rounded-2xl ${error ? 'input-error animate-shake' : ''}`}
-                      />
-                      <button className="btn btn-primary w-full !rounded-2xl uppercase tracking-widest">Verify Access</button>
-                    </>
-                  )}
-               </form>
+                    <h2 className="card-title text-2xl font-black uppercase tracking-tighter mb-2">Restricted Access</h2>
+                    <p className="text-xs opacity-50 uppercase tracking-widest mb-8">Enter terminal key to initialize session</p>
+
+                    <form onSubmit={handleLogin} className="w-full space-y-6">
+                      {isLocked ? (
+                        <div className="alert alert-error !rounded-2xl flex flex-col gap-2 p-6 shadow-inner">
+                          <div className="flex items-center gap-2">
+                             <ShieldCheck weight="bold" size={20} />
+                             <span className="font-bold uppercase text-xs">Security Protocol Active</span>
+                          </div>
+                          <span className="text-[10px] opacity-80 uppercase tracking-widest font-bold italic">
+                            System Locked: {Math.floor(lockTimeLeft / 60)}:{(lockTimeLeft % 60).toString().padStart(2, '0')}
+                          </span>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="form-control w-full">
+                            <label className="label">
+                              <span className="label-text uppercase text-[10px] font-black tracking-widest opacity-40 ml-2">Terminal Key</span>
+                            </label>
+                            <input 
+                              type="password"
+                              placeholder="••••••••"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                              className={`input input-bordered w-full bg-base-100/50 border-white/10 font-mono text-center text-xl tracking-[0.5em] focus:border-primary !rounded-2xl shadow-inner ${error ? 'input-error animate-shake' : ''}`}
+                              autoFocus
+                            />
+                            {error && (
+                              <label className="label">
+                                <span className="label-text-alt text-error uppercase font-bold tracking-widest">Authentication Failed</span>
+                              </label>
+                            )}
+                          </div>
+                          <button type="submit" className="btn btn-primary w-full !rounded-2xl uppercase tracking-[0.2em] font-black shadow-lg shadow-primary/20">
+                            Unlock Dashboard
+                          </button>
+                        </>
+                      )}
+                    </form>
+                 </div>
+               </motion.div>
+               <p className="text-center mt-8 text-[8px] uppercase tracking-[0.5em] opacity-20">Secure Data Management Node</p>
             </div>
           ) : (
             <div className="space-y-10">

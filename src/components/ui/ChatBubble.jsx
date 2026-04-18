@@ -152,7 +152,7 @@ const ChatBubble = () => {
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}
             >
-              <X size={24} weight="bold" />
+              <X size={24} weight="bold" className="text-primary-content" />
             </motion.div>
           ) : (
             <motion.div
@@ -162,11 +162,11 @@ const ChatBubble = () => {
               exit={{ rotate: -90, opacity: 0 }}
               className="relative"
             >
-              <ChatTeardropDots size={28} weight="duotone" />
+              <ChatTeardropDots size={28} weight="duotone" className="text-primary-content" />
               {messages.length > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-content opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-content"></span>
                 </span>
               )}
             </motion.div>

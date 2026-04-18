@@ -45,7 +45,7 @@ const App = () => {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen bg-base-100 selection:bg-primary selection:text-white" data-theme={theme}>
+    <div className="min-h-screen bg-base-100 selection:bg-primary selection:text-primary-content" data-theme={theme}>
       <header>
         <Navbar currentTheme={theme} onThemeChange={handleThemeChange} />
       </header>

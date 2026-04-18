@@ -56,7 +56,7 @@ const Navbar = ({ currentTheme, onThemeChange }) => {
                 <li key={t}>
                   <button 
                     className={`flex items-center justify-between py-3 px-4 rounded-2xl transition-all ${
-                      currentTheme === t ? 'bg-primary text-white font-bold' : 'hover:bg-base-300'
+                      currentTheme === t ? 'bg-primary text-primary-content font-bold' : 'hover:bg-base-300'
                     }`}
                     onClick={() => onThemeChange(t)}
                     data-theme={t}
