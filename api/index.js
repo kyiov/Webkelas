@@ -10,10 +10,13 @@ app.use(cors());
 app.use(express.json());
 
 // Initialize Database
-const dbPath = path.resolve(__dirname, 'database.sqlite');
+// On Vercel, the filesystem is read-only. We use /tmp for a writable (though ephemeral) database.
+const isVercel = process.env.VERCEL === '1';
+const dbPath = isVercel ? '/tmp/database.sqlite' : path.resolve(__dirname, 'database.sqlite');
+
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) console.error('Database connection error:', err.message);
-  else console.log('Connected to the SQLite database.');
+  else console.log(`Connected to the SQLite database at ${dbPath}`);
 });
 
 // Create Tables
@@ -68,6 +71,12 @@ app.post('/api/gallery', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// Only listen if running locally
+if (!isVercel) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+}
+
+// Export for Vercel
+module.exports = app;
