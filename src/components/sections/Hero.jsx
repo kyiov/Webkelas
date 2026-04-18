@@ -1,65 +1,54 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkle, ArrowDown } from '@phosphor-icons/react';
+import { CLASS_META } from '../../lib/constants';
+import { ArrowDown } from '@phosphor-icons/react';
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      {/* Dynamic Background Glows */}
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/20 rounded-full blur-[128px] animate-pulse-slow pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary/10 rounded-full blur-[128px] animate-pulse-slow pointer-events-none delay-1000" />
-
-      <div className="container mx-auto px-6 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+    <div className="hero min-h-screen">
+      <div className="hero-content text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex flex-col items-center"
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl"
         >
-          {/* Metadata Tagline @har style */}
-          <div className="flex items-center space-x-3 mb-8 px-4 py-1.5 glass-card !rounded-full !p-2 !border-primary/20">
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-primary font-bold">
-              Legacy Batch 2026
-            </span>
-          </div>
-
-          <h1 className="text-6xl md:text-[10rem] font-black text-main tracking-tighter leading-[0.8] mb-12 uppercase select-none">
-            LEG<span className="text-primary italic">A</span>CY
+          <h5 className="text-xl lg:text-2xl font-semibold opacity-80 mb-2">Hi, Visitor!</h5>
+          <h1 className="text-7xl lg:text-9xl font-black tracking-tighter mb-4" id="Glow">
+            WELCOME
           </h1>
-
-          <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
-            <motion.a
-              href="#philosophy"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 py-4 bg-primary text-background font-black uppercase tracking-[0.2em] text-xs rounded-full hover:bg-primary-hover transition-colors shadow-xl shadow-primary/20"
-            >
-              Explore Philosophy
-            </motion.a>
-            
-            <motion.a
-              href="#gallery"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 py-4 border border-border text-main font-black uppercase tracking-[0.2em] text-xs rounded-full hover:bg-surface/50 transition-colors backdrop-blur-md"
-            >
-              View Archives
-            </motion.a>
+          <h2 className="text-lg lg:text-xl font-bold tracking-[10px] uppercase opacity-70 mb-10">
+            TO {CLASS_META.name}
+          </h2>
+          
+          <div className="flex flex-col lg:flex-row gap-4 justify-center items-center">
+            <div className="stats shadow bg-white/10 backdrop-blur-md border border-white/10 text-white !rounded-3xl">
+              <div className="stat place-items-center">
+                <div className="stat-title text-white/60">Total Members</div>
+                <div className="stat-value" id="AngkaGradientBlue">37</div>
+              </div>
+              <div className="stat place-items-center border-x border-white/10">
+                <div className="stat-title text-white/60">Male</div>
+                <div className="stat-value" id="AngkaGradientBlue">25</div>
+              </div>
+              <div className="stat place-items-center">
+                <div className="stat-title text-white/60">Female</div>
+                <div className="stat-value" id="AngkaGradientPink">12</div>
+              </div>
+            </div>
           </div>
+
+          <motion.div 
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="mt-20 opacity-30 flex flex-col items-center gap-2"
+          >
+            <span className="text-[10px] uppercase tracking-[5px]">Scroll</span>
+            <ArrowDown size={16} weight="bold" />
+          </motion.div>
         </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-2 opacity-30"
-      >
-        <span className="font-mono text-[8px] uppercase tracking-widest">Scroll</span>
-        <ArrowDown weight="bold" size={14} className="text-primary" />
-      </motion.div>
-    </section>
+    </div>
   );
 };
 

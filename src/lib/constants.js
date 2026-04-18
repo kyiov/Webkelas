@@ -6,6 +6,14 @@ export const SCHEDULE_DATA = {
   Jumat: ['Senam Pagi', 'Bahasa Daerah', 'Bimbingan Konseling'],
 };
 
+export const STRUKTUR_DATA = [
+  { jabatan: 'Wali Kelas', nama: 'Ibu Guru Hebat', deskripsi: 'Pembimbing & Motivator' },
+  { jabatan: 'Ketua Kelas', nama: 'Budi Santoso', deskripsi: 'Leader XII A1' },
+  { jabatan: 'Wakil Ketua', nama: 'Siti Aminah', deskripsi: 'Co-Leader' },
+  { jabatan: 'Sekretaris', nama: 'Lani Lestari', deskripsi: 'Administrative' },
+  { jabatan: 'Bendahara', nama: 'Doni Pratama', deskripsi: 'Finance' },
+];
+
 export const MESSAGES = [];
 
 export const GALLERY_IMAGES = [

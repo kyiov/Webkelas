@@ -7,37 +7,33 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--bg-color)",
-        surface: "var(--card-bg)",
-        main: "var(--text-main)",
-        primary: {
-          DEFAULT: "var(--primary)",
-          hover: "var(--primary-hover)",
-          glow: "var(--primary-glow)",
-        },
-        muted: "var(--text-muted)",
-        border: "var(--glass-border)",
+        background: "#1e1e1e",
+        surface: "rgba(255, 255, 255, 0.05)",
+        primary: "#e06bd5",
       },
       fontFamily: {
-        sans: ["Outfit", "sans-serif"],
+        sans: ["Poppins", "Outfit", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
-      },
-      animation: {
-        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-        "float": "float 6s ease-in-out infinite",
-      },
-      keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        }
-      },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "glass-gradient": "linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01))",
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        webkelas: {
+          "primary": "#e06bd5",
+          "secondary": "#4b39c6",
+          "accent": "#18fff3",
+          "neutral": "#1e1e1e",
+          "base-100": "#1e1e1e",
+          "info": "#14a6ef",
+          "success": "#76ffb0",
+          "warning": "#ff775c",
+          "error": "#ff4359",
+        },
+      },
+      "dark",
+    ],
+  },
 }
