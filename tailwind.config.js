@@ -16,6 +16,6 @@ export default {
   },
   plugins: [daisyui],
   daisyui: {
-    themes: ["dark", "cupcake", "luxury", "coffee", "nord", "sunset", "dracula", "synthwave"],
+    themes: ["dark", "cupcake"],
   },
 }

@@ -4,7 +4,6 @@ import { List, Palette, CheckCircle } from '@phosphor-icons/react';
 
 const Navbar = ({ currentTheme, onThemeChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const themes = ["dark", "cupcake", "luxury", "coffee", "nord", "sunset", "dracula"];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,13 +51,17 @@ const Navbar = ({ currentTheme, onThemeChange }) => {
           <ul tabIndex={0} className="dropdown-content z-[1] menu p-3 shadow-2xl bg-base-200 rounded-[2rem] w-64 border border-white/10 mt-4 grid grid-cols-1 gap-2">
             <li className="menu-title uppercase text-[10px] tracking-[0.3em] opacity-40 mb-2 px-2">Visual Palette</li>
             <div className="grid grid-cols-1 gap-1">
-              {["dark", "cupcake", "luxury", "coffee", "nord", "sunset", "dracula", "synthwave"].map((t) => (
+              {["dark", "cupcake"].map((t) => (
                 <li key={t}>
                   <button 
                     className={`flex items-center justify-between py-3 px-4 rounded-2xl transition-all ${
                       currentTheme === t ? 'bg-primary text-primary-content font-bold' : 'hover:bg-base-300'
                     }`}
-                    onClick={() => onThemeChange(t)}
+                    onClick={() => {
+                      onThemeChange(t);
+                      // Force close dropdown after selection
+                      document.activeElement.blur();
+                    }}
                   >
                     <div className="flex items-center gap-3">
                       <div className="flex gap-1">

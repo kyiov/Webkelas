@@ -124,10 +124,10 @@ const AdminDashboard = ({ isOpen, onClose }) => {
         <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
           {!authenticated ? (
             <div className="max-w-md mx-auto py-12">
-               <motion.div 
+                 <motion.div 
                  initial={{ opacity: 0, y: 20 }}
                  animate={{ opacity: 1, y: 0 }}
-                 className="card bg-base-200 shadow-xl border border-white/5 !rounded-[2.5rem] overflow-hidden"
+                 className="card bg-base-200 shadow-xl border border-base-content/5 !rounded-[2.5rem] overflow-hidden"
                >
                  <div className="card-body items-center text-center p-10">
                     <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
@@ -158,7 +158,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                               placeholder="••••••••"
                               value={password}
                               onChange={(e) => setPassword(e.target.value)}
-                              className={`input input-bordered w-full bg-base-100/50 border-white/10 font-mono text-center text-xl tracking-[0.5em] focus:border-primary !rounded-2xl shadow-inner ${error ? 'input-error animate-shake' : ''}`}
+                              className={`input input-bordered w-full bg-base-100/50 border-base-content/10 font-mono text-center text-xl tracking-[0.5em] focus:border-primary !rounded-2xl shadow-inner ${error ? 'input-error animate-shake' : ''}`}
                               autoFocus
                             />
                             {error && (
@@ -180,7 +180,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
           ) : (
             <div className="space-y-10">
                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                  <div className="tabs tabs-boxed bg-white/5 p-1 !rounded-2xl">
+                  <div className="tabs tabs-boxed bg-base-content/5 p-1 !rounded-2xl">
                     <button onClick={() => setActiveTab('messages')} className={`tab !rounded-xl ${activeTab === 'messages' ? 'tab-active !bg-primary' : ''}`}>
                       <ChatTeardropDots weight="duotone" className="mr-2" /> Echoes
                     </button>
@@ -197,13 +197,13 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                        <div className="join w-full">
                           <input 
                             placeholder="Echo text..." 
-                            className="input input-bordered join-item w-full bg-white/5 border-white/10 focus:border-primary"
+                            className="input input-bordered join-item w-full bg-base-content/5 border-base-content/10 focus:border-primary"
                             value={newItem.text}
                             onChange={(e) => setNewItem({...newItem, text: e.target.value})}
                           />
                           <input 
                             placeholder="Author" 
-                            className="input input-bordered join-item w-48 bg-white/5 border-white/10 focus:border-primary"
+                            className="input input-bordered join-item w-48 bg-base-content/5 border-base-content/10 focus:border-primary"
                             value={newItem.author}
                             onChange={(e) => setNewItem({...newItem, author: e.target.value})}
                           />
@@ -212,7 +212,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
 
                        <div className="grid gap-4">
                           {messages.map(m => (
-                            <div key={m.id} className="bg-white/5 border border-white/5 p-4 rounded-2xl flex justify-between items-center group">
+                            <div key={m.id} className="bg-base-content/5 border border-base-content/5 p-4 rounded-2xl flex justify-between items-center group">
                                <div>
                                   <p className="font-bold">"{m.text}"</p>
                                   <p className="text-[10px] opacity-40 uppercase tracking-widest mt-1">{m.author} &bull; {m.time}</p>
@@ -229,13 +229,13 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                        <div className="join w-full">
                           <input 
                             placeholder="Image URL..." 
-                            className="input input-bordered join-item w-full bg-white/5 border-white/10 focus:border-primary"
+                            className="input input-bordered join-item w-full bg-base-content/5 border-base-content/10 focus:border-primary"
                             value={newItem.src}
                             onChange={(e) => setNewItem({...newItem, src: e.target.value})}
                           />
                           <input 
                             placeholder="Title" 
-                            className="input input-bordered join-item w-48 bg-white/5 border-white/10 focus:border-primary"
+                            className="input input-bordered join-item w-48 bg-base-content/5 border-base-content/10 focus:border-primary"
                             value={newItem.title}
                             onChange={(e) => setNewItem({...newItem, title: e.target.value})}
                           />
@@ -244,9 +244,9 @@ const AdminDashboard = ({ isOpen, onClose }) => {
 
                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                           {gallery.map((img, idx) => (
-                            <div key={img.id || idx} className="relative aspect-square rounded-2xl overflow-hidden group border border-white/5">
+                            <div key={img.id || idx} className="relative aspect-square rounded-2xl overflow-hidden group border border-base-content/5">
                                <img src={img.src} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" alt={img.title} />
-                               <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                               <div className="absolute inset-0 bg-neutral/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                   <button onClick={() => deleteGallery(img.id)} className="btn btn-error btn-circle"><Trash size={20} weight="duotone" /></button>
                                </div>
                             </div>

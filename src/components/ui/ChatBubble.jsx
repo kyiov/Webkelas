@@ -52,7 +52,7 @@ const ChatBubble = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-4 w-[350px] sm:w-[400px] h-[500px] glass-card !bg-base-200/90 border border-white/10 shadow-2xl flex flex-col overflow-hidden"
+            className="mb-4 w-[350px] sm:w-[400px] h-[500px] glass-card !bg-base-200/90 border border-base-content/10 shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="p-4 bg-primary text-primary-content flex items-center justify-between">
@@ -65,7 +65,7 @@ const ChatBubble = () => {
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="btn btn-ghost btn-xs btn-circle text-primary-content hover:bg-white/10"
+                className="btn btn-ghost btn-xs btn-circle text-primary-content hover:bg-primary-content/10"
               >
                 <Minus weight="bold" size={16} />
               </button>
@@ -94,7 +94,7 @@ const ChatBubble = () => {
                     <div className="chat-header opacity-50 text-[9px] mb-1 uppercase tracking-widest font-bold text-base-content">
                       {m.author}
                     </div>
-                    <div className={`chat-bubble text-sm shadow-md border border-white/5 py-2 px-4 min-h-0 ${idx % 2 === 0 ? 'bg-base-300 text-base-content' : 'bg-primary text-primary-content'}`}>
+                    <div className={`chat-bubble text-sm shadow-md border border-base-content/5 py-2 px-4 min-h-0 ${idx % 2 === 0 ? 'bg-base-300 text-base-content' : 'bg-primary text-primary-content'}`}>
                       {m.text}
                     </div>
                     <div className="chat-footer opacity-50 text-[8px] uppercase tracking-tighter mt-1 font-black text-base-content">
@@ -106,11 +106,11 @@ const ChatBubble = () => {
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-base-200 border-t border-white/5">
+            <div className="p-4 bg-base-200 border-t border-base-content/5">
               <form onSubmit={handleSubmit} className="space-y-3">
                 <div className="relative">
                   <textarea 
-                    className="textarea textarea-bordered w-full h-20 bg-base-100/50 border-white/10 focus:border-primary transition-all text-sm resize-none pr-10 custom-scrollbar"
+                    className="textarea textarea-bordered w-full h-20 bg-base-100/50 border-base-content/10 focus:border-primary transition-all text-sm resize-none pr-10 custom-scrollbar"
                     placeholder="Type your message..."
                     value={newText}
                     onChange={(e) => setNewText(e.target.value)}
@@ -127,7 +127,7 @@ const ChatBubble = () => {
                 <input 
                   type="text" 
                   placeholder="Your Name (Optional)" 
-                  className="input input-bordered input-xs w-full bg-base-100/50 border-white/10 focus:border-primary transition-all uppercase tracking-widest text-[9px] font-bold"
+                  className="input input-bordered input-xs w-full bg-base-100/50 border-base-content/10 focus:border-primary transition-all uppercase tracking-widest text-[9px] font-bold"
                   value={newAuthor}
                   onChange={(e) => setNewAuthor(e.target.value)}
                 />
