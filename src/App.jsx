@@ -56,52 +56,27 @@ const App = () => {
         </div>
 
         <div className="container mx-auto px-4 lg:px-20 space-y-32 pb-20 mt-20">
-          {/* Class Profile Section */}
+          {/* About Section */}
           <motion.section 
             id="about" 
-            className="py-20"
+            className="py-10"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <div className="hero bg-base-200/50 rounded-[3rem] overflow-hidden border border-base-content/5 shadow-2xl">
-              <div className="hero-content flex-col lg:flex-row-reverse p-10 lg:p-20 gap-12">
-                <motion.img 
-                  initial={{ rotate: 10, opacity: 0 }}
-                  whileInView={{ rotate: 3, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2, duration: 0.8 }}
-                  src={CLASS_META.logo} 
-                  className="max-w-xs rounded-[2rem] shadow-2xl border-4 border-primary/20 hover:rotate-0 transition-transform duration-500" 
-                  alt="Class Logo"
-                />
-                <motion.div 
-                  className="text-center lg:text-left"
-                  initial={{ x: -20, opacity: 0 }}
-                  whileInView={{ x: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3, duration: 0.6 }}
-                >
-                  <div className="badge badge-primary badge-outline mb-6 p-4 font-black uppercase tracking-widest">Class Profile</div>
-                  <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-base-content leading-none mb-4">
-                    Big Family <br />
-                    <span className="text-primary italic">{CLASS_META.name}</span>
-                  </h2>
-                  <p className="text-sm font-black uppercase tracking-[0.3em] opacity-40 text-base-content mb-8 italic">Graduation Class of {CLASS_META.graduationYear}</p>
-                  <p className="text-lg lg:text-xl opacity-70 leading-relaxed text-base-content max-w-xl">
-                    Keluarga besar {CLASS_META.name}. Tempat kami berbagi cerita dan kenangan abadi.
-                  </p>
-                  <div className="mt-10 flex flex-wrap justify-center lg:justify-start gap-4">
-                     <div className="stats bg-base-100 shadow-lg border border-base-content/5 rounded-2xl">
-                        <div className="stat p-4 px-6 text-center">
-                           <div className="stat-title text-[10px] uppercase font-bold">Base</div>
-                           <div className="stat-value text-xl text-primary">{CLASS_META.batch}</div>
-                        </div>
-                     </div>
-                  </div>
-                </motion.div>
-              </div>
+            <div className="max-w-4xl mx-auto text-center space-y-6">
+              <div className="badge badge-primary badge-outline p-4 font-black uppercase tracking-widest">About Us</div>
+              <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-base-content leading-none">
+                Big Family <br />
+                <span className="text-primary italic">{CLASS_META.name}.</span>
+              </h2>
+              <p className="text-sm font-black uppercase tracking-[0.3em] opacity-40 text-base-content italic">Graduation Class of {CLASS_META.graduationYear}</p>
+              <p className="text-lg lg:text-xl opacity-70 leading-relaxed text-base-content">
+                Kami adalah keluarga besar {CLASS_META.name} dari {CLASS_META.school}. 
+                Web ini adalah arsip digital perjalanan kami, tempat menyimpan kenangan, 
+                pesan, dan kebersamaan yang tak terbatas.
+              </p>
             </div>
           </motion.section>
 
