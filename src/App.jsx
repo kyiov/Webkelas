@@ -57,15 +57,32 @@ const App = () => {
 
         <div className="container mx-auto px-4 lg:px-20 space-y-32 pb-20 mt-20">
           {/* Class Profile Section */}
-          <section id="about" className="py-20 fade-in">
+          <motion.section 
+            id="about" 
+            className="py-20"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <div className="hero bg-base-200/50 rounded-[3rem] overflow-hidden border border-base-content/5 shadow-2xl">
               <div className="hero-content flex-col lg:flex-row-reverse p-10 lg:p-20 gap-12">
-                <img 
+                <motion.img 
+                  initial={{ rotate: 10, opacity: 0 }}
+                  whileInView={{ rotate: 3, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2, duration: 0.8 }}
                   src={CLASS_META.logo} 
-                  className="max-w-xs rounded-[2rem] shadow-2xl border-4 border-primary/20 rotate-3 hover:rotate-0 transition-transform duration-500" 
+                  className="max-w-xs rounded-[2rem] shadow-2xl border-4 border-primary/20 hover:rotate-0 transition-transform duration-500" 
                   alt="Class Logo"
                 />
-                <div className="text-center lg:text-left">
+                <motion.div 
+                  className="text-center lg:text-left"
+                  initial={{ x: -20, opacity: 0 }}
+                  whileInView={{ x: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                >
                   <div className="badge badge-primary badge-outline mb-6 p-4 font-black uppercase tracking-widest">Class Profile</div>
                   <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-base-content leading-none mb-4">
                     Big Family <br />
@@ -83,10 +100,10 @@ const App = () => {
                         </div>
                      </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
-          </section>
+          </motion.section>
 
           <Gallery />
         </div>

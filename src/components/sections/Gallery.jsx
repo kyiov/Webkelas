@@ -53,8 +53,21 @@ const Gallery = () => {
   );
 
   return (
-    <section id="gallery" className="py-20 overflow-hidden">
-      <div className="flex flex-col items-center mb-16 text-center px-4">
+    <motion.section 
+      id="gallery" 
+      className="py-20 overflow-hidden"
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 1, ease: "easeOut" }}
+    >
+      <motion.div 
+        className="flex flex-col items-center mb-16 text-center px-4"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.2, duration: 0.8 }}
+      >
          <div className="badge badge-outline badge-primary mb-6 p-4 font-black uppercase tracking-widest">
            <Camera weight="duotone" size={16} className="mr-2" /> Visual Stream
          </div>
@@ -62,13 +75,27 @@ const Gallery = () => {
            Big Family <span className="text-primary italic">Gallery.</span>
          </h2>
          <p className="max-w-2xl text-sm opacity-50 uppercase tracking-[0.2em]">Infinite scrolling memories from the archive.</p>
-      </div>
+      </motion.div>
 
       <div className="space-y-4">
-        <CarouselRow items={row1} />
-        <CarouselRow items={row2} reverse={true} />
+        <motion.div
+          initial={{ x: 100, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 1 }}
+        >
+          <CarouselRow items={row1} />
+        </motion.div>
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 1 }}
+        >
+          <CarouselRow items={row2} reverse={true} />
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
