@@ -1,6 +1,5 @@
-# Webkelas: Legacy Batch 2026
-
-Webkelas adalah aplikasi web modern untuk angkatan **Legacy Batch 2026**, menampilkan filosofi, jadwal, galeri, dan fitur rahasia lainnya.
+# Webkelas: Big Family XII A1
+Webkelas adalah aplikasi web modern untuk angkatan **Big Family XII A1**, menampilkan galeri, chatting, dan fitur lainnya.
 
 ## Fitur Utama
 - UI modern dengan Glassmorphism & Framer Motion.

@@ -86,9 +86,9 @@ const ChatBubble = () => {
               ) : (
                 messages.map((m, idx) => (
                   <div key={m.id} className={`chat ${idx % 2 === 0 ? 'chat-start' : 'chat-end'}`}>
-                    <div className="chat-image avatar">
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
-                        <UserCircle size={32} weight="duotone" />
+                    <div className="chat-image avatar placeholder">
+                      <div className="bg-primary text-primary-content rounded-full w-8 shadow-md">
+                        <span className="text-xs font-black uppercase">{(m.author || 'A').charAt(0)}</span>
                       </div>
                     </div>
                     <div className="chat-header opacity-50 text-[9px] mb-1 uppercase tracking-widest font-bold text-base-content">

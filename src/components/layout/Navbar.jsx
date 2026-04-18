@@ -4,7 +4,7 @@ import { List, Palette, CheckCircle } from '@phosphor-icons/react';
 
 const Navbar = ({ currentTheme, onThemeChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const themes = ["dark", "cupcake", "luxury", "coffee", "nord", "sunset"];
+  const themes = ["dark", "cupcake", "luxury", "coffee", "nord", "sunset", "dracula"];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,15 +31,15 @@ const Navbar = ({ currentTheme, onThemeChange }) => {
           </ul>
         </div>
         <a className="btn btn-ghost normal-case text-2xl font-black tracking-tighter group" href="#Home">
-          {CLASS_META.name} <span className="text-primary italic group-hover:not-italic transition-all">Legacy</span>
+          Big Family <span className="text-primary italic group-hover:not-italic transition-all">{CLASS_META.name}</span>
         </a>
       </div>
       
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 font-bold gap-2">
-          <li><a href="#Home" className="rounded-full hover:bg-primary hover:text-primary-content transition-all px-6 text-base-content">Home</a></li>
-          <li><a href="#about" className="rounded-full hover:bg-primary hover:text-primary-content transition-all px-6 text-base-content">About</a></li>
-          <li><a href="#gallery" className="rounded-full hover:bg-primary hover:text-primary-content transition-all px-6 text-base-content">Gallery</a></li>
+          <li><a href="#Home" className="rounded-full hover:bg-primary hover:text-primary-content transition-all px-6 text-base-content text-xs uppercase tracking-widest">Home</a></li>
+          <li><a href="#about" className="rounded-full hover:bg-primary hover:text-primary-content transition-all px-6 text-base-content text-xs uppercase tracking-widest">About</a></li>
+          <li><a href="#gallery" className="rounded-full hover:bg-primary hover:text-primary-content transition-all px-6 text-base-content text-xs uppercase tracking-widest">Gallery</a></li>
         </ul>
       </div>
 
@@ -52,14 +52,13 @@ const Navbar = ({ currentTheme, onThemeChange }) => {
           <ul tabIndex={0} className="dropdown-content z-[1] menu p-3 shadow-2xl bg-base-200 rounded-[2rem] w-64 border border-white/10 mt-4 grid grid-cols-1 gap-2">
             <li className="menu-title uppercase text-[10px] tracking-[0.3em] opacity-40 mb-2 px-2">Visual Palette</li>
             <div className="grid grid-cols-1 gap-1">
-              {themes.map((t) => (
+              {["dark", "cupcake", "luxury", "coffee", "nord", "sunset", "dracula", "synthwave"].map((t) => (
                 <li key={t}>
                   <button 
                     className={`flex items-center justify-between py-3 px-4 rounded-2xl transition-all ${
                       currentTheme === t ? 'bg-primary text-primary-content font-bold' : 'hover:bg-base-300'
                     }`}
                     onClick={() => onThemeChange(t)}
-                    data-theme={t}
                   >
                     <div className="flex items-center gap-3">
                       <div className="flex gap-1">

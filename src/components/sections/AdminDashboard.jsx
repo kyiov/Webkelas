@@ -13,7 +13,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
   const [gallery, setGallery] = useState([]);
   const [newItem, setNewItem] = useState({ text: '', author: '', src: '', title: '' });
   
-  const SESSION_KEY = '_session_verify_v1_legacy';
+  const SESSION_KEY = '_session_verify_v1_xiia1';
   const [authenticated, setAuthenticated] = useState(localStorage.getItem(SESSION_KEY) === 'true');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);

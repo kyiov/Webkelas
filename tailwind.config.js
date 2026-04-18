@@ -1,3 +1,5 @@
+import daisyui from "daisyui"
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -12,8 +14,8 @@ export default {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [daisyui],
   daisyui: {
-    themes: ["dark", "cupcake", "luxury", "coffee", "nord", "sunset"],
+    themes: ["dark", "cupcake", "luxury", "coffee", "nord", "sunset", "dracula", "synthwave"],
   },
 }
