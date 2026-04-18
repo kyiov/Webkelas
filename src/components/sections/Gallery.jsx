@@ -36,7 +36,7 @@ const Gallery = () => {
       </div>
 
       {/* Scrapbook Grid Area */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 px-6 w-full max-w-7xl">
+      <div className="flex flex-wrap justify-center gap-12 px-6 w-full max-w-7xl mx-auto">
         {images.map((img, idx) => (
           <motion.div
             key={idx}
@@ -47,10 +47,10 @@ const Gallery = () => {
             viewport={{ once: true }}
             whileHover={{ scale: 1.02 }}
             whileDrag={{ scale: 1.1, zIndex: 100, rotate: 0 }}
-            className="paper-card p-4 irregular-border border-2 border-black/5 shadow-xl cursor-grab active:cursor-grabbing bg-white dark:bg-[#fdf6e3] relative"
+            className="paper-card p-4 irregular-border border-2 border-black/5 shadow-xl cursor-grab active:cursor-grabbing bg-white dark:bg-[#fdf6e3] relative w-72 lg:w-96"
           >
             <div className="tape !w-20 !h-8"></div>
-            <div className="overflow-hidden rounded-sm h-48 sm:h-56 bg-base-300">
+            <div className="overflow-hidden rounded-sm h-48 lg:h-64 bg-base-300">
               <img 
                 src={img.src} 
                 alt={img.title} 
