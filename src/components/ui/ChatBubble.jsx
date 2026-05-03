@@ -123,27 +123,33 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
               <form onSubmit={handleSubmit} className="space-y-3">
                 <div className="relative">
                   <textarea 
-                    className="textarea textarea-bordered w-full h-20 bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all text-sm resize-none pr-10 custom-scrollbar text-base-content placeholder:opacity-30"
-                    placeholder="Tulis pesan rahasia..."
+                    className="textarea textarea-bordered w-full h-24 bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all text-sm resize-none pr-2 custom-scrollbar text-base-content placeholder:opacity-30 !rounded-2xl"
+                    placeholder="Tulis pesan kenangan..."
                     value={newText}
                     onChange={(e) => setNewText(e.target.value)}
                     required
                   ></textarea>
+                </div>
+                <div className="flex gap-2">
+                  <input 
+                    type="text" 
+                    placeholder="Nama Kamu (Opsional)" 
+                    className="input input-bordered flex-1 bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all uppercase tracking-widest text-[10px] font-black text-base-content !rounded-xl"
+                    value={newAuthor}
+                    onChange={(e) => setNewAuthor(e.target.value)}
+                  />
                   <button 
                     type="submit" 
                     disabled={isSubmitting || !newText.trim()} 
-                    className="absolute bottom-3 right-3 btn btn-circle btn-primary btn-xs shadow-lg"
+                    className="btn btn-primary shadow-lg !rounded-xl px-4"
                   >
-                    {isSubmitting ? <span className="loading loading-spinner loading-xs"></span> : <PaperPlaneTilt weight="bold" size={12} />}
+                    {isSubmitting ? (
+                      <span className="loading loading-spinner loading-xs"></span>
+                    ) : (
+                      <PaperPlaneTilt weight="bold" size={20} />
+                    )}
                   </button>
                 </div>
-                <input 
-                  type="text" 
-                  placeholder="Nama Kamu (Opsional)" 
-                  className="input input-bordered input-xs w-full bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all uppercase tracking-widest text-[10px] font-black text-base-content"
-                  value={newAuthor}
-                  onChange={(e) => setNewAuthor(e.target.value)}
-                />
               </form>
             </div>
           </motion.div>
