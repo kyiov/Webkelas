@@ -20,8 +20,8 @@ const Gallery = () => {
   }, []);
 
   return (
-    <motion.section 
-      id="gallery" 
+    <motion.section
+      id="gallery"
       ref={sectionRef}
       className="py-20 relative flex flex-col items-center overflow-x-hidden"
       initial={{ opacity: 0 }}
@@ -29,24 +29,24 @@ const Gallery = () => {
       viewport={{ once: true }}
     >
       <div className="flex flex-col items-center mb-16 text-center px-4">
-         <div className="badge badge-primary badge-outline mb-6 p-4 font-black uppercase tracking-widest scrapbook-font">
-           <Camera weight="duotone" size={16} className="mr-2" /> Gallery
-         </div>
-         <h2 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-4 leading-none text-base-content">
-           Koleksi <span className="text-primary italic font-black">Kenangan.</span>
-         </h2>
-         <div className="flex flex-col items-center gap-2">
-           <p className="max-w-2xl text-xs opacity-60 uppercase tracking-[0.2em] text-base-content font-bold">Potongan cerita yang tersimpan rapi.</p>
-           {images.length > 0 && (
-             <span className="badge badge-ghost badge-sm py-3 px-4 rounded-full text-[10px] font-black uppercase tracking-[0.2em] opacity-40 text-base-content">
-               Total {images.length} Foto Terarsip
-             </span>
-           )}
-         </div>
+        <div className="badge badge-primary badge-outline mb-6 p-4 font-black uppercase tracking-widest scrapbook-font">
+          <Camera weight="duotone" size={16} className="mr-2" /> Gallery
+        </div>
+        <h2 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-4 leading-none text-base-content">
+          Koleksi <span className="text-primary italic font-black">Kenangan.</span>
+        </h2>
+        <div className="flex flex-col items-center gap-2">
+          <p className="max-w-2xl text-xs opacity-60 uppercase tracking-[0.2em] text-base-content font-bold">Foto yang tersimpan rapi.</p>
+          {images.length > 0 && (
+            <span className="badge badge-ghost badge-sm py-3 px-4 rounded-full text-[10px] font-black uppercase tracking-[0.2em] opacity-40 text-base-content">
+              Total {images.length} Foto Terarsip
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Scrapbook Grid Area */}
-      <div 
+      <div
         className="grid grid-cols-2 md:grid-cols-2 gap-4 sm:gap-12 px-6 w-full max-w-5xl mx-auto min-h-[400px] relative"
       >
         {images.map((img, idx) => (
@@ -66,7 +66,7 @@ const Gallery = () => {
           >
             {/* Tape Decoration */}
             <div className="tape !w-16 sm:!w-24 !h-6 sm:!h-8 !-top-3 sm:!-top-4 !bg-primary/20 !backdrop-blur-none"></div>
-            
+
             {/* Decorative Doodles on Card */}
             <div className="absolute top-2 right-2 text-primary/30 rotate-12 pointer-events-none">
               <Star size={16} weight="fill" />
@@ -89,20 +89,20 @@ const Gallery = () => {
                 <Smiley size={18} weight="duotone" />
               </div>
             )}
-            
+
             {/* Image Container (Polaroid Style) */}
             <div className="overflow-hidden bg-base-300 flex-1 relative border-2 border-black/5">
-              <img 
-                src={img.src} 
-                alt="Memory" 
+              <img
+                src={img.src}
+                alt="Memory"
                 loading="lazy"
-                className="w-full h-full object-cover pointer-events-none" 
+                className="w-full h-full object-cover pointer-events-none"
               />
             </div>
-            
+
             {/* Polaroid Bottom Space */}
             <div className="h-8 sm:h-12 flex items-center justify-center">
-               <div className="w-1/2 h-1 bg-base-content/5 rounded-full opacity-20"></div>
+              <div className="w-1/2 h-1 bg-base-content/5 rounded-full opacity-20"></div>
             </div>
           </motion.div>
         ))}
@@ -133,17 +133,17 @@ const Gallery = () => {
               className="relative max-w-4xl w-full flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <button 
+              <button
                 className="absolute -top-12 right-0 text-white hover:text-primary transition-colors p-2"
                 onClick={() => setSelectedImage(null)}
               >
                 <X size={32} weight="bold" />
               </button>
-              
+
               <div className="paper-card p-2 sm:p-4 irregular-border border-4 border-white shadow-2xl bg-white">
-                <img 
-                  src={selectedImage.src} 
-                  alt="Memory Preview"
+                <img
+                  src={selectedImage.src}
+                  alt="Image Preview"
                   className="max-h-[85vh] w-auto object-contain rounded-sm"
                 />
               </div>

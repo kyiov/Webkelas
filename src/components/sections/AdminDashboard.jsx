@@ -228,7 +228,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                                     className="btn btn-neutral !rounded-2xl flex-1 sm:flex-none whitespace-nowrap px-6 border-none text-white"
                                     disabled={gallery.length >= 15}
                                   >
-                                     <UploadSimple size={20} weight="bold" className="mr-2" /> Pilih dari HP
+                                     <UploadSimple size={20} weight="bold" className="mr-2" /> Pilih dari File
                                   </button>
                                </div>
                             </div>

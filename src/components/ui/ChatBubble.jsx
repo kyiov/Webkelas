@@ -31,9 +31,9 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
     e.preventDefault();
     if (!newText.trim()) return;
     setIsSubmitting(true);
-    
+
     const authorName = newAuthor.trim() || 'Anonim';
-    console.log('Sending message:', { text: newText, author: authorName });
+    console.log('Mengirim pesan:', { text: newText, author: authorName });
 
     try {
       const updated = await api.saveMessage(newText, authorName);
@@ -49,7 +49,7 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
 
   const getAvatarColor = (name) => {
     const colors = [
-      'bg-primary', 'bg-secondary', 'bg-accent', 
+      'bg-primary', 'bg-secondary', 'bg-accent',
       'bg-info', 'bg-success', 'bg-warning', 'bg-error'
     ];
     const index = (name || 'A').charCodeAt(0) % colors.length;
@@ -73,10 +73,10 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
                 <ChatTeardropDots weight="duotone" size={24} />
                 <div>
                   <h3 className="font-black uppercase tracking-tighter text-lg leading-none">Chatting</h3>
-                  <p className="text-[10px] uppercase tracking-widest opacity-70">Community Voice</p>
+                  <p className="text-[10px] uppercase tracking-widest opacity-70">Chatting Yuk</p>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
                 className="btn btn-ghost btn-xs btn-circle text-primary hover:bg-primary/10 mt-2"
               >
@@ -85,7 +85,7 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
             </div>
 
             {/* Messages Area */}
-            <div 
+            <div
               ref={scrollRef}
               className="flex-1 overflow-y-auto p-4 space-y-6 custom-scrollbar bg-[radial-gradient(#00000010_1px,transparent_1px)] bg-[size:15px_15px]"
             >
@@ -93,7 +93,7 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
                 <div className="h-full flex flex-col items-center justify-center opacity-20 text-center p-10">
                   <ChatTeardropDots size={48} weight="duotone" />
                   <p className="text-xs uppercase tracking-widest mt-4 leading-relaxed font-bold">
-                    Kosong nih. <br/> Yuk mulai ngobrol!
+                    Kosong nih. <br /> Yuk mulai ngobrol!
                   </p>
                 </div>
               ) : (
@@ -122,25 +122,25 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
             <div className="p-5 bg-white/50 backdrop-blur-sm border-t-2 border-dashed border-black/5">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="relative">
-                  <textarea 
+                  <textarea
                     className="textarea textarea-bordered w-full h-32 bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all text-base resize-none pr-2 custom-scrollbar text-base-content placeholder:opacity-30 !rounded-2xl"
-                    placeholder="Tulis pesan kenangan..."
+                    placeholder="Tulis pesan..."
                     value={newText}
                     onChange={(e) => setNewText(e.target.value)}
                     required
                   ></textarea>
                 </div>
                 <div className="flex gap-3">
-                  <input 
-                    type="text" 
-                    placeholder="Nama Kamu (Opsional)" 
+                  <input
+                    type="text"
+                    placeholder="Nama Kamu (Opsional)"
                     className="input input-bordered flex-1 bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all uppercase tracking-widest text-xs font-black text-base-content !rounded-xl h-12"
                     value={newAuthor}
                     onChange={(e) => setNewAuthor(e.target.value)}
                   />
-                  <button 
-                    type="submit" 
-                    disabled={isSubmitting || !newText.trim()} 
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || !newText.trim()}
                     className="btn btn-primary shadow-lg !rounded-xl px-6 h-12"
                   >
                     {isSubmitting ? (
