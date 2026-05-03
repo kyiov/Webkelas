@@ -20,28 +20,11 @@ const AdminDashboard = ({ isOpen, onClose }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
   
-  const [failedAttempts, setFailedAttempts] = useState(0);
-  const [isLocked, setIsLocked] = useState(false);
-  const [lockTimeLeft, setLockTimeLeft] = useState(0);
-
   useEffect(() => {
     if (authenticated) {
       loadData();
     }
   }, [authenticated]);
-
-  useEffect(() => {
-    let timer;
-    if (isLocked && lockTimeLeft > 0) {
-      timer = setInterval(() => {
-        setLockTimeLeft(prev => prev - 1);
-      }, 1000);
-    } else if (lockTimeLeft === 0) {
-      setIsLocked(false);
-      setFailedAttempts(0);
-    }
-    return () => clearInterval(timer);
-  }, [isLocked, lockTimeLeft]);
 
   const loadData = async () => {
     const [m, g] = await Promise.all([api.getMessages(), api.getGallery()]);
@@ -51,24 +34,15 @@ const AdminDashboard = ({ isOpen, onClose }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (isLocked) return;
-    
     const result = await api.login(password);
     
     if (result.success) {
       setAuthenticated(true);
       localStorage.setItem(SESSION_KEY, 'true');
       setError(false);
-      setFailedAttempts(0);
     } else {
-      const newAttempts = failedAttempts + 1;
-      setFailedAttempts(newAttempts);
       setError(true);
-      setTimeout(() => setError(false), 1000);
-      if (newAttempts >= 5) {
-        setIsLocked(true);
-        setLockTimeLeft(300);
-      }
+      setTimeout(() => setError(false), 2000);
     }
   };
 
@@ -118,7 +92,6 @@ const AdminDashboard = ({ isOpen, onClose }) => {
       setGallery(updated);
     };
     reader.readAsDataURL(file);
-    // Reset file input
     e.target.value = '';
   };
 
@@ -164,25 +137,14 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                     <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
                        <LockSimple weight="duotone" size={40} />
                     </div>
-                    <h2 className="card-title text-2xl font-black uppercase tracking-tighter mb-2">Akses Terbatas</h2>
-                    <p className="text-xs opacity-50 uppercase tracking-widest mb-8">Masukkan kata sandi untuk masuk</p>
+                    <h2 className="card-title text-2xl font-black uppercase tracking-tighter mb-2 text-base-content">Akses Terbatas</h2>
+                    <p className="text-xs opacity-50 uppercase tracking-widest mb-8 text-base-content">Masukkan kata sandi admin</p>
 
                     <form onSubmit={handleLogin} className="w-full space-y-6">
-                      {isLocked ? (
-                        <div className="alert alert-error !rounded-2xl flex flex-col gap-2 p-6 shadow-inner">
-                          <div className="flex items-center gap-2 text-white">
-                             <ShieldCheck weight="bold" size={20} />
-                             <span className="font-bold uppercase text-xs">Sistem Terkunci Otomatis</span>
-                          </div>
-                          <span className="text-[10px] text-white opacity-80 uppercase tracking-widest font-bold italic">
-                            Tunggu: {Math.floor(lockTimeLeft / 60)}:{(lockTimeLeft % 60).toString().padStart(2, '0')}
-                          </span>
-                        </div>
-                      ) : (
                         <>
                           <div className="form-control w-full">
                             <label className="label">
-                              <span className="label-text uppercase text-[10px] font-black tracking-widest opacity-40 ml-2 text-base-content">Kata Sandi Admin</span>
+                              <span className="label-text uppercase text-[10px] font-black tracking-widest opacity-40 ml-2 text-base-content">Kata Sandi</span>
                             </label>
                             <input 
                               type="password"
@@ -192,12 +154,16 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                               className={`input input-bordered w-full bg-base-100/50 border-base-content/10 font-mono text-center text-xl tracking-[0.5em] focus:border-primary !rounded-2xl shadow-inner text-base-content ${error ? 'input-error animate-shake' : ''}`}
                               autoFocus
                             />
+                            {error && (
+                              <label className="label">
+                                <span className="label-text-alt text-error uppercase font-bold tracking-widest">Kata Sandi Salah</span>
+                              </label>
+                            )}
                           </div>
                           <button type="submit" className="btn btn-primary w-full !rounded-2xl uppercase tracking-[0.2em] font-black shadow-lg shadow-primary/20">
-                            Masuk Sekarang
+                            Masuk
                           </button>
                         </>
-                      )}
                     </form>
                  </div>
                </motion.div>
@@ -210,8 +176,8 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                      <ShieldCheck size={20} weight="duotone" />
                   </div>
                   <div className="flex-1">
-                     <h4 className="text-xs font-black uppercase tracking-widest text-primary mb-1">Panduan Singkat</h4>
-                     <p className="text-[10px] leading-relaxed opacity-60">
+                     <h4 className="text-xs font-black uppercase tracking-widest text-primary mb-1 text-base-content">Panduan Singkat</h4>
+                     <p className="text-[10px] leading-relaxed opacity-60 text-base-content">
                         {activeTab === 'messages' 
                           ? 'Gunakan form di bawah untuk menambah pesan kenangan. Klik ikon tempat sampah untuk menghapus.' 
                           : 'Anda bisa menambah foto melalui Link atau pilih langsung dari HP/Laptop. Batas maksimal adalah 15 foto.'}
@@ -235,7 +201,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                   {activeTab === 'messages' ? (
                     <motion.div key="msg" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
                        <div className="bg-base-200 p-6 rounded-[2rem] border border-base-content/5 space-y-4">
-                          <h3 className="text-xs font-black uppercase tracking-widest opacity-40 mb-2">Tambah Pesan Baru</h3>
+                          <h3 className="text-xs font-black uppercase tracking-widest opacity-40 mb-2 text-base-content">Tambah Pesan Baru</h3>
                           <div className="flex flex-col gap-4">
                             <textarea 
                               placeholder="Tulis pesan kenangan di sini..." 
@@ -258,12 +224,12 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                        </div>
 
                        <div className="grid gap-3">
-                          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 px-2">Daftar Pesan ({messages.length})</h3>
+                          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 px-2 text-base-content">Daftar Pesan ({messages.length})</h3>
                           {messages.map(m => (
                             <div key={m.id} className="bg-base-200 border border-base-content/5 p-5 rounded-2xl flex justify-between items-center group hover:border-primary/30 transition-all">
                                <div>
                                   <p className="font-bold text-base-content leading-relaxed">"{m.text}"</p>
-                                  <p className="text-[9px] opacity-40 uppercase tracking-widest mt-2 font-bold">{m.author} &bull; {m.time}</p>
+                                  <p className="text-[9px] opacity-40 uppercase tracking-widest mt-2 font-bold text-base-content">{m.author} &bull; {m.time}</p>
                                </div>
                                <button onClick={() => deleteMessage(m.id)} className="btn btn-ghost btn-circle text-error hover:bg-error/10 opacity-0 group-hover:opacity-100 transition-opacity">
                                   <Trash size={20} weight="bold" />
@@ -275,7 +241,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                   ) : (
                     <motion.div key="gal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
                        <div className="bg-base-200 p-6 rounded-[2rem] border border-base-content/5 space-y-6">
-                          <h3 className="text-xs font-black uppercase tracking-widest opacity-40">Unggah Foto Baru</h3>
+                          <h3 className="text-xs font-black uppercase tracking-widest opacity-40 text-base-content">Unggah Foto Baru</h3>
                           <div className="flex flex-col sm:flex-row gap-4">
                              <div className="join w-full">
                                <input 
@@ -295,7 +261,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                              </div>
                              
                              <div className="flex items-center gap-2">
-                                <div className="divider divider-horizontal mx-0 hidden sm:flex text-[10px] uppercase font-bold opacity-30">ATAU</div>
+                                <div className="divider divider-horizontal mx-0 hidden sm:flex text-[10px] uppercase font-bold opacity-30 text-base-content">ATAU</div>
                                 <input 
                                   type="file" 
                                   className="hidden" 
@@ -306,7 +272,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                                 />
                                 <button 
                                   onClick={() => fileInputRef.current.click()}
-                                  className="btn btn-neutral !rounded-2xl flex-1 sm:flex-none whitespace-nowrap px-6 border-none"
+                                  className="btn btn-neutral !rounded-2xl flex-1 sm:flex-none whitespace-nowrap px-6 border-none text-white"
                                   disabled={gallery.length >= 15}
                                 >
                                    <UploadSimple size={20} weight="bold" className="mr-2" /> Pilih dari HP
@@ -316,9 +282,9 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                        </div>
 
                        <div className="flex items-center justify-between px-2">
-                          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Daftar Aset Foto</h3>
+                          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 text-base-content">Daftar Aset Foto</h3>
                           <div className="flex items-center gap-2">
-                            <span className={`text-[10px] font-bold ${gallery.length >= 15 ? 'text-error' : 'opacity-40'}`}>
+                            <span className={`text-[10px] font-bold ${gallery.length >= 15 ? 'text-error' : 'opacity-40 text-base-content'}`}>
                               {gallery.length} / 15 Foto
                             </span>
                             <div className={`w-2 h-2 rounded-full ${gallery.length >= 15 ? 'bg-error animate-pulse' : 'bg-primary/40'}`}></div>
@@ -339,8 +305,8 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                        </div>
                        {gallery.length === 0 && (
                          <div className="text-center py-20 bg-base-content/5 rounded-3xl border-2 border-dashed border-base-content/10">
-                            <ImageIcon size={48} weight="duotone" className="mx-auto mb-4 opacity-20" />
-                            <p className="text-xs uppercase tracking-[0.3em] opacity-40">Belum ada foto dalam galeri</p>
+                            <ImageIcon size={48} weight="duotone" className="mx-auto mb-4 opacity-20 text-base-content" />
+                            <p className="text-xs uppercase tracking-[0.3em] opacity-40 text-base-content">Belum ada foto dalam galeri</p>
                          </div>
                        )}
                     </motion.div>

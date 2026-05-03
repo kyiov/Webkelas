@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Gallery = () => {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
-  const boardRef = useRef(null);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -22,94 +22,76 @@ const Gallery = () => {
   return (
     <motion.section 
       id="gallery" 
-      className="py-20 relative flex flex-col items-center overflow-hidden bg-base-200/30"
+      ref={sectionRef}
+      className="py-20 relative flex flex-col items-center overflow-x-hidden"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
     >
-      <div className="flex flex-col items-center mb-10 text-center px-4">
+      <div className="flex flex-col items-center mb-16 text-center px-4">
          <div className="badge badge-primary badge-outline mb-6 p-4 font-black uppercase tracking-widest scrapbook-font">
            <Camera weight="duotone" size={16} className="mr-2" /> Gallery
          </div>
-         <h2 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-4 leading-none text-neutral">
-           Papan <span className="text-primary italic font-black">Memori.</span>
+         <h2 className="text-5xl lg:text-7xl font-black tracking-tighter uppercase mb-4 leading-none text-base-content">
+           Koleksi <span className="text-primary italic font-black">Kenangan.</span>
          </h2>
          <div className="flex flex-col items-center gap-2">
-           <p className="max-w-2xl text-xs opacity-60 uppercase tracking-[0.2em] text-neutral font-bold">Geser ke kanan untuk melihat lebih banyak kenangan.</p>
-           <div className="flex items-center gap-2 mt-2 opacity-30 animate-pulse">
-             <ArrowsHorizontal size={20} />
-             <span className="text-[10px] font-bold uppercase tracking-widest">Scroll Horizontal</span>
-           </div>
+           <p className="max-w-2xl text-xs opacity-60 uppercase tracking-[0.2em] text-base-content font-bold">Potongan cerita yang tersimpan rapi.</p>
+           {images.length > 0 && (
+             <span className="badge badge-ghost badge-sm py-3 px-4 rounded-full text-[10px] font-black uppercase tracking-[0.2em] opacity-40 text-base-content">
+               Total {images.length} Foto Terarsip
+             </span>
+           )}
          </div>
       </div>
 
-      {/* Whiteboard Container */}
-      <div className="w-full px-4 md:px-10">
-        <div className="relative mx-auto max-w-[100vw] overflow-x-auto custom-scrollbar-h pb-10 pt-6">
-          {/* The Actual Papan Tulis (Whiteboard) */}
-          <div 
-            ref={boardRef}
-            className="relative min-w-[1400px] h-[500px] bg-white border-[10px] border-[#3d2b1f] rounded-lg shadow-2xl flex items-center px-10"
-            style={{
-              backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)',
-              backgroundSize: '30px 30px',
-              boxShadow: 'inset 0 0 100px rgba(0,0,0,0.05), 0 20px 50px rgba(0,0,0,0.2)'
-            }}
+      {/* Scrapbook Grid Area */}
+      <div 
+        className="grid grid-cols-2 md:grid-cols-2 gap-4 sm:gap-12 px-6 w-full max-w-5xl mx-auto min-h-[400px] relative"
+      >
+        {images.map((img, idx) => (
+          <motion.div
+            key={img.id || idx}
+            drag
+            dragConstraints={sectionRef}
+            dragElastic={0.05}
+            dragMomentum={false}
+            initial={{ opacity: 0, y: 20, rotate: idx % 2 === 0 ? -2 : 2 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            whileHover={{ scale: 1.02, zIndex: 50 }}
+            whileDrag={{ scale: 1.05, zIndex: 100, rotate: 0 }}
+            onTap={() => setSelectedImage(img)}
+            className="paper-card p-3 sm:p-4 irregular-border border-2 border-black/5 shadow-xl cursor-grab active:cursor-grabbing bg-white dark:bg-white relative w-full aspect-[1/1.2] flex flex-col will-change-transform"
           >
-            {/* Whiteboard Header Decoration */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-[#ddd] rounded-full opacity-50"></div>
+            {/* Tape Decoration */}
+            <div className="tape !w-16 sm:!w-24 !h-6 sm:!h-8 !-top-3 sm:!-top-4 !bg-primary/20 !backdrop-blur-none"></div>
             
-            {/* Total Indicator in Board */}
-            <div className="absolute top-6 right-10 flex items-center gap-2">
-               <span className="text-[10px] font-black uppercase tracking-widest opacity-30">Koleksi: {images.length} / 15</span>
-               <div className={`w-3 h-3 rounded-full ${images.length > 12 ? 'bg-error/40' : 'bg-primary/20'}`}></div>
+            {/* Image Container (Polaroid Style) */}
+            <div className="overflow-hidden bg-base-300 flex-1 relative border-2 border-black/5">
+              <img 
+                src={img.src} 
+                alt="Memory" 
+                loading="lazy"
+                className="w-full h-full object-cover pointer-events-none" 
+              />
             </div>
-
-            {/* Render Images as Draggable Sticky Notes/Photos */}
-            {images.map((img, idx) => (
-              <motion.div
-                key={idx}
-                drag
-                dragConstraints={boardRef}
-                dragElastic={0.02}
-                dragMomentum={false}
-                initial={{ 
-                  opacity: 0, 
-                  scale: 0.8,
-                  x: idx * 100 + 50, // More compact spacing
-                  y: (Math.random() * 150) - 75,
-                  rotate: (Math.random() * 10) - 5
-                }}
-                animate={{ opacity: 1, scale: 1 }}
-                whileHover={{ scale: 1.05, zIndex: 50, rotate: 0 }}
-                whileDrag={{ scale: 1.1, zIndex: 100, rotate: 2 }}
-                onTap={() => setSelectedImage(img)}
-                className="absolute paper-card p-2 sm:p-2.5 irregular-border border-2 border-black/5 shadow-lg cursor-grab active:cursor-grabbing bg-white relative w-44 sm:w-56 aspect-[4/3] flex flex-col will-change-transform"
-              >
-                <div className="tape !w-12 sm:!w-20 !h-5 sm:!h-7 !-top-3 sm:!-top-4 !bg-primary/20 !backdrop-blur-none"></div>
-                <div className="overflow-hidden rounded-sm flex-1 bg-gray-100">
-                  <img 
-                    src={img.src} 
-                    alt="Memory" 
-                    loading="lazy"
-                    className="w-full h-full object-cover pointer-events-none" 
-                  />
-                </div>
-                {/* Random Magnets/Pins Decoration */}
-                <div className={`absolute -top-2 -right-2 w-4 h-4 rounded-full shadow-md ${idx % 3 === 0 ? 'bg-red-500' : idx % 3 === 1 ? 'bg-blue-500' : 'bg-yellow-500'}`}></div>
-              </motion.div>
-            ))}
-
-            {/* Empty State */}
-            {images.length === 0 && (
-              <div className="flex-1 flex flex-col items-center justify-center opacity-10">
-                <ImageIcon size={80} weight="thin" />
-                <p className="text-xl font-black uppercase tracking-[0.5em] mt-4">Papan Kosong</p>
-              </div>
-            )}
-          </div>
-        </div>
+            
+            {/* Polaroid Bottom Space */}
+            <div className="h-8 sm:h-12 flex items-center justify-center">
+               <div className="w-1/2 h-1 bg-base-content/5 rounded-full opacity-20"></div>
+            </div>
+          </motion.div>
+        ))}
       </div>
+
+      {/* Empty State */}
+      {images.length === 0 && (
+        <div className="flex flex-col items-center justify-center opacity-20 py-20">
+          <ImageIcon size={64} weight="thin" className="text-base-content" />
+          <p className="text-sm font-black uppercase tracking-widest mt-4 text-base-content">Belum ada foto</p>
+        </div>
+      )}
 
       {/* Image Preview Modal */}
       <AnimatePresence>
@@ -151,5 +133,3 @@ const Gallery = () => {
 };
 
 export default Gallery;
-
-
