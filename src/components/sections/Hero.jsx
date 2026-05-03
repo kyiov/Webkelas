@@ -12,7 +12,7 @@ const Doodle = ({ children, delay = 0, className = "" }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0 }}
     animate={{ 
-      opacity: 0.2, 
+      opacity: 0.25, 
       scale: 1,
       y: [0, -15, 0],
       rotate: [0, 10, -10, 0]
@@ -23,45 +23,64 @@ const Doodle = ({ children, delay = 0, className = "" }) => (
       delay,
       opacity: { duration: 1, delay }
     }}
-    className={`absolute pointer-events-none hidden lg:block ${className}`}
+    className={`absolute pointer-events-none ${className}`}
   >
     {children}
   </motion.div>
 );
 
+// Custom Hand-drawn Scribbles
+const Scribble = ({ delay = 0, className = "", d = "" }) => (
+  <motion.svg
+    viewBox="0 0 100 100"
+    className={`absolute pointer-events-none fill-none stroke-current ${className}`}
+    initial={{ pathLength: 0, opacity: 0 }}
+    animate={{ pathLength: 1, opacity: 0.2 }}
+    transition={{ duration: 2, delay, ease: "easeInOut" }}
+  >
+    <path d={d} strokeWidth="2" strokeLinecap="round" />
+  </motion.svg>
+);
+
 const Hero = () => {
   return (
     <div className="hero min-h-screen relative overflow-hidden bg-[radial-gradient(#00000008_1px,transparent_1px)] bg-[size:25px_25px]">
-      {/* Background Doodles - Many of them to fill the space */}
-      <Doodle className="top-10 left-[5%] text-primary" delay={0.2}>
+      {/* Background Doodles - Now Responsive */}
+      <Doodle className="top-10 left-[5%] text-primary lg:scale-100 scale-75" delay={0.2}>
         <Star size={64} weight="duotone" />
       </Doodle>
-      <Doodle className="top-32 left-[20%] text-secondary" delay={0.8}>
+      <Doodle className="top-32 left-[15%] text-secondary lg:scale-100 scale-50" delay={0.8}>
         <Sparkle size={32} weight="bold" />
       </Doodle>
-      <Doodle className="top-16 right-[15%] text-accent" delay={0.5}>
+      <Doodle className="top-16 right-[10%] text-accent lg:scale-100 scale-75" delay={0.5}>
         <Heart size={56} weight="duotone" />
       </Doodle>
-      <Doodle className="top-40 right-[25%] text-primary" delay={1.2}>
+      <Doodle className="top-1/2 right-[5%] text-primary lg:scale-100 scale-75" delay={1.2}>
         <PaperPlaneTilt size={48} weight="duotone" />
       </Doodle>
-      <Doodle className="top-60 left-[10%] text-secondary/60" delay={1.5}>
-        <PencilLine size={40} weight="duotone" />
-      </Doodle>
-      <Doodle className="bottom-60 right-[5%] text-accent/60" delay={2}>
-        <MusicNotes size={52} weight="duotone" />
-      </Doodle>
-      <Doodle className="bottom-20 left-[15%] text-primary/40" delay={2.5}>
+      
+      {/* Hand-drawn Scribbles (SVG Paths) */}
+      <Scribble 
+        className="top-[15%] left-[30%] w-24 h-24 text-primary rotate-12"
+        delay={1}
+        d="M10,50 Q40,10 90,50" // Simple Curve
+      />
+      <Scribble 
+        className="bottom-[20%] right-[30%] w-32 h-32 text-secondary -rotate-12"
+        delay={1.5}
+        d="M20,20 C50,80 80,20 90,90" // Zigzag/Arrowish
+      />
+      <Scribble 
+        className="top-1/2 left-[20%] w-20 h-20 text-accent opacity-10"
+        delay={2}
+        d="M50,10 A40,40 0 1,1 49,10" // Circle
+      />
+
+      <Doodle className="bottom-20 left-[10%] text-primary/40 lg:scale-100 scale-75" delay={2.5}>
         <Smiley size={44} weight="duotone" />
       </Doodle>
-      <Doodle className="bottom-32 right-[20%] text-secondary/40" delay={3}>
+      <Doodle className="bottom-32 right-[15%] text-secondary/40 lg:scale-100 scale-75" delay={3}>
         <Trophy size={40} weight="duotone" />
-      </Doodle>
-      <Doodle className="top-1/2 left-[5%] -translate-y-1/2 text-accent/30" delay={1}>
-        <Palette size={48} weight="duotone" />
-      </Doodle>
-      <Doodle className="top-1/4 right-[5%] text-primary/30" delay={0.3}>
-        <Sticker size={60} weight="duotone" />
       </Doodle>
 
       <div className="hero-content text-center relative z-10">
