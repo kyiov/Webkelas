@@ -119,7 +119,7 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
               <form onSubmit={handleSubmit} className="space-y-3">
                 <div className="relative">
                   <textarea 
-                    className="textarea textarea-bordered w-full h-20 bg-white border-2 border-black/5 focus:border-primary transition-all text-sm resize-none pr-10 custom-scrollbar text-neutral-800 placeholder:opacity-30"
+                    className="textarea textarea-bordered w-full h-20 bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all text-sm resize-none pr-10 custom-scrollbar text-base-content placeholder:opacity-30"
                     placeholder="Tulis pesan rahasia..."
                     value={newText}
                     onChange={(e) => setNewText(e.target.value)}
@@ -136,7 +136,7 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
                 <input 
                   type="text" 
                   placeholder="Nama Kamu (Opsional)" 
-                  className="input input-bordered input-xs w-full bg-white border-2 border-black/5 focus:border-primary transition-all uppercase tracking-widest text-[10px] font-black text-neutral-800"
+                  className="input input-bordered input-xs w-full bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all uppercase tracking-widest text-[10px] font-black text-base-content"
                   value={newAuthor}
                   onChange={(e) => setNewAuthor(e.target.value)}
                 />

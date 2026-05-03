@@ -24,10 +24,10 @@ const Footer = () => {
       
       <nav>
         <div className="grid grid-flow-col gap-4">
-          <a href={CLASS_META.ig} target="_blank" rel="noreferrer" className="btn btn-ghost btn-circle btn-sm text-muted hover:text-primary transition-all">
+          <a href={CLASS_META.ig} target="_blank" rel="noreferrer" className="btn btn-ghost btn-circle btn-sm opacity-60 hover:opacity-100 hover:text-primary transition-all">
             <InstagramLogo size={22} weight="duotone" />
           </a>
-          <a href={CLASS_META.tiktok} target="_blank" rel="noreferrer" className="btn btn-ghost btn-circle btn-sm text-muted hover:text-primary transition-all">
+          <a href={CLASS_META.tiktok} target="_blank" rel="noreferrer" className="btn btn-ghost btn-circle btn-sm opacity-60 hover:opacity-100 hover:text-primary transition-all">
             <TiktokLogo size={22} weight="duotone" />
           </a>
         </div>
