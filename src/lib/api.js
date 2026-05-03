@@ -29,13 +29,13 @@ export const api = {
     }
   },
 
-  async saveMessage(text, author) {
+  async saveMessage(text, author, replyTo = null) {
     const authorName = author || 'Anonim';
     try {
       const response = await fetch(`${API_URL}/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, author: authorName })
+        body: JSON.stringify({ text, author: authorName, replyTo })
       });
       if (!response.ok) throw new Error('Backend save failed');
       return this.getMessages();
@@ -46,6 +46,8 @@ export const api = {
         id: Date.now(), 
         text, 
         author: authorName, 
+        replyTo,
+        reactions: {},
         time: new Date().toLocaleString('id-ID', { 
           day: '2-digit', 
           month: 'short', 
@@ -55,6 +57,31 @@ export const api = {
         }) 
       };
       const updated = [newMessage, ...local];
+      localStorage.setItem('webkelas_messages', JSON.stringify(updated));
+      return updated;
+    }
+  },
+
+  async addReaction(id, emoji) {
+    try {
+      const response = await fetch(`${API_URL}/messages/${id}/react`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ emoji })
+      });
+      if (!response.ok) throw new Error('Reaction failed');
+      return this.getMessages();
+    } catch (e) {
+      console.warn("Backend reaction failed, fallback local");
+      const local = JSON.parse(localStorage.getItem('webkelas_messages') || '[]');
+      const updated = local.map(m => {
+        if (m.id === id) {
+          const rx = m.reactions || {};
+          rx[emoji] = (rx[emoji] || 0) + 1;
+          return { ...m, reactions: rx };
+        }
+        return m;
+      });
       localStorage.setItem('webkelas_messages', JSON.stringify(updated));
       return updated;
     }

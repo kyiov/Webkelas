@@ -26,7 +26,13 @@ db.query("LAHAN admin");
 app.get('/api/messages', (req, res) => {
   try {
     const data = db.query("PANEN * DARI messages URUTKAN BERDASARKAN id TURUN");
-    res.json(Array.isArray(data) ? data : []);
+    // Parse JSON fields if they exist as strings
+    const parsedData = (Array.isArray(data) ? data : []).map(m => ({
+      ...m,
+      replyTo: m.replyTo ? JSON.parse(m.replyTo) : null,
+      reactions: m.reactions ? JSON.parse(m.reactions) : {}
+    }));
+    res.json(parsedData);
   } catch (error) {
     console.error("Fetch messages error:", error);
     res.status(500).json({ error: error.message });
@@ -34,19 +40,44 @@ app.get('/api/messages', (req, res) => {
 });
 
 app.post('/api/messages', (req, res) => {
-  const { text, author } = req.body;
+  const { text, author, replyTo } = req.body;
   const time = new Date().toLocaleString('id-ID', { 
     day: '2-digit', month: 'short', year: 'numeric', 
     hour: '2-digit', minute: '2-digit' 
   });
   
   try {
-    // Generate a simple numeric ID for sorting
     const id = Date.now();
-    db.query("TANAM KE messages (id, text, author, time) BIBIT (?, ?, ?, ?)", [id, text, author, time]);
-    res.json({ id, text, author, time });
+    const replyToStr = replyTo ? JSON.stringify(replyTo) : null;
+    const reactionsStr = JSON.stringify({});
+    db.query("TANAM KE messages (id, text, author, time, replyTo, reactions) BIBIT (?, ?, ?, ?, ?, ?)", [id, text, author, time, replyToStr, reactionsStr]);
+    res.json({ id, text, author, time, replyTo, reactions: {} });
   } catch (error) {
     console.error("Save message error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/messages/:id/react', (req, res) => {
+  const { id } = req.params;
+  const { emoji } = req.body;
+  try {
+    const data = db.query("PANEN * DARI messages DIMANA id = ?", [id]);
+    if (!data || data.length === 0) return res.status(404).json({ error: 'Message not found' });
+    
+    const msg = data[0];
+    const reactions = msg.reactions ? JSON.parse(msg.reactions) : {};
+    reactions[emoji] = (reactions[emoji] || 0) + 1;
+    
+    // Simulate update by delete + insert to preserve simple AQL usage
+    db.query("GUSUR DARI messages DIMANA id = ?", [id]);
+    db.query("TANAM KE messages (id, text, author, time, replyTo, reactions) BIBIT (?, ?, ?, ?, ?, ?)", 
+      [msg.id, msg.text, msg.author, msg.time, msg.replyTo, JSON.stringify(reactions)]
+    );
+    
+    res.json({ success: true, reactions });
+  } catch (error) {
+    console.error("React message error:", error);
     res.status(500).json({ error: error.message });
   }
 });
