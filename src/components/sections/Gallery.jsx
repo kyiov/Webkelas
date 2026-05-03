@@ -49,7 +49,10 @@ const Gallery = () => {
       <div
         className="grid grid-cols-2 md:grid-cols-2 gap-4 sm:gap-12 px-6 w-full max-w-5xl mx-auto min-h-[400px] relative"
       >
-        {images.map((img, idx) => (
+        {images.map((img, idx) => {
+          const tapeColors = ['bg-primary/30', 'bg-secondary/30', 'bg-accent/30', 'bg-info/30', 'bg-warning/30'];
+          const tapeColor = tapeColors[idx % tapeColors.length];
+          return (
           <motion.div
             key={img.id || idx}
             drag
@@ -65,7 +68,7 @@ const Gallery = () => {
             className="paper-card p-3 sm:p-4 irregular-border border-2 border-black/5 shadow-xl cursor-grab active:cursor-grabbing bg-white dark:bg-white relative w-full aspect-[1/1.2] flex flex-col will-change-transform"
           >
             {/* Tape Decoration */}
-            <div className="tape !w-16 sm:!w-24 !h-6 sm:!h-8 !-top-3 sm:!-top-4 !bg-primary/20 !backdrop-blur-none"></div>
+            <div className={`tape !w-16 sm:!w-24 !h-6 sm:!h-8 !-top-3 sm:!-top-4 !backdrop-blur-none ${tapeColor}`}></div>
 
             {/* Decorative Doodles on Card */}
             <div className="absolute top-2 right-2 text-primary/30 rotate-12 pointer-events-none">
@@ -105,7 +108,7 @@ const Gallery = () => {
               <div className="w-1/2 h-1 bg-base-content/5 rounded-full opacity-20"></div>
             </div>
           </motion.div>
-        ))}
+        )})}
       </div>
 
       {/* Empty State */}
@@ -116,7 +119,7 @@ const Gallery = () => {
         </div>
       )}
 
-      {/* Image Preview Modal */}
+      {/* Image Preview Modal (Notebook Style) */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -127,25 +130,33 @@ const Gallery = () => {
             onClick={() => setSelectedImage(null)}
           >
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="relative max-w-4xl w-full flex items-center justify-center"
+              initial={{ scale: 0.8, opacity: 0, rotate: -2 }}
+              animate={{ scale: 1, opacity: 1, rotate: 0 }}
+              exit={{ scale: 0.8, opacity: 0, rotate: 2 }}
+              className="relative max-w-4xl w-full flex flex-col items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute -top-12 right-0 text-white hover:text-primary transition-colors p-2"
+                className="absolute -top-12 right-0 text-white hover:text-primary transition-colors p-2 z-50"
                 onClick={() => setSelectedImage(null)}
               >
                 <X size={32} weight="bold" />
               </button>
 
-              <div className="paper-card p-2 sm:p-4 irregular-border border-4 border-white shadow-2xl bg-white">
+              {/* Notebook Paper Styling */}
+              <div className="paper-card p-6 pb-12 sm:p-10 sm:pb-16 irregular-border border-4 border-white shadow-2xl bg-[#fdfbf7] bg-[linear-gradient(transparent_95%,#e5e5e5_95%)] bg-[length:100%_2rem] relative max-h-[90vh] overflow-y-auto custom-scrollbar w-full flex flex-col items-center">
+                {/* Washi tape holding the photo to the notebook */}
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-40 h-10 bg-primary/20 backdrop-blur-md -rotate-2 shadow-sm border border-primary/10 z-10"></div>
+
                 <img
                   src={selectedImage.src}
-                  alt="Image Preview"
-                  className="max-h-[85vh] w-auto object-contain rounded-sm"
+                  alt="Memory Preview"
+                  className="max-h-[65vh] w-auto object-contain rounded-sm border border-base-content/10 shadow-inner mt-4 relative z-0"
                 />
+
+                <p className="text-center scrapbook-font mt-8 text-3xl opacity-80 uppercase tracking-widest font-black">
+                  {selectedImage.title || 'Sweet Memory'}
+                </p>
               </div>
             </motion.div>
           </motion.div>

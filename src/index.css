@@ -16,6 +16,11 @@
     min-height: 100vh;
     background-image: radial-gradient(var(--fallback-bc,oklch(var(--bc)/0.03)) 1px, transparent 1px);
     background-size: 20px 20px;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size: 24px'><text y='24'>✏️</text></svg>") 0 24, auto;
+  }
+
+  a, button, input, select, textarea, [role="button"], .cursor-pointer {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size: 24px'><text y='24'>👆</text></svg>") 12 0, pointer !important;
   }
 
 /* Scrapbook Utilities */
