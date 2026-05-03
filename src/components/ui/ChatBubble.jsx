@@ -64,7 +64,7 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            className="w-[320px] sm:w-[380px] h-[500px] paper-card irregular-border border-2 border-black/5 shadow-2xl flex flex-col overflow-hidden scrapbook-font pointer-events-auto"
+            className="w-[380px] sm:w-[500px] h-[700px] paper-card irregular-border border-2 border-black/5 shadow-2xl flex flex-col overflow-hidden scrapbook-font pointer-events-auto"
           >
             {/* Header */}
             <div className="p-4 bg-primary/10 text-primary flex items-center justify-between border-b-2 border-dashed border-primary/20 relative">
@@ -104,13 +104,13 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
                         <UserCircle size={20} weight="duotone" />
                       </div>
                     </div>
-                    <div className="chat-header opacity-50 text-[10px] mb-1 uppercase tracking-widest font-black">
+                    <div className="chat-header opacity-50 text-[12px] mb-1 uppercase tracking-widest font-black">
                       {m.author}
                     </div>
-                    <div className={`chat-bubble text-sm shadow-md py-2 px-4 min-h-0 irregular-border border border-black/5 ${idx % 2 === 0 ? 'bg-white text-neutral rotate-1' : 'bg-primary text-white -rotate-1'}`}>
+                    <div className={`chat-bubble text-base shadow-md py-3 px-5 min-h-0 irregular-border border border-black/5 ${idx % 2 === 0 ? 'bg-white text-neutral rotate-1' : 'bg-primary text-white -rotate-1'}`}>
                       {m.text}
                     </div>
-                    <div className="chat-footer opacity-40 text-[9px] uppercase tracking-tighter mt-1 font-bold italic">
+                    <div className="chat-footer opacity-40 text-[10px] uppercase tracking-tighter mt-1 font-bold italic">
                       {m.time}
                     </div>
                   </div>
@@ -119,29 +119,29 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-white/50 backdrop-blur-sm border-t-2 border-dashed border-black/5">
-              <form onSubmit={handleSubmit} className="space-y-3">
+            <div className="p-5 bg-white/50 backdrop-blur-sm border-t-2 border-dashed border-black/5">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="relative">
                   <textarea 
-                    className="textarea textarea-bordered w-full h-24 bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all text-sm resize-none pr-2 custom-scrollbar text-base-content placeholder:opacity-30 !rounded-2xl"
+                    className="textarea textarea-bordered w-full h-32 bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all text-base resize-none pr-2 custom-scrollbar text-base-content placeholder:opacity-30 !rounded-2xl"
                     placeholder="Tulis pesan kenangan..."
                     value={newText}
                     onChange={(e) => setNewText(e.target.value)}
                     required
                   ></textarea>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <input 
                     type="text" 
                     placeholder="Nama Kamu (Opsional)" 
-                    className="input input-bordered flex-1 bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all uppercase tracking-widest text-[10px] font-black text-base-content !rounded-xl"
+                    className="input input-bordered flex-1 bg-base-100 border-2 border-base-content/5 focus:border-primary transition-all uppercase tracking-widest text-xs font-black text-base-content !rounded-xl h-12"
                     value={newAuthor}
                     onChange={(e) => setNewAuthor(e.target.value)}
                   />
                   <button 
                     type="submit" 
                     disabled={isSubmitting || !newText.trim()} 
-                    className="btn btn-primary shadow-lg !rounded-xl px-4"
+                    className="btn btn-primary shadow-lg !rounded-xl px-6 h-12"
                   >
                     {isSubmitting ? (
                       <span className="loading loading-spinner loading-xs"></span>
