@@ -27,4 +27,6 @@ dist-ssr
 .env.local
 api/database.sqlite
 database.sqlite
-SUPABASE_SETUP.sql
+api/database.sawit
+database.sawit
+*.sawit
