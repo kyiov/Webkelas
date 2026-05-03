@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../../lib/api';
 import { GALLERY_IMAGES } from '../../lib/constants';
-import { Camera, X, ArrowsHorizontal, Image as ImageIcon } from '@phosphor-icons/react';
+import { Camera, X, ArrowsHorizontal, Image as ImageIcon, Star, Heart, Sparkle, Smiley } from '@phosphor-icons/react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Gallery = () => {
@@ -66,6 +66,29 @@ const Gallery = () => {
           >
             {/* Tape Decoration */}
             <div className="tape !w-16 sm:!w-24 !h-6 sm:!h-8 !-top-3 sm:!-top-4 !bg-primary/20 !backdrop-blur-none"></div>
+            
+            {/* Decorative Doodles on Card */}
+            <div className="absolute top-2 right-2 text-primary/30 rotate-12 pointer-events-none">
+              <Star size={16} weight="fill" />
+            </div>
+
+            {idx % 2 === 0 && (
+              <div className="absolute -bottom-1 -left-1 text-secondary/40 -rotate-12 pointer-events-none scale-125">
+                <Heart size={20} weight="fill" />
+              </div>
+            )}
+
+            {idx % 3 === 0 && (
+              <div className="absolute top-1/2 -right-3 text-accent/30 rotate-45 pointer-events-none">
+                <Sparkle size={24} weight="bold" />
+              </div>
+            )}
+
+            {idx % 5 === 0 && (
+              <div className="absolute top-8 left-2 text-primary/20 pointer-events-none -rotate-6">
+                <Smiley size={18} weight="duotone" />
+              </div>
+            )}
             
             {/* Image Container (Polaroid Style) */}
             <div className="overflow-hidden bg-base-300 flex-1 relative border-2 border-black/5">
