@@ -108,32 +108,6 @@ const Hero = () => {
             Graduation Class of {CLASS_META.graduationYear}
           </div>
           
-          <div className="flex flex-col lg:flex-row gap-4 justify-center items-center">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.2 }}
-              className="stats shadow-2xl bg-base-100/40 backdrop-blur-xl border-2 border-white/10 text-base-content !rounded-[3rem] p-3 overflow-hidden relative"
-            >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent opacity-50"></div>
-              
-              <div className="stat place-items-center px-12">
-                <div className="stat-title text-[10px] font-black uppercase tracking-widest opacity-40">Members</div>
-                <div className="stat-value text-primary text-5xl font-black tracking-tighter">36</div>
-              </div>
-              
-              <div className="stat place-items-center border-x-2 border-base-content/5 px-12">
-                <div className="stat-title text-[10px] font-black uppercase tracking-widest opacity-40">Laki-laki</div>
-                <div className="stat-value text-primary text-5xl font-black tracking-tighter">16</div>
-              </div>
-              
-              <div className="stat place-items-center px-12">
-                <div className="stat-title text-[10px] font-black uppercase tracking-widest opacity-40">Perempuan</div>
-                <div className="stat-value text-secondary text-5xl font-black tracking-tighter">20</div>
-              </div>
-            </motion.div>
-          </div>
-
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.4 }}
