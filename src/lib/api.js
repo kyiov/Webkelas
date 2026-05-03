@@ -2,6 +2,22 @@
 const API_URL = import.meta.env.PROD ? '/api' : 'http://localhost:3001/api';
 
 export const api = {
+  async login(password) {
+    try {
+      const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+      return await response.json();
+    } catch (e) {
+      // Fallback untuk local development jika backend tidak jalan
+      console.warn("Backend login failed, using fallback check");
+      const ADMIN_PASS = 'xiia1Smansa2326#';
+      return { success: password === ADMIN_PASS };
+    }
+  },
+
   async getMessages() {
     try {
       const response = await fetch(`${API_URL}/messages`);
@@ -68,7 +84,12 @@ export const api = {
       return this.getGallery();
     } catch (e) {
       const local = JSON.parse(localStorage.getItem('webkelas_gallery') || '[]');
-      const updated = [{ src, title }, ...local];
+      const newImage = { 
+        id: Date.now() + Math.random(), 
+        src, 
+        title 
+      };
+      const updated = [newImage, ...local];
       localStorage.setItem('webkelas_gallery', JSON.stringify(updated));
       return updated;
     }
