@@ -13,22 +13,22 @@ import ChatBubble from './components/ui/ChatBubble';
 import { CLASS_META } from './lib/constants';
 
 const Textures = () => (
-  <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-[0.03] mix-blend-multiply dark:mix-blend-overlay">
+  <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-10 mix-blend-multiply dark:mix-blend-screen">
     {/* Coffee Ring 1 */}
-    <svg className="absolute top-[-5%] right-[-5%] w-64 h-64 rotate-12" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="40" fill="none" stroke="#4a3b32" strokeWidth="3" strokeDasharray="4 2 8 4 15 5" opacity="0.8" />
-      <circle cx="48" cy="52" r="38" fill="none" stroke="#4a3b32" strokeWidth="1.5" strokeDasharray="10 5" opacity="0.5" />
+    <svg className="absolute top-[-2%] right-[-10%] sm:top-[-5%] sm:right-[-5%] w-48 h-48 sm:w-64 sm:h-64 rotate-12" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" fill="none" stroke="#8B4513" strokeWidth="3" strokeDasharray="4 2 8 4 15 5" opacity="0.8" />
+      <circle cx="48" cy="52" r="38" fill="none" stroke="#8B4513" strokeWidth="1.5" strokeDasharray="10 5" opacity="0.5" />
     </svg>
     {/* Ink Splatter */}
-    <svg className="absolute top-[40%] left-[5%] w-32 h-32 -rotate-12" viewBox="0 0 100 100">
-      <path d="M40,50 Q45,30 60,40 T70,60 T40,50 Z" fill="#1a1a1a" />
-      <circle cx="30" cy="30" r="3" fill="#1a1a1a" />
-      <circle cx="75" cy="35" r="2" fill="#1a1a1a" />
-      <circle cx="65" cy="75" r="4" fill="#1a1a1a" />
+    <svg className="absolute top-[30%] left-[-5%] sm:top-[40%] sm:left-[5%] w-24 h-24 sm:w-32 sm:h-32 -rotate-12" viewBox="0 0 100 100">
+      <path d="M40,50 Q45,30 60,40 T70,60 T40,50 Z" fill="currentColor" />
+      <circle cx="30" cy="30" r="3" fill="currentColor" />
+      <circle cx="75" cy="35" r="2" fill="currentColor" />
+      <circle cx="65" cy="75" r="4" fill="currentColor" />
     </svg>
     {/* Coffee Ring 2 */}
-    <svg className="absolute bottom-[10%] right-[15%] w-48 h-48 -rotate-45" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="45" fill="none" stroke="#4a3b32" strokeWidth="4" strokeDasharray="20 10 5 5" opacity="0.6" />
+    <svg className="absolute bottom-[5%] right-[5%] sm:bottom-[10%] sm:right-[15%] w-32 h-32 sm:w-48 sm:h-48 -rotate-45" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" fill="none" stroke="#8B4513" strokeWidth="4" strokeDasharray="20 10 5 5" opacity="0.6" />
     </svg>
   </div>
 );
@@ -78,12 +78,12 @@ const App = () => {
     <div className="min-h-screen bg-base-100 selection:bg-primary selection:text-primary-content scrapbook-font overflow-x-hidden pb-32">
       <Textures />
       
-      {/* Scroll-Triggered Scribble Line */}
-      <svg className="fixed top-0 left-[2%] lg:left-[5%] w-12 h-full pointer-events-none z-[1] opacity-20 hidden md:block">
+      {/* Scroll-Triggered Scribble Line - Now visible on mobile */}
+      <svg className="fixed top-0 left-[-2%] sm:left-[2%] lg:left-[5%] w-10 sm:w-12 h-full pointer-events-none z-[1] opacity-30">
         <motion.path
           d="M 20 0 Q 40 200 20 400 T 20 800 T 20 1200 T 20 1600 T 20 2000 T 20 2400 T 20 2800 T 20 3200"
           style={{ pathLength: scaleY }}
-          className="stroke-primary stroke-[3px] fill-none"
+          className="stroke-primary stroke-[2px] sm:stroke-[3px] fill-none"
           strokeLinecap="round"
         />
       </svg>
