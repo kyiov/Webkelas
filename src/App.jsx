@@ -22,7 +22,7 @@ const App = () => {
   useEffect(() => {
     setMounted(true);
     const handleHashChange = () => {
-      if (window.location.hash === '#/admin') {
+      if (window.location.hash === '/admin') {
         setIsAdminOpen(true);
         window.history.replaceState(null, '', window.location.pathname + window.location.search);
       }
