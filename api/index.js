@@ -11,59 +11,16 @@ const PORT = process.env.PORT || 3001;
 const DB_PATH = './database.sawit';
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' })); // Increase limit for base64 images
 
 // Initialize SawitDB
 const db = new SawitDB(DB_PATH);
 
-// Setup Tables using AQL
+// Setup Tables with clear structure if possible
+// SawitDB LAHAN usually creates a table if it doesn't exist
 db.query("LAHAN messages");
 db.query("LAHAN gallery");
 db.query("LAHAN admin");
-
-// Robust check for admin initialization
-const setupAdmin = () => {
-  try {
-    const check = db.query("PANEN * DARI admin HANYA 1");
-    if (!check || check.length === 0) {
-      console.log("Initializing admin password from environment...");
-      const adminPass = process.env.VITE_ADMIN_PASSWORD || 'xiia1Smansa2326#';
-      const salt = bcrypt.genSaltSync(10);
-      const hash = bcrypt.hashSync(adminPass, salt);
-      db.query("TANAM KE admin (password_hash) BIBIT (?)", [hash]);
-    }
-  } catch (e) {
-    console.error("Admin init error:", e);
-  }
-};
-setupAdmin();
-
-// Auth API
-app.post('/api/login', async (req, res) => {
-  const { password } = req.body;
-  try {
-    const results = db.query("PANEN password_hash DARI admin HANYA 1");
-    
-    if (!results || results.length === 0) {
-      // Fallback jika database admin kosong entah kenapa
-      const adminPass = process.env.VITE_ADMIN_PASSWORD || 'xiia1Smansa2326#';
-      if (password === adminPass) return res.json({ success: true });
-      return res.status(401).json({ success: false, message: 'Admin belum terdaftar.' });
-    }
-
-    const hash = results[0].password_hash;
-    const match = await bcrypt.compare(password, hash);
-    
-    if (match) {
-      res.json({ success: true, message: 'Akses diterima!' });
-    } else {
-      res.status(401).json({ success: false, message: 'Kata sandi salah.' });
-    }
-  } catch (err) {
-    console.error("Login error:", err);
-    res.status(500).json({ error: err.message });
-  }
-});
 
 // API Routes
 app.get('/api/messages', (req, res) => {
@@ -71,6 +28,7 @@ app.get('/api/messages', (req, res) => {
     const data = db.query("PANEN * DARI messages URUTKAN BERDASARKAN id TURUN");
     res.json(Array.isArray(data) ? data : []);
   } catch (error) {
+    console.error("Fetch messages error:", error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -83,19 +41,22 @@ app.post('/api/messages', (req, res) => {
   });
   
   try {
-    db.query("TANAM KE messages (text, author, time) BIBIT (?, ?, ?)", [text, author, time]);
-    const last = db.query("PANEN * DARI messages URUTKAN BERDASARKAN id TURUN HANYA 1");
-    res.json(last[0]);
+    // Generate a simple numeric ID for sorting
+    const id = Date.now();
+    db.query("TANAM KE messages (id, text, author, time) BIBIT (?, ?, ?, ?)", [id, text, author, time]);
+    res.json({ id, text, author, time });
   } catch (error) {
+    console.error("Save message error:", error);
     res.status(500).json({ error: error.message });
   }
 });
 
 app.get('/api/gallery', (req, res) => {
   try {
-    const data = db.query("PANEN * DARI gallery");
+    const data = db.query("PANEN * DARI gallery URUTKAN BERDASARKAN id TURUN");
     res.json(Array.isArray(data) ? data : []);
   } catch (error) {
+    console.error("Fetch gallery error:", error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -103,10 +64,11 @@ app.get('/api/gallery', (req, res) => {
 app.post('/api/gallery', (req, res) => {
   const { src, title } = req.body;
   try {
-    db.query("TANAM KE gallery (src, title) BIBIT (?, ?)", [src, title]);
-    const last = db.query("PANEN * DARI gallery URUTKAN BERDASARKAN id TURUN HANYA 1");
-    res.json(last[0]);
+    const id = Date.now();
+    db.query("TANAM KE gallery (id, src, title) BIBIT (?, ?, ?)", [id, src, title]);
+    res.json({ id, src, title });
   } catch (error) {
+    console.error("Save gallery error:", error);
     res.status(500).json({ error: error.message });
   }
 });

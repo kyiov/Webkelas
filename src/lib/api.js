@@ -30,25 +30,22 @@ export const api = {
   },
 
   async saveMessage(text, author) {
+    const authorName = author || 'Anonim';
     try {
       const response = await fetch(`${API_URL}/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, author })
+        body: JSON.stringify({ text, author: authorName })
       });
-      const data = await response.json();
-      
-      // Also sync to local for offline/fallback support
-      const local = JSON.parse(localStorage.getItem('webkelas_messages') || '[]');
-      localStorage.setItem('webkelas_messages', JSON.stringify([data, ...local]));
-      
+      if (!response.ok) throw new Error('Backend save failed');
       return this.getMessages();
     } catch (e) {
+      console.warn("Backend save failed, using localStorage fallback");
       const local = JSON.parse(localStorage.getItem('webkelas_messages') || '[]');
       const newMessage = { 
         id: Date.now(), 
         text, 
-        author, 
+        author: authorName, 
         time: new Date().toLocaleString('id-ID', { 
           day: '2-digit', 
           month: 'short', 
@@ -68,7 +65,9 @@ export const api = {
       const response = await fetch(`${API_URL}/gallery`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
-      return data.length > 0 ? data : JSON.parse(localStorage.getItem('webkelas_gallery') || '[]');
+      // If backend is empty but localStorage has data, sync them? 
+      // For now just prefer backend if it returns something
+      return data;
     } catch (e) {
       return JSON.parse(localStorage.getItem('webkelas_gallery') || '[]');
     }
@@ -81,8 +80,10 @@ export const api = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ src, title })
       });
+      if (!response.ok) throw new Error('Backend upload failed');
       return this.getGallery();
     } catch (e) {
+      console.warn("Backend upload failed, using localStorage");
       const local = JSON.parse(localStorage.getItem('webkelas_gallery') || '[]');
       const newImage = { 
         id: Date.now() + Math.random(), 

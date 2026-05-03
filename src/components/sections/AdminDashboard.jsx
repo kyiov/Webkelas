@@ -9,10 +9,10 @@ import {
 import { api } from '../../lib/api';
 
 const AdminDashboard = ({ isOpen, onClose }) => {
-  const [activeTab, setActiveTab] = useState('messages');
+  const [activeTab, setActiveTab] = useState('gallery');
   const [messages, setMessages] = useState([]);
   const [gallery, setGallery] = useState([]);
-  const [newItem, setNewItem] = useState({ text: '', author: '', src: '', title: '' });
+  const [newItem, setNewItem] = useState({ src: '', title: '' });
   const fileInputRef = useRef(null);
   
   const SESSION_KEY = '_session_verify_v1_xiia1';
@@ -52,23 +52,11 @@ const AdminDashboard = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  const addMessage = async () => {
-    if (!newItem.text) return;
-    const updated = await api.saveMessage(newItem.text, newItem.author || 'Anonim');
-    setMessages(updated);
-    setNewItem({ ...newItem, text: '', author: '' });
-  };
-
-  const deleteMessage = async (id) => {
-    const updated = await api.deleteMessage(id);
-    setMessages(updated);
-  };
-
   const addGallery = async () => {
     if (!newItem.src) return;
-    const updated = await api.addImage(newItem.src, 'Memory');
+    const updated = await api.addImage(newItem.src, newItem.title || 'Memory');
     setGallery(updated);
-    setNewItem({ ...newItem, src: '' });
+    setNewItem({ ...newItem, src: '', title: '' });
   };
 
   const deleteGallery = async (id) => {
@@ -88,7 +76,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
     const reader = new FileReader();
     reader.onloadend = async () => {
       const base64String = reader.result;
-      const updated = await api.addImage(base64String, 'Memory');
+      const updated = await api.addImage(base64String, file.name);
       setGallery(updated);
     };
     reader.readAsDataURL(file);
@@ -108,7 +96,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
             </div>
             <div>
               <h2 className="text-2xl font-black uppercase tracking-tighter text-base-content">Panel Kontrol</h2>
-              <p className="text-[8px] uppercase tracking-[0.4em] opacity-40 text-base-content">Pengaturan Website XII A1</p>
+              <p className="text-[8px] uppercase tracking-[0.4em] opacity-40 text-base-content">Pengaturan Galeri XII A1</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -176,21 +164,16 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                      <ShieldCheck size={20} weight="duotone" />
                   </div>
                   <div className="flex-1">
-                     <h4 className="text-xs font-black uppercase tracking-widest text-primary mb-1 text-base-content">Panduan Singkat</h4>
+                     <h4 className="text-xs font-black uppercase tracking-widest text-primary mb-1 text-base-content">Panduan Galeri</h4>
                      <p className="text-[10px] leading-relaxed opacity-60 text-base-content">
-                        {activeTab === 'messages' 
-                          ? 'Gunakan form di bawah untuk menambah pesan kenangan. Klik ikon tempat sampah untuk menghapus.' 
-                          : 'Anda bisa menambah foto melalui Link atau pilih langsung dari HP/Laptop. Batas maksimal adalah 15 foto.'}
+                        Anda bisa menambah foto melalui Link atau pilih langsung dari HP/Laptop. Batas maksimal adalah 15 foto.
                      </p>
                   </div>
                </div>
 
                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                   <div className="tabs tabs-boxed bg-base-content/5 p-1 !rounded-2xl border border-base-content/5">
-                    <button onClick={() => setActiveTab('messages')} className={`tab !rounded-xl transition-all ${activeTab === 'messages' ? 'tab-active !bg-primary !text-white' : 'text-base-content'}`}>
-                      <ChatTeardropDots weight="bold" className="mr-2" /> Kelola Pesan
-                    </button>
-                    <button onClick={() => setActiveTab('gallery')} className={`tab !rounded-xl transition-all ${activeTab === 'gallery' ? 'tab-active !bg-primary !text-white' : 'text-base-content'}`}>
+                    <button className="tab tab-active !rounded-xl !bg-primary !text-white">
                       <ImageIcon weight="bold" className="mr-2" /> Kelola Galeri
                     </button>
                   </div>
@@ -198,48 +181,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                </div>
 
                <AnimatePresence mode="wait">
-                  {activeTab === 'messages' ? (
-                    <motion.div key="msg" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
-                       <div className="bg-base-200 p-6 rounded-[2rem] border border-base-content/5 space-y-4">
-                          <h3 className="text-xs font-black uppercase tracking-widest opacity-40 mb-2 text-base-content">Tambah Pesan Baru</h3>
-                          <div className="flex flex-col gap-4">
-                            <textarea 
-                              placeholder="Tulis pesan kenangan di sini..." 
-                              className="textarea textarea-bordered w-full bg-base-100 border-base-content/10 focus:border-primary !rounded-2xl min-h-[100px] text-base-content"
-                              value={newItem.text}
-                              onChange={(e) => setNewItem({...newItem, text: e.target.value})}
-                            />
-                            <div className="flex gap-4">
-                              <input 
-                                placeholder="Nama Pengirim" 
-                                className="input input-bordered flex-1 bg-base-100 border-base-content/10 focus:border-primary !rounded-2xl text-base-content"
-                                value={newItem.author}
-                                onChange={(e) => setNewItem({...newItem, author: e.target.value})}
-                              />
-                              <button onClick={addMessage} className="btn btn-primary px-8 !rounded-2xl">
-                                 <PlusCircle size={24} weight="bold" className="mr-2" /> Kirim
-                              </button>
-                            </div>
-                          </div>
-                       </div>
-
-                       <div className="grid gap-3">
-                          <h3 className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 px-2 text-base-content">Daftar Pesan ({messages.length})</h3>
-                          {messages.map(m => (
-                            <div key={m.id} className="bg-base-200 border border-base-content/5 p-5 rounded-2xl flex justify-between items-center group hover:border-primary/30 transition-all">
-                               <div>
-                                  <p className="font-bold text-base-content leading-relaxed">"{m.text}"</p>
-                                  <p className="text-[9px] opacity-40 uppercase tracking-widest mt-2 font-bold text-base-content">{m.author} &bull; {m.time}</p>
-                               </div>
-                               <button onClick={() => deleteMessage(m.id)} className="btn btn-ghost btn-circle text-error hover:bg-error/10 opacity-0 group-hover:opacity-100 transition-opacity">
-                                  <Trash size={20} weight="bold" />
-                               </button>
-                            </div>
-                          ))}
-                       </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div key="gal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
+                  <motion.div key="gal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
                        <div className="bg-base-200 p-6 rounded-[2rem] border border-base-content/5 space-y-6">
                           <h3 className="text-xs font-black uppercase tracking-widest opacity-40 text-base-content">Unggah Foto Baru</h3>
                           <div className="flex flex-col sm:flex-row gap-4">
@@ -309,8 +251,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                             <p className="text-xs uppercase tracking-[0.3em] opacity-40 text-base-content">Belum ada foto dalam galeri</p>
                          </div>
                        )}
-                    </motion.div>
-                  )}
+                  </motion.div>
                </AnimatePresence>
             </div>
           )}

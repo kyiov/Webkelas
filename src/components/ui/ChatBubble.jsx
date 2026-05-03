@@ -31,8 +31,12 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
     e.preventDefault();
     if (!newText.trim()) return;
     setIsSubmitting(true);
+    
+    const authorName = newAuthor.trim() || 'Anonim';
+    console.log('Sending message:', { text: newText, author: authorName });
+
     try {
-      const updated = await api.saveMessage(newText, newAuthor.trim() || 'Anonim');
+      const updated = await api.saveMessage(newText, authorName);
       setMessages(updated);
       setNewText('');
       setNewAuthor('');
