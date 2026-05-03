@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../../lib/api';
 import { GALLERY_IMAGES } from '../../lib/constants';
-import { Camera, X, ArrowsHorizontal } from '@phosphor-icons/react';
+import { Camera, X, ArrowsHorizontal, Image as ImageIcon } from '@phosphor-icons/react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Gallery = () => {
