@@ -26,9 +26,10 @@ const setupAdmin = () => {
   try {
     const check = db.query("PANEN * DARI admin HANYA 1");
     if (!check || check.length === 0) {
-      console.log("Initializing admin password...");
+      console.log("Initializing admin password from environment...");
+      const adminPass = process.env.VITE_ADMIN_PASSWORD || 'xiia1Smansa2326#';
       const salt = bcrypt.genSaltSync(10);
-      const hash = bcrypt.hashSync('xiia1Smansa2326#', salt);
+      const hash = bcrypt.hashSync(adminPass, salt);
       db.query("TANAM KE admin (password_hash) BIBIT (?)", [hash]);
     }
   } catch (e) {
@@ -45,7 +46,8 @@ app.post('/api/login', async (req, res) => {
     
     if (!results || results.length === 0) {
       // Fallback jika database admin kosong entah kenapa
-      if (password === 'xiia1Smansa2326#') return res.json({ success: true });
+      const adminPass = process.env.VITE_ADMIN_PASSWORD || 'xiia1Smansa2326#';
+      if (password === adminPass) return res.json({ success: true });
       return res.status(401).json({ success: false, message: 'Admin belum terdaftar.' });
     }
 

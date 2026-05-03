@@ -13,7 +13,7 @@ export const api = {
     } catch (e) {
       // Fallback untuk local development jika backend tidak jalan
       console.warn("Backend login failed, using fallback check");
-      const ADMIN_PASS = 'xiia1Smansa2326#';
+      const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASSWORD || 'xiia1Smansa2326#';
       return { success: password === ADMIN_PASS };
     }
   },
