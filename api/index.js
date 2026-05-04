@@ -22,6 +22,49 @@ db.query("LAHAN messages");
 db.query("LAHAN gallery");
 db.query("LAHAN admin");
 
+// Robust check for admin initialization
+const setupAdmin = () => {
+  try {
+    const check = db.query("PANEN * DARI admin HANYA 1");
+    if (!check || check.length === 0) {
+      console.log("Initializing admin password from environment...");
+      const adminPass = process.env.VITE_ADMIN_PASSWORD || 'xiia1Smansa2326#';
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(adminPass, salt);
+      db.query("TANAM KE admin (password_hash) BIBIT (?)", [hash]);
+    }
+  } catch (e) {
+    console.error("Admin init error:", e);
+  }
+};
+setupAdmin();
+
+// Auth API
+app.post('/api/login', async (req, res) => {
+  const { password } = req.body;
+  try {
+    const results = db.query("PANEN password_hash DARI admin HANYA 1");
+    
+    if (!results || results.length === 0) {
+      const adminPass = process.env.VITE_ADMIN_PASSWORD || 'xiia1Smansa2326#';
+      if (password === adminPass) return res.json({ success: true });
+      return res.status(401).json({ success: false, message: 'Admin belum terdaftar.' });
+    }
+
+    const hash = results[0].password_hash;
+    const match = await bcrypt.compare(password, hash);
+    
+    if (match) {
+      res.json({ success: true, message: 'Akses diterima!' });
+    } else {
+      res.status(401).json({ success: false, message: 'Kata sandi salah.' });
+    }
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // API Routes
 app.get('/api/messages', (req, res) => {
   try {
