@@ -1,5 +1,4 @@
-// Utility class for procedural sound generation using Web Audio API
-// This avoids needing external audio files, keeping the app fast and offline-ready.
+
 
 class SoundFX {
   constructor() {
@@ -17,12 +16,11 @@ class SoundFX {
     
     this.ctx = new AudioContext();
     this.masterGain = this.ctx.createGain();
-    this.masterGain.gain.value = 0.3; // Global volume
+    this.masterGain.gain.value = 0.3;
     this.masterGain.connect(this.ctx.destination);
     this.initialized = true;
   }
 
-  // Create a short buffer of white noise
   createNoiseBuffer(duration) {
     if (!this.ctx) return null;
     const bufferSize = this.ctx.sampleRate * duration;
@@ -34,7 +32,6 @@ class SoundFX {
     return buffer;
   }
 
-  // Pen Click (Button Press)
   playClick() {
     if (!this.initialized) this.init();
     if (!this.ctx) return;
@@ -57,7 +54,6 @@ class SoundFX {
     osc.stop(this.ctx.currentTime + 0.05);
   }
 
-  // Paper Rustle (Hover)
   playHover() {
     if (!this.initialized) this.init();
     if (!this.ctx) return;
@@ -81,7 +77,6 @@ class SoundFX {
     noiseSource.start();
   }
 
-  // Analog Camera Shutter
   playShutter() {
     if (!this.initialized) this.init();
     if (!this.ctx) return;
@@ -89,7 +84,6 @@ class SoundFX {
 
     const now = this.ctx.currentTime;
 
-    // 1. The Mechanical Click (Oscillator)
     const osc = this.ctx.createOscillator();
     const oscGain = this.ctx.createGain();
     osc.type = 'square';
@@ -102,7 +96,6 @@ class SoundFX {
     osc.start(now);
     osc.stop(now + 0.1);
 
-    // 2. The Flash/Mirror Slap (Noise Burst)
     const noise = this.ctx.createBufferSource();
     noise.buffer = this.createNoiseBuffer(0.15);
     const noiseFilter = this.ctx.createBiquadFilter();
@@ -116,7 +109,6 @@ class SoundFX {
     noiseGain.connect(this.masterGain);
     noise.start(now);
 
-    // 3. The Motor Whirring (Delayed Oscillator + Noise)
     const motorOsc = this.ctx.createOscillator();
     const motorGain = this.ctx.createGain();
     motorOsc.type = 'sawtooth';
@@ -131,15 +123,14 @@ class SoundFX {
     motorOsc.stop(now + 0.8);
   }
 
-  // Continuous Pencil Drawing
   startDrawing() {
     if (!this.initialized) this.init();
     if (!this.ctx) return;
     if (this.ctx.state === 'suspended') this.ctx.resume();
     
-    if (this.drawingNode) return; // Already drawing
+    if (this.drawingNode) return;
 
-    const bufferSize = 2 * this.ctx.sampleRate; // 2 seconds buffer
+    const bufferSize = 2 * this.ctx.sampleRate;
     const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
     const output = noiseBuffer.getChannelData(0);
     for (let i = 0; i < bufferSize; i++) {
@@ -156,7 +147,7 @@ class SoundFX {
     filter.Q.value = 1.5;
 
     this.drawingGain = this.ctx.createGain();
-    this.drawingGain.gain.value = 0.1; // Initial volume
+    this.drawingGain.gain.value = 0.1;
 
     this.drawingNode.connect(filter);
     filter.connect(this.drawingGain);
@@ -168,7 +159,7 @@ class SoundFX {
   stopDrawing() {
     if (!this.drawingNode || !this.drawingGain || !this.ctx) return;
     
-    // Fade out smoothly
+
     this.drawingGain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
     
     setTimeout(() => {

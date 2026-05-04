@@ -2,7 +2,6 @@ import React, { useEffect, useState, useTransition } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { Gear, Paperclip, PushPin } from '@phosphor-icons/react';
 
-// Components
 import Navbar from './components/layout/Navbar';
 import FloatingDock from './components/layout/FloatingDock';
 import Footer from './components/layout/Footer';
@@ -52,7 +51,6 @@ const App = () => {
   useEffect(() => {
     setMounted(true);
 
-    // Global Sound Effect Listeners
     const handleGlobalClick = (e) => {
       const target = e.target;
       if (target.closest('button') || target.closest('a') || target.closest('input') || target.closest('textarea')) {
@@ -63,7 +61,7 @@ const App = () => {
     const handleGlobalHover = (e) => {
       const target = e.target;
       if (target.closest('button') || target.closest('a') || target.closest('.paper-card')) {
-        // Prevent rapid re-triggering on nested elements
+
         if (target.dataset.hovered === 'true') return;
         target.dataset.hovered = 'true';
         sfx.playHover();
@@ -96,7 +94,7 @@ const App = () => {
   }, [theme]);
 
   const handleThemeChange = (newTheme) => {
-    // Optimize INP by lowering priority of theme switching
+
     startTransition(() => {
       setTheme(newTheme);
     });

@@ -1,4 +1,4 @@
-// Use relative path for production (Vercel) and absolute for local development
+
 const API_URL = import.meta.env.PROD ? '/api' : 'http://localhost:3001/api';
 
 export const api = {
@@ -11,7 +11,7 @@ export const api = {
       });
       return await response.json();
     } catch (e) {
-      // Fallback untuk local development jika backend tidak jalan
+
       console.warn("Backend login failed, using fallback check");
       const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASSWORD || 'xiia1Smansa2326#';
       return { success: password === ADMIN_PASS };
@@ -92,8 +92,7 @@ export const api = {
       const response = await fetch(`${API_URL}/gallery`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
-      // If backend is empty but localStorage has data, sync them? 
-      // For now just prefer backend if it returns something
+
       return data;
     } catch (e) {
       return JSON.parse(localStorage.getItem('webkelas_gallery') || '[]');

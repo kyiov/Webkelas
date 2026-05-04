@@ -7,7 +7,7 @@ const InteractiveCanvas = () => {
   const svgRef = useRef(null);
 
   const handlePointerDown = (e) => {
-    // Only draw if it's the main button (left click or touch)
+
     if (e.button !== 0 && e.button !== undefined) return;
     
     const rect = svgRef.current.getBoundingClientRect();
@@ -26,7 +26,7 @@ const InteractiveCanvas = () => {
       ...prev,
       points: [...prev.points, { x, y }]
     }));
-    sfx.startDrawing(); // Ensure it keeps playing if it stopped
+    sfx.startDrawing();
   };
 
   const handlePointerUp = () => {
@@ -36,7 +36,7 @@ const InteractiveCanvas = () => {
       const idToRemove = currentPath.id;
       setCurrentPath(null);
       
-      // Menghapus coretan setelah 3.5 detik (fade out)
+
       setTimeout(() => {
         setPaths(prev => prev.filter(p => p.id !== idToRemove));
       }, 3500);

@@ -11,18 +11,14 @@ const PORT = process.env.PORT || 3001;
 const DB_PATH = './database.sawit';
 
 app.use(cors());
-app.use(express.json({ limit: '50mb' })); // Increase limit for base64 images
+app.use(express.json({ limit: '50mb' }));
 
-// Initialize SawitDB
 const db = new SawitDB(DB_PATH);
 
-// Setup Tables with clear structure if possible
-// SawitDB LAHAN usually creates a table if it doesn't exist
 db.query("LAHAN messages");
 db.query("LAHAN gallery");
 db.query("LAHAN admin");
 
-// Robust check for admin initialization
 const setupAdmin = () => {
   try {
     const check = db.query("PANEN * DARI admin HANYA 1");
@@ -39,7 +35,6 @@ const setupAdmin = () => {
 };
 setupAdmin();
 
-// Auth API
 app.post('/api/login', async (req, res) => {
   const { password } = req.body;
   try {
@@ -65,11 +60,10 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// API Routes
 app.get('/api/messages', (req, res) => {
   try {
     const data = db.query("PANEN * DARI messages URUTKAN BERDASARKAN id TURUN");
-    // Parse JSON fields if they exist as strings
+
     const parsedData = (Array.isArray(data) ? data : []).map(m => ({
       ...m,
       replyTo: m.replyTo ? JSON.parse(m.replyTo) : null,
@@ -112,7 +106,7 @@ app.post('/api/messages/:id/react', (req, res) => {
     const reactions = msg.reactions ? JSON.parse(msg.reactions) : {};
     reactions[emoji] = (reactions[emoji] || 0) + 1;
     
-    // Simulate update by delete + insert to preserve simple AQL usage
+
     db.query("GUSUR DARI messages DIMANA id = ?", [id]);
     db.query("TANAM KE messages (id, text, author, time, replyTo, reactions) BIBIT (?, ?, ?, ?, ?, ?)", 
       [msg.id, msg.text, msg.author, msg.time, msg.replyTo, JSON.stringify(reactions)]

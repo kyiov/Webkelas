@@ -29,7 +29,6 @@ const Doodle = ({ children, delay = 0, className = "" }) => (
   </motion.div>
 );
 
-// Custom Hand-drawn Scribbles
 const Scribble = ({ delay = 0, className = "", d = "" }) => (
   <motion.svg
     viewBox="0 0 100 100"
@@ -63,17 +62,17 @@ const Hero = () => {
       <Scribble 
         className="top-[15%] left-[30%] w-24 h-24 text-primary rotate-12"
         delay={1}
-        d="M10,50 Q40,10 90,50" // Simple Curve
+        d="M10,50 Q40,10 90,50"
       />
       <Scribble 
         className="bottom-[20%] right-[30%] w-32 h-32 text-secondary -rotate-12"
         delay={1.5}
-        d="M20,20 C50,80 80,20 90,90" // Zigzag/Arrowish
+        d="M20,20 C50,80 80,20 90,90"
       />
       <Scribble 
         className="top-1/2 left-[20%] w-20 h-20 text-accent opacity-10"
         delay={2}
-        d="M50,10 A40,40 0 1,1 49,10" // Circle
+        d="M50,10 A40,40 0 1,1 49,10"
       />
 
       <Doodle className="bottom-20 left-[10%] text-primary/40 lg:scale-100 scale-75" delay={2.5}>
