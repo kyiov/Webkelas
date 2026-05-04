@@ -78,13 +78,20 @@ const App = () => {
     <div className="min-h-screen bg-base-100 selection:bg-primary selection:text-primary-content scrapbook-font overflow-x-hidden pb-32">
       <Textures />
       
-      {/* Scroll-Triggered Scribble Line - Now visible on mobile */}
-      <svg className="fixed top-0 left-[-2%] sm:left-[2%] lg:left-[5%] w-10 sm:w-12 h-full pointer-events-none z-[1] opacity-30">
+      {/* Scroll-Triggered Scribble Line - Synchronized */}
+      <svg 
+        className="fixed top-0 left-[2%] sm:left-[5%] lg:left-[8%] w-8 sm:w-12 h-screen pointer-events-none z-[1] opacity-30"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
         <motion.path
-          d="M 20 0 Q 40 200 20 400 T 20 800 T 20 1200 T 20 1600 T 20 2000 T 20 2400 T 20 2800 T 20 3200"
+          d="M 50 0 Q 90 10 50 20 T 50 40 T 50 60 T 50 80 T 50 100"
           style={{ pathLength: scaleY }}
-          className="stroke-primary stroke-[2px] sm:stroke-[3px] fill-none"
+          className="stroke-primary fill-none"
+          strokeWidth="3"
           strokeLinecap="round"
+          strokeLinejoin="round"
+          vectorEffect="non-scaling-stroke"
         />
       </svg>
 
