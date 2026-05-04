@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Gallery = () => {
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [developProgress, setDevelopProgress] = useState(0);
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -18,6 +19,12 @@ const Gallery = () => {
     window.addEventListener('storage', fetchImages);
     return () => window.removeEventListener('storage', fetchImages);
   }, []);
+
+  const handleDevelop = () => {
+    if (developProgress < 100) {
+      setDevelopProgress(prev => Math.min(prev + 2.5, 100));
+    }
+  };
 
   return (
     <motion.section
@@ -64,7 +71,10 @@ const Gallery = () => {
             viewport={{ once: true, margin: "-50px" }}
             whileHover={{ scale: 1.02, zIndex: 50 }}
             whileDrag={{ scale: 1.05, zIndex: 100, rotate: 0 }}
-            onTap={() => setSelectedImage(img)}
+            onTap={() => {
+              setSelectedImage(img);
+              setDevelopProgress(0);
+            }}
             className="paper-card p-3 sm:p-4 irregular-border border-2 border-black/5 shadow-xl cursor-grab active:cursor-grabbing bg-white dark:bg-white relative w-full aspect-[1/1.2] flex flex-col will-change-transform"
           >
             {/* Tape Decoration */}
@@ -148,11 +158,27 @@ const Gallery = () => {
                 {/* Washi tape holding the photo to the notebook */}
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 w-40 h-10 bg-primary/20 backdrop-blur-md -rotate-2 shadow-sm border border-primary/10 z-10"></div>
 
-                <img
-                  src={selectedImage.src}
-                  alt="Memory Preview"
-                  className="max-h-[65vh] w-auto object-contain rounded-sm border border-base-content/10 shadow-inner mt-4 relative z-0"
-                />
+                <div 
+                  className="relative mt-4 z-0 group cursor-crosshair"
+                  onMouseMove={handleDevelop}
+                  onTouchMove={handleDevelop}
+                >
+                  <img
+                    src={selectedImage.src}
+                    alt="Memory Preview"
+                    className="max-h-[65vh] w-auto object-contain rounded-sm border border-base-content/10 shadow-inner transition-all duration-75 select-none pointer-events-none"
+                    style={{
+                      filter: `grayscale(${100 - developProgress}%) brightness(${100 + (100 - developProgress) * 0.5}%) blur(${(100 - developProgress) * 0.1}px)`
+                    }}
+                  />
+                  {developProgress < 100 && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-white/10 pointer-events-none rounded-sm backdrop-blur-[2px]">
+                       <span className="bg-black/60 text-white text-xs px-4 py-2 rounded-full font-black uppercase tracking-widest shadow-xl animate-pulse">
+                         {developProgress === 0 ? "Gosok Layar!" : `Mencetak... ${Math.floor(developProgress)}%`}
+                       </span>
+                    </div>
+                  )}
+                </div>
 
                 <p className="text-center scrapbook-font mt-8 text-3xl opacity-80 uppercase tracking-widest font-black">
                   {selectedImage.title || 'Sweet Memory'}

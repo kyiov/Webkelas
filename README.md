@@ -5,10 +5,14 @@ Webkelas is a professional-grade web application designed as a digital scrapbook
 ## Core Features
 
 ### 1. Interactive Digital Scrapbook
-The application features a unique scrapbook-inspired user interface, utilizing floating doodles and hand-drawn SVG elements to create an authentic, personal atmosphere.
+The application features a unique scrapbook-inspired user interface, utilizing floating doodles and hand-drawn SVG elements to create an authentic, personal atmosphere. It also includes:
+- **Interactive Canvas:** Users can click and draw temporary, fading doodles directly on the background.
+- **Physical Ornaments:** Visual elements like paperclips, pushpins, and randomized washi tape add 3D depth to the page.
+- **Highlighter Effects:** Text hovering triggers realistic marker highlights.
 
 ### 2. Dynamic Memory Gallery
 A high-performance image gallery displaying photos in a polaroid-style grid. Each entry is uniquely decorated with procedural doodle elements. Admins can upload images via direct file selection (base64) or external URL links.
+- **Shake to Develop (Kocok Polaroid):** When viewing a photo in full screen, the image starts blank/undeveloped. Users must move their cursor or finger across the image to "develop" it, simulating a real polaroid experience.
 
 ### 3. Community Communication System
 A persistent message board that allows students to share public notes and greetings. The system handles optional authorship, defaulting to anonymous entries when identity is not provided.
