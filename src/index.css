@@ -59,6 +59,42 @@
   border-radius: 2% 6% 5% 4% / 1% 1% 2% 4%;
 }
 
+/* Highlighter Marker Effect */
+.highlight-marker {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+
+.highlight-marker::after {
+  content: '';
+  position: absolute;
+  bottom: 10%;
+  left: -2%;
+  width: 0%;
+  height: 45%;
+  background-color: var(--fallback-p, oklch(var(--p) / 0.4));
+  z-index: -1;
+  transform: rotate(-1deg);
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 4px;
+}
+
+.highlight-marker:hover::after, .highlight-marker.active::after {
+  width: 104%;
+}
+
+/* Drawing Fade Out Animation */
+.fade-out-drawing {
+  animation: fadeOutDrawing 3.5s forwards ease-in-out;
+}
+
+@keyframes fadeOutDrawing {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 /* Performance Optimizations for INP */
 section {
   content-visibility: auto;

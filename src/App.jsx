@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useTransition } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import { Gear } from '@phosphor-icons/react';
+import { Gear, Paperclip, PushPin } from '@phosphor-icons/react';
 
 // Components
 import Navbar from './components/layout/Navbar';
@@ -10,7 +10,9 @@ import Hero from './components/sections/Hero';
 import Gallery from './components/sections/Gallery';
 import AdminDashboard from './components/sections/AdminDashboard';
 import ChatBubble from './components/ui/ChatBubble';
+import InteractiveCanvas from './components/ui/InteractiveCanvas';
 import { CLASS_META } from './lib/constants';
+
 
 const Textures = () => (
   <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-10 mix-blend-multiply dark:mix-blend-screen">
@@ -77,6 +79,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-base-100 selection:bg-primary selection:text-primary-content scrapbook-font overflow-x-hidden pb-32">
       <Textures />
+      <InteractiveCanvas />
       
       {/* Scroll-Triggered Scribble Line - Synchronized */}
       <svg 
@@ -104,12 +107,13 @@ const App = () => {
         />
       </header>
 
-      <main>
-        <div id="Home" className="bg-base-200/30">
+      <main className="relative z-10 pointer-events-none">
+        {/* Child elements that need interaction must have pointer-events-auto */}
+        <div id="Home" className="bg-base-200/30 pointer-events-auto">
           <Hero />
         </div>
 
-        <div className="container mx-auto px-4 lg:px-20 space-y-32 pb-20 mt-20">
+        <div className="container mx-auto px-4 lg:px-20 space-y-32 pb-20 mt-20 pointer-events-auto">
           {/* About Section */}
           <motion.section 
             id="about" 
@@ -119,8 +123,17 @@ const App = () => {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
           >
-            <div className="max-w-4xl mx-auto text-center space-y-6 paper-card p-10 lg:p-16 irregular-border border-2 border-black/5">
+            <div className="max-w-4xl mx-auto text-center space-y-6 paper-card p-10 lg:p-16 irregular-border border-2 border-black/5 relative">
               <div className="tape"></div>
+              
+              {/* Physical Ornaments */}
+              <div className="absolute -top-4 -left-4 -rotate-12 text-base-content/40">
+                <Paperclip size={48} weight="duotone" />
+              </div>
+              <div className="absolute -top-3 -right-3 rotate-45 text-error shadow-sm rounded-full bg-white/50 backdrop-blur-sm">
+                <PushPin size={40} weight="fill" />
+              </div>
+
               <div className="badge badge-primary badge-outline p-4 font-black uppercase tracking-widest scrapbook-font">About Us</div>
               <h2 className="text-5xl lg:text-7xl font-black uppercase tracking-tighter text-neutral leading-none">
                 Big Family <br />
@@ -129,7 +142,7 @@ const App = () => {
               <p className="text-sm font-black uppercase tracking-[0.3em] opacity-40 text-neutral italic">Graduation Class of {CLASS_META.graduationYear}</p>
               <p className="text-lg lg:text-xl opacity-70 leading-relaxed text-neutral font-medium">
                 Kami adalah keluarga besar {CLASS_META.name} dari {CLASS_META.school}. 
-                Web ini adalah arsip digital perjalanan kami, tempat menyimpan kenangan, 
+                Web ini adalah <span className="font-bold highlight-marker cursor-default">arsip digital perjalanan kami</span>, tempat menyimpan kenangan, 
                 pesan, dan kebersamaan yang tak terbatas.
               </p>
             </div>
