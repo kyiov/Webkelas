@@ -1,69 +1,52 @@
-// Utility class for playing real audio files
-// Replaced procedural generation with high-quality MP3/OGG files for realism
+import { zzfx } from 'zzfx';
+
+// Using ZzFX library for robust, offline-ready sound effects 
+// without relying on broken external audio files.
 
 class SoundFX {
   constructor() {
-    this.sounds = {
-      click: new Audio('/sounds/click.ogg'),
-      hover: new Audio('/sounds/paper.mp3'),
-      shutter: new Audio('/sounds/shutter.mp3'),
-      drawing: new Audio('/sounds/pencil.mp3')
-    };
-
-    // Preload and configure volumes
-    this.sounds.click.volume = 0.4;
-    
-    this.sounds.hover.volume = 0.1; // Paper sound should be subtle
-    this.sounds.hover.playbackRate = 1.5; // Speed it up slightly
-    
-    this.sounds.shutter.volume = 0.6;
-    
-    this.sounds.drawing.volume = 0.3;
-    this.sounds.drawing.loop = true; // Pencil sound loops while holding click
-    
-    this.isDrawing = false;
+    this.drawingInterval = null;
   }
 
-  // Helper to play sound from beginning, allowing overlaps
-  playSound(name) {
-    if (!this.sounds[name]) return;
-    
-    // For hover and click, we clone the audio node so rapid clicks overlap nicely
-    if (name === 'click' || name === 'hover') {
-      const clone = this.sounds[name].cloneNode();
-      clone.volume = this.sounds[name].volume;
-      clone.playbackRate = this.sounds[name].playbackRate;
-      clone.play().catch(e => console.log('Audio play failed:', e));
-    } else {
-      // For shutter, just reset to start
-      this.sounds[name].currentTime = 0;
-      this.sounds[name].play().catch(e => console.log('Audio play failed:', e));
-    }
-  }
-
+  // Play a satisfying high-pitched mechanical click
   playClick() {
-    this.playSound('click');
+    // Parameters: volume, randomness, frequency, attack, sustain, release, shape, shape curve, pitch jump, pitch jump time, repeat time, noise, modulation, bit crush, delay, sustain volume, decay, tremolo
+    zzfx(1, 0.05, 800, 0.01, 0, 0.05, 1, 0.1, -10, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
   }
 
+  // Play a soft paper rustle/swish for hover
   playHover() {
-    this.playSound('hover');
+    zzfx(0.2, 0.5, 200, 0.05, 0.05, 0.1, 3, 1, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.1, 0);
   }
 
+  // Play a mechanical camera shutter sound
   playShutter() {
-    this.playSound('shutter');
+    // Click
+    zzfx(1, 0.05, 150, 0, 0.05, 0.1, 0, 1.5, -20, 0.05, 0, 0, 0, 0, 0, 0, 0, 0);
+    // Flash/Mechanism
+    setTimeout(() => {
+      zzfx(0.6, 0.1, 800, 0.01, 0.1, 0.2, 3, 0.1, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, 0);
+    }, 50);
   }
 
+  // Play a continuous scratching sound for drawing
   startDrawing() {
-    if (this.isDrawing) return;
-    this.isDrawing = true;
-    this.sounds.drawing.currentTime = 0;
-    this.sounds.drawing.play().catch(e => console.log('Audio play failed:', e));
+    if (this.drawingInterval) return;
+    
+    // Play a scratch sound immediately
+    zzfx(0.3, 0.8, 150, 0.05, 0.05, 0.1, 3, 1.5, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, 0);
+    
+    // Loop the scratch sound rapidly
+    this.drawingInterval = setInterval(() => {
+      zzfx(0.2, 0.9, 150 + Math.random() * 50, 0.05, 0.05, 0.1, 3, 1.5, 0, 0, 0, 0.8, 0, 0, 0, 0, 0, 0);
+    }, 80);
   }
 
   stopDrawing() {
-    if (!this.isDrawing) return;
-    this.isDrawing = false;
-    this.sounds.drawing.pause();
+    if (this.drawingInterval) {
+      clearInterval(this.drawingInterval);
+      this.drawingInterval = null;
+    }
   }
 }
 
