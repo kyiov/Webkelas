@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { api } from '../../lib/api';
 import { GALLERY_IMAGES } from '../../lib/constants';
+import { sfx } from '../../lib/sounds';
 import { Camera, X, ArrowsHorizontal, Image as ImageIcon, Star, Heart, Sparkle, Smiley } from '@phosphor-icons/react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -72,6 +73,7 @@ const Gallery = () => {
             whileHover={{ scale: 1.02, zIndex: 50 }}
             whileDrag={{ scale: 1.05, zIndex: 100, rotate: 0 }}
             onTap={() => {
+              sfx.playShutter();
               setSelectedImage(img);
               setDevelopProgress(0);
             }}

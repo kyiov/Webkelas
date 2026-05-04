@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { sfx } from '../../lib/sounds';
 
 const InteractiveCanvas = () => {
   const [paths, setPaths] = useState([]);
@@ -13,6 +14,7 @@ const InteractiveCanvas = () => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     setCurrentPath({ id: Date.now(), points: [{ x, y }] });
+    sfx.startDrawing();
   };
 
   const handlePointerMove = (e) => {
@@ -24,9 +26,11 @@ const InteractiveCanvas = () => {
       ...prev,
       points: [...prev.points, { x, y }]
     }));
+    sfx.startDrawing(); // Ensure it keeps playing if it stopped
   };
 
   const handlePointerUp = () => {
+    sfx.stopDrawing();
     if (currentPath) {
       setPaths(prev => [...prev, currentPath]);
       const idToRemove = currentPath.id;

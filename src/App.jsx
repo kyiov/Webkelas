@@ -12,7 +12,7 @@ import AdminDashboard from './components/sections/AdminDashboard';
 import ChatBubble from './components/ui/ChatBubble';
 import InteractiveCanvas from './components/ui/InteractiveCanvas';
 import { CLASS_META } from './lib/constants';
-
+import { sfx } from './lib/sounds';
 
 const Textures = () => (
   <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-10 mix-blend-multiply dark:mix-blend-screen">
@@ -51,6 +51,29 @@ const App = () => {
 
   useEffect(() => {
     setMounted(true);
+
+    // Global Sound Effect Listeners
+    const handleGlobalClick = (e) => {
+      const target = e.target;
+      if (target.closest('button') || target.closest('a') || target.closest('input') || target.closest('textarea')) {
+        sfx.playClick();
+      }
+    };
+
+    const handleGlobalHover = (e) => {
+      const target = e.target;
+      if (target.closest('button') || target.closest('a') || target.closest('.paper-card')) {
+        // Prevent rapid re-triggering on nested elements
+        if (target.dataset.hovered === 'true') return;
+        target.dataset.hovered = 'true';
+        sfx.playHover();
+        setTimeout(() => { target.dataset.hovered = 'false'; }, 200);
+      }
+    };
+
+    document.addEventListener('mousedown', handleGlobalClick);
+    document.addEventListener('mouseover', handleGlobalHover);
+
     const handleHashChange = () => {
       if (window.location.hash === '#/admin') {
         setIsAdminOpen(true);
@@ -59,7 +82,12 @@ const App = () => {
     };
     window.addEventListener('hashchange', handleHashChange);
     handleHashChange();
-    return () => window.removeEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      document.removeEventListener('mousedown', handleGlobalClick);
+      document.removeEventListener('mouseover', handleGlobalHover);
+    };
   }, []);
 
   useEffect(() => {
