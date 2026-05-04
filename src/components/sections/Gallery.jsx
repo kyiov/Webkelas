@@ -181,10 +181,6 @@ const Gallery = () => {
                     </div>
                   )}
                 </div>
-
-                <p className="text-center scrapbook-font mt-8 text-3xl opacity-80 uppercase tracking-widest font-black">
-                  {selectedImage.title || 'Sweet Memory'}
-                </p>
               </div>
             </motion.div>
           </motion.div>
