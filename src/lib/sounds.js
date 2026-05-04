@@ -1,174 +1,69 @@
-
+// Utility class for playing real audio files
+// Replaced procedural generation with high-quality MP3/OGG files for realism
 
 class SoundFX {
   constructor() {
-    this.ctx = null;
-    this.masterGain = null;
-    this.drawingNode = null;
-    this.drawingGain = null;
-    this.initialized = false;
-  }
+    this.sounds = {
+      click: new Audio('/sounds/click.ogg'),
+      hover: new Audio('/sounds/paper.mp3'),
+      shutter: new Audio('/sounds/shutter.mp3'),
+      drawing: new Audio('/sounds/pencil.mp3')
+    };
 
-  init() {
-    if (this.initialized) return;
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return;
+    // Preload and configure volumes
+    this.sounds.click.volume = 0.4;
     
-    this.ctx = new AudioContext();
-    this.masterGain = this.ctx.createGain();
-    this.masterGain.gain.value = 0.3;
-    this.masterGain.connect(this.ctx.destination);
-    this.initialized = true;
+    this.sounds.hover.volume = 0.1; // Paper sound should be subtle
+    this.sounds.hover.playbackRate = 1.5; // Speed it up slightly
+    
+    this.sounds.shutter.volume = 0.6;
+    
+    this.sounds.drawing.volume = 0.3;
+    this.sounds.drawing.loop = true; // Pencil sound loops while holding click
+    
+    this.isDrawing = false;
   }
 
-  createNoiseBuffer(duration) {
-    if (!this.ctx) return null;
-    const bufferSize = this.ctx.sampleRate * duration;
-    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = Math.random() * 2 - 1;
+  // Helper to play sound from beginning, allowing overlaps
+  playSound(name) {
+    if (!this.sounds[name]) return;
+    
+    // For hover and click, we clone the audio node so rapid clicks overlap nicely
+    if (name === 'click' || name === 'hover') {
+      const clone = this.sounds[name].cloneNode();
+      clone.volume = this.sounds[name].volume;
+      clone.playbackRate = this.sounds[name].playbackRate;
+      clone.play().catch(e => console.log('Audio play failed:', e));
+    } else {
+      // For shutter, just reset to start
+      this.sounds[name].currentTime = 0;
+      this.sounds[name].play().catch(e => console.log('Audio play failed:', e));
     }
-    return buffer;
   }
 
   playClick() {
-    if (!this.initialized) this.init();
-    if (!this.ctx) return;
-    if (this.ctx.state === 'suspended') this.ctx.resume();
-
-    const osc = this.ctx.createOscillator();
-    const gainNode = this.ctx.createGain();
-
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(800, this.ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(400, this.ctx.currentTime + 0.05);
-
-    gainNode.gain.setValueAtTime(1, this.ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.05);
-
-    osc.connect(gainNode);
-    gainNode.connect(this.masterGain);
-
-    osc.start();
-    osc.stop(this.ctx.currentTime + 0.05);
+    this.playSound('click');
   }
 
   playHover() {
-    if (!this.initialized) this.init();
-    if (!this.ctx) return;
-    if (this.ctx.state === 'suspended') this.ctx.resume();
-
-    const noiseSource = this.ctx.createBufferSource();
-    noiseSource.buffer = this.createNoiseBuffer(0.1);
-
-    const filter = this.ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = 1000;
-
-    const gainNode = this.ctx.createGain();
-    gainNode.gain.setValueAtTime(0.2, this.ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
-
-    noiseSource.connect(filter);
-    filter.connect(gainNode);
-    gainNode.connect(this.masterGain);
-
-    noiseSource.start();
+    this.playSound('hover');
   }
 
   playShutter() {
-    if (!this.initialized) this.init();
-    if (!this.ctx) return;
-    if (this.ctx.state === 'suspended') this.ctx.resume();
-
-    const now = this.ctx.currentTime;
-
-    const osc = this.ctx.createOscillator();
-    const oscGain = this.ctx.createGain();
-    osc.type = 'square';
-    osc.frequency.setValueAtTime(150, now);
-    osc.frequency.exponentialRampToValueAtTime(40, now + 0.1);
-    oscGain.gain.setValueAtTime(1, now);
-    oscGain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-    osc.connect(oscGain);
-    oscGain.connect(this.masterGain);
-    osc.start(now);
-    osc.stop(now + 0.1);
-
-    const noise = this.ctx.createBufferSource();
-    noise.buffer = this.createNoiseBuffer(0.15);
-    const noiseFilter = this.ctx.createBiquadFilter();
-    noiseFilter.type = 'highpass';
-    noiseFilter.frequency.value = 2000;
-    const noiseGain = this.ctx.createGain();
-    noiseGain.gain.setValueAtTime(0.8, now);
-    noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
-    noise.connect(noiseFilter);
-    noiseFilter.connect(noiseGain);
-    noiseGain.connect(this.masterGain);
-    noise.start(now);
-
-    const motorOsc = this.ctx.createOscillator();
-    const motorGain = this.ctx.createGain();
-    motorOsc.type = 'sawtooth';
-    motorOsc.frequency.setValueAtTime(200, now + 0.1);
-    motorGain.gain.setValueAtTime(0, now);
-    motorGain.gain.linearRampToValueAtTime(0.1, now + 0.15);
-    motorGain.gain.setValueAtTime(0.1, now + 0.6);
-    motorGain.gain.linearRampToValueAtTime(0.01, now + 0.8);
-    motorOsc.connect(motorGain);
-    motorGain.connect(this.masterGain);
-    motorOsc.start(now + 0.1);
-    motorOsc.stop(now + 0.8);
+    this.playSound('shutter');
   }
 
   startDrawing() {
-    if (!this.initialized) this.init();
-    if (!this.ctx) return;
-    if (this.ctx.state === 'suspended') this.ctx.resume();
-    
-    if (this.drawingNode) return;
-
-    const bufferSize = 2 * this.ctx.sampleRate;
-    const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-        output[i] = Math.random() * 2 - 1;
-    }
-
-    this.drawingNode = this.ctx.createBufferSource();
-    this.drawingNode.buffer = noiseBuffer;
-    this.drawingNode.loop = true;
-
-    const filter = this.ctx.createBiquadFilter();
-    filter.type = 'bandpass';
-    filter.frequency.value = 1500;
-    filter.Q.value = 1.5;
-
-    this.drawingGain = this.ctx.createGain();
-    this.drawingGain.gain.value = 0.1;
-
-    this.drawingNode.connect(filter);
-    filter.connect(this.drawingGain);
-    this.drawingGain.connect(this.masterGain);
-
-    this.drawingNode.start();
+    if (this.isDrawing) return;
+    this.isDrawing = true;
+    this.sounds.drawing.currentTime = 0;
+    this.sounds.drawing.play().catch(e => console.log('Audio play failed:', e));
   }
 
   stopDrawing() {
-    if (!this.drawingNode || !this.drawingGain || !this.ctx) return;
-    
-
-    this.drawingGain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
-    
-    setTimeout(() => {
-      if (this.drawingNode) {
-        this.drawingNode.stop();
-        this.drawingNode.disconnect();
-        this.drawingNode = null;
-      }
-    }, 100);
+    if (!this.isDrawing) return;
+    this.isDrawing = false;
+    this.sounds.drawing.pause();
   }
 }
 
