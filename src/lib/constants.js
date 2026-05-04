@@ -10,5 +10,5 @@ export const CLASS_META = {
   graduationYear: "2026",
   ig: "https://www.instagram.com/excellentxiia1?igsh=MW95b2xsMzlrMTR0aw==",
   tiktok: "https://www.tiktok.com/@excellentxiia1?_r=1&_t=ZS-9643hEgPrmr",
-  logo: "/favicon.jpg"
+  logo: "/apple-touch-icon.png"
 };
