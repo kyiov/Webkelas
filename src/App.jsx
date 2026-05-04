@@ -139,7 +139,7 @@ const App = () => {
           <Hero />
         </div>
 
-        <div className="container mx-auto px-4 lg:px-20 space-y-32 pb-20 mt-20 pointer-events-auto">
+        <div className="container mx-auto px-4 lg:px-10 xl:px-20 space-y-32 pb-20 mt-20 pointer-events-auto">
           {/* About Section */}
           <motion.section 
             id="about" 
@@ -149,7 +149,7 @@ const App = () => {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
           >
-            <div className="max-w-4xl mx-auto text-center space-y-6 paper-card p-10 lg:p-16 irregular-border border-2 border-black/5 relative">
+            <div className="max-w-5xl xl:max-w-6xl mx-auto text-center space-y-8 paper-card p-10 lg:p-20 irregular-border border-2 border-black/5 relative">
               <div className="tape"></div>
               
               {/* Physical Ornaments */}

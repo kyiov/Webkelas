@@ -55,7 +55,7 @@ const Gallery = () => {
 
       {/* Scrapbook Grid Area */}
       <div
-        className="grid grid-cols-2 md:grid-cols-2 gap-4 sm:gap-12 px-6 w-full max-w-5xl mx-auto min-h-[400px] relative"
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-10 lg:gap-12 px-6 w-full max-w-7xl mx-auto min-h-[400px] relative"
       >
         {images.map((img, idx) => {
           const tapeColors = ['bg-primary/30', 'bg-secondary/30', 'bg-accent/30', 'bg-info/30', 'bg-warning/30'];
