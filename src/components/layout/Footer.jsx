@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { InstagramLogo, TiktokLogo, FacebookLogo, MapPin, Heart } from '@phosphor-icons/react';
+import { InstagramLogo, TiktokLogo, MapPin, Heart } from '@phosphor-icons/react';
 import { CLASS_META } from '../../lib/constants';
 
 const Footer = () => {
@@ -92,16 +92,6 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} {CLASS_META.name} Archive
           </p>
           <div className="flex items-center gap-2 text-[10px] opacity-30 uppercase tracking-[0.2em] font-black">
-            Made by Har
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-};
-
-export default Footer;
-flex items-center gap-2 text-[10px] opacity-30 uppercase tracking-[0.2em] font-black">
             Made by Har
           </div>
         </div>
