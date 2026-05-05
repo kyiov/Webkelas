@@ -23,13 +23,6 @@ const App = () => {
   const [theme, setTheme] = useState(localStorage.getItem('webkelas_theme') || 'dark');
   const [isPending, startTransition] = useTransition();
 
-  const { scrollYProgress } = useScroll();
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
   useEffect(() => {
     setMounted(true);
 
@@ -122,11 +115,11 @@ const App = () => {
           <TornPaperEdge fill="var(--fallback-b1,oklch(var(--b1)))" />
         </div>
 
-        <div className="container mx-auto px-4 lg:px-10 xl:px-20 space-y-32 pb-20 mt-20 pointer-events-auto relative">
+        <div className="container mx-auto px-4 lg:px-10 xl:px-20 space-y-32 pb-20 pointer-events-auto relative">
           {/* About Section */}
           <motion.section 
             id="about" 
-            className="py-10 will-change-transform"
+            className="pt-24 pb-10 will-change-transform"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
