@@ -71,9 +71,6 @@ const Footer = () => {
                 <a href={CLASS_META.tiktok} target="_blank" rel="noreferrer" className="text-base-content/60 hover:text-primary transition-all p-2">
                   <TiktokLogo size={32} weight="duotone" />
                 </a>
-                <a href="#" target="_blank" rel="noreferrer" className="text-base-content/60 hover:text-primary transition-all p-2">
-                  <FacebookLogo size={32} weight="duotone" />
-                </a>
               </div>
             </div>
             
@@ -95,6 +92,16 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} {CLASS_META.name} Archive
           </p>
           <div className="flex items-center gap-2 text-[10px] opacity-30 uppercase tracking-[0.2em] font-black">
+            Made by Har
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
+flex items-center gap-2 text-[10px] opacity-30 uppercase tracking-[0.2em] font-black">
             Made by Har
           </div>
         </div>
