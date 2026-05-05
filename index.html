@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Indie+Flower&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1d232a" />
     <title>Big Family XII A1 | XII A1 Platform</title>
 
     <!-- Open Graph / Facebook / WhatsApp -->
@@ -37,6 +38,8 @@
       (function() {
         const theme = localStorage.getItem('webkelas_theme') || 'dark';
         document.documentElement.setAttribute('data-theme', theme);
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#1d232a' : '#faf7f5');
       })();
     </script>
   </head>

@@ -64,6 +64,12 @@ const App = () => {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('webkelas_theme', theme);
+
+    // Update browser header color
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute('content', theme === 'dark' ? '#1d232a' : '#faf7f5');
+    }
   }, [theme]);
 
   const handleThemeChange = (newTheme) => {
