@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { InstagramLogo, TiktokLogo, MapPin, Heart } from '@phosphor-icons/react';
 import { CLASS_META } from '../../lib/constants';
 import TornPaperEdge from '../ui/TornPaperEdge';
 
 const Footer = () => {
+  const [clickCount, setClickCount] = useState(0);
+
+  const handleLogoClick = () => {
+    const nextCount = clickCount + 1;
+    setClickCount(nextCount);
+
+    if (nextCount >= 5) {
+      window.location.hash = '#/admin';
+      setClickCount(0);
+    }
+
+    // Auto reset clicks after 2 seconds of inactivity
+    const timer = setTimeout(() => {
+      setClickCount(0);
+    }, 2000);
+    
+    return () => clearTimeout(timer);
+  };
+
   return (
     <footer className="relative mt-32 bg-base-200/50 pb-12 overflow-hidden z-10 pointer-events-auto">
       {/* Improved Torn Paper Divider */}
@@ -14,16 +34,22 @@ const Footer = () => {
           
           {/* Column 1: Brand & Logo & Location */}
           <div className="flex flex-col items-center md:items-start space-y-6">
-            {/* Precise Straight Logo with clean container */}
-            <div className="avatar">
-              <div className="w-20 h-20 rounded-3xl border-[3px] border-white shadow-xl shadow-primary/5 bg-white p-1 overflow-hidden">
+            {/* Logo Button with Easter Egg (Click 5x to open Admin) */}
+            <motion.button
+              onClick={handleLogoClick}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.9, rotate: -2 }}
+              className="avatar group"
+              title="Click 5x to access Admin"
+            >
+              <div className="w-20 h-20 rounded-3xl border-[3px] border-white shadow-xl shadow-primary/5 bg-white p-1 overflow-hidden transition-colors group-hover:border-primary/20">
                 <img 
                   src={CLASS_META.logo} 
                   alt="Logo" 
                   className="w-full h-full object-contain"
                 />
               </div>
-            </div>
+            </motion.button>
 
             <div>
               <p className="font-black text-3xl tracking-tighter uppercase text-base-content">
