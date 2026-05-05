@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { InstagramLogo, TiktokLogo, MapPin, Heart } from '@phosphor-icons/react';
+import { InstagramLogo, TiktokLogo, FacebookLogo, MapPin, Heart } from '@phosphor-icons/react';
 import { CLASS_META } from '../../lib/constants';
-import TornPaperEdge from '../ui/TornPaperEdge';
 
 const Footer = () => {
   const [clickCount, setClickCount] = useState(0);
@@ -16,7 +15,6 @@ const Footer = () => {
       setClickCount(0);
     }
 
-    // Auto reset clicks after 2 seconds of inactivity
     const timer = setTimeout(() => {
       setClickCount(0);
     }, 2000);
@@ -31,20 +29,18 @@ const Footer = () => {
           
           {/* Column 1: Brand & Logo & Location */}
           <div className="flex flex-col items-center md:items-start space-y-6">
-            {/* Logo Button with Easter Egg (Click 5x to open Admin) */}
+            {/* Transparent Logo Button with Easter Egg */}
             <motion.button
               onClick={handleLogoClick}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.9, rotate: -2 }}
-              className="avatar group"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="group"
             >
-              <div className="w-20 h-20 rounded-3xl border-[3px] border-white shadow-xl shadow-primary/5 bg-white p-3 overflow-hidden transition-colors group-hover:border-primary/20 flex items-center justify-center">
-                <img 
-                  src={CLASS_META.logo} 
-                  alt="Logo" 
-                  className="w-full h-full object-contain"
-                />
-              </div>
+              <img 
+                src={CLASS_META.logo} 
+                alt="Logo" 
+                className="w-24 h-24 object-contain filter drop-shadow-md"
+              />
             </motion.button>
 
             <div>
@@ -69,11 +65,14 @@ const Footer = () => {
             <div className="flex flex-col items-center md:items-end gap-3">
               <p className="font-black text-[10px] uppercase tracking-[0.4em] opacity-40 text-base-content">Tetap Terhubung</p>
               <div className="flex gap-4">
-                <a href={CLASS_META.ig} target="_blank" rel="noreferrer" className="btn btn-circle btn-lg bg-white border-2 border-primary/10 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all shadow-md">
-                  <InstagramLogo size={28} weight="duotone" />
+                <a href={CLASS_META.ig} target="_blank" rel="noreferrer" className="text-base-content/60 hover:text-primary transition-all p-2">
+                  <InstagramLogo size={32} weight="duotone" />
                 </a>
-                <a href={CLASS_META.tiktok} target="_blank" rel="noreferrer" className="btn btn-circle btn-lg bg-white border-2 border-primary/10 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all shadow-md">
-                  <TiktokLogo size={28} weight="duotone" />
+                <a href={CLASS_META.tiktok} target="_blank" rel="noreferrer" className="text-base-content/60 hover:text-primary transition-all p-2">
+                  <TiktokLogo size={32} weight="duotone" />
+                </a>
+                <a href="#" target="_blank" rel="noreferrer" className="text-base-content/60 hover:text-primary transition-all p-2">
+                  <FacebookLogo size={32} weight="duotone" />
                 </a>
               </div>
             </div>
