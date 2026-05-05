@@ -62,8 +62,8 @@ const Footer = () => {
           <p className="text-[10px] opacity-40 uppercase tracking-[0.3em] font-bold text-base-content">
             &copy; {new Date().getFullYear()} {CLASS_META.name}. All rights reserved.
           </p>
-          <div className="flex items-center gap-1 text-[10px] opacity-40 uppercase tracking-widest font-bold text-base-content">
-            Made with <Heart weight="fill" className="text-error mx-1" size={14} /> by kyiov
+          <div className="flex items-center gap-2 text-[9px] opacity-20 uppercase tracking-widest">
+            Made by Har
           </div>
         </div>
       </div>
