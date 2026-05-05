@@ -40,7 +40,6 @@ const Footer = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.9, rotate: -2 }}
               className="avatar group"
-              title="Click 5x to access Admin"
             >
               <div className="w-20 h-20 rounded-3xl border-[3px] border-white shadow-xl shadow-primary/5 bg-white p-1 overflow-hidden transition-colors group-hover:border-primary/20">
                 <img 
