@@ -76,7 +76,6 @@ const App = () => {
   }, [theme]);
 
   const handleThemeChange = (newTheme) => {
-
     startTransition(() => {
       setTheme(newTheme);
     });
@@ -86,7 +85,8 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-base-100 selection:bg-primary selection:text-primary-content scrapbook-font overflow-x-hidden pb-32">
-      <Textures />
+      <BackgroundEffects />
+      <ParallaxDoodles />
       <InteractiveCanvas />
       
       {/* Scroll-Triggered Scribble Line - Synchronized */}
@@ -117,11 +117,12 @@ const App = () => {
 
       <main className="relative z-10 pointer-events-none">
         {/* Child elements that need interaction must have pointer-events-auto */}
-        <div id="Home" className="bg-base-200/30 pointer-events-auto">
+        <div id="Home" className="bg-base-200/30 pointer-events-auto relative">
           <Hero />
+          <TornPaperEdge fill="var(--fallback-b1,oklch(var(--b1)))" />
         </div>
 
-        <div className="container mx-auto px-4 lg:px-10 xl:px-20 space-y-32 pb-20 mt-20 pointer-events-auto">
+        <div className="container mx-auto px-4 lg:px-10 xl:px-20 space-y-32 pb-20 mt-20 pointer-events-auto relative">
           {/* About Section */}
           <motion.section 
             id="about" 
@@ -148,45 +149,6 @@ const App = () => {
                 <span className="text-primary italic">{CLASS_META.name}.</span>
               </h2>
               <p className="text-sm font-black uppercase tracking-[0.3em] opacity-40 text-neutral italic">Graduation Class of {CLASS_META.graduationYear}</p>
-              <p className="text-lg lg:text-xl opacity-70 leading-relaxed text-neutral font-medium">
-                Kami adalah keluarga besar {CLASS_META.name} dari {CLASS_META.school}. 
-                Web ini adalah <span className="font-bold highlight-marker cursor-default">arsip digital perjalanan kami</span>, tempat menyimpan kenangan, 
-                pesan, dan kebersamaan yang tak terbatas.
-              </p>
-            </div>
-          </motion.section>
-
-          <Gallery />
-        </div>
-      </main>
-
-      <Footer />
-
-      <AnimatePresence>
-        {isAdminOpen && (
-          <AdminDashboard 
-            isOpen={isAdminOpen} 
-            onClose={() => {
-              setIsAdminOpen(false);
-              window.dispatchEvent(new Event('storage'));
-            }} 
-          />
-        )}
-      </AnimatePresence>
-
-      <ChatBubble isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
-
-      {isPending && (
-        <div className="fixed top-4 right-4 z-[100]">
-          <span className="loading loading-spinner loading-xs text-primary"></span>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default App;
-g-[0.3em] opacity-40 text-neutral italic">Graduation Class of {CLASS_META.graduationYear}</p>
               <p className="text-lg lg:text-xl opacity-70 leading-relaxed text-neutral font-medium">
                 Kami adalah keluarga besar {CLASS_META.name} dari {CLASS_META.school}. 
                 Web ini adalah <span className="font-bold highlight-marker cursor-default">arsip digital perjalanan kami</span>, tempat menyimpan kenangan, 
