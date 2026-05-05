@@ -10,29 +10,11 @@ import Gallery from './components/sections/Gallery';
 import AdminDashboard from './components/sections/AdminDashboard';
 import ChatBubble from './components/ui/ChatBubble';
 import InteractiveCanvas from './components/ui/InteractiveCanvas';
+import BackgroundEffects from './components/ui/BackgroundEffects';
+import ParallaxDoodles from './components/ui/ParallaxDoodles';
+import TornPaperEdge from './components/ui/TornPaperEdge';
 import { CLASS_META } from './lib/constants';
 import { sfx } from './lib/sounds';
-
-const Textures = () => (
-  <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-10 mix-blend-multiply dark:mix-blend-screen">
-    {/* Coffee Ring 1 */}
-    <svg className="absolute top-[-2%] right-[-10%] sm:top-[-5%] sm:right-[-5%] w-48 h-48 sm:w-64 sm:h-64 rotate-12" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="40" fill="none" stroke="#8B4513" strokeWidth="3" strokeDasharray="4 2 8 4 15 5" opacity="0.8" />
-      <circle cx="48" cy="52" r="38" fill="none" stroke="#8B4513" strokeWidth="1.5" strokeDasharray="10 5" opacity="0.5" />
-    </svg>
-    {/* Ink Splatter */}
-    <svg className="absolute top-[30%] left-[-5%] sm:top-[40%] sm:left-[5%] w-24 h-24 sm:w-32 sm:h-32 -rotate-12" viewBox="0 0 100 100">
-      <path d="M40,50 Q45,30 60,40 T70,60 T40,50 Z" fill="currentColor" />
-      <circle cx="30" cy="30" r="3" fill="currentColor" />
-      <circle cx="75" cy="35" r="2" fill="currentColor" />
-      <circle cx="65" cy="75" r="4" fill="currentColor" />
-    </svg>
-    {/* Coffee Ring 2 */}
-    <svg className="absolute bottom-[5%] right-[5%] sm:bottom-[10%] sm:right-[15%] w-32 h-32 sm:w-48 sm:h-48 -rotate-45" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="45" fill="none" stroke="#8B4513" strokeWidth="4" strokeDasharray="20 10 5 5" opacity="0.6" />
-    </svg>
-  </div>
-);
 
 const App = () => {
   const [mounted, setMounted] = useState(false);
@@ -166,6 +148,45 @@ const App = () => {
                 <span className="text-primary italic">{CLASS_META.name}.</span>
               </h2>
               <p className="text-sm font-black uppercase tracking-[0.3em] opacity-40 text-neutral italic">Graduation Class of {CLASS_META.graduationYear}</p>
+              <p className="text-lg lg:text-xl opacity-70 leading-relaxed text-neutral font-medium">
+                Kami adalah keluarga besar {CLASS_META.name} dari {CLASS_META.school}. 
+                Web ini adalah <span className="font-bold highlight-marker cursor-default">arsip digital perjalanan kami</span>, tempat menyimpan kenangan, 
+                pesan, dan kebersamaan yang tak terbatas.
+              </p>
+            </div>
+          </motion.section>
+
+          <Gallery />
+        </div>
+      </main>
+
+      <Footer />
+
+      <AnimatePresence>
+        {isAdminOpen && (
+          <AdminDashboard 
+            isOpen={isAdminOpen} 
+            onClose={() => {
+              setIsAdminOpen(false);
+              window.dispatchEvent(new Event('storage'));
+            }} 
+          />
+        )}
+      </AnimatePresence>
+
+      <ChatBubble isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+
+      {isPending && (
+        <div className="fixed top-4 right-4 z-[100]">
+          <span className="loading loading-spinner loading-xs text-primary"></span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default App;
+g-[0.3em] opacity-40 text-neutral italic">Graduation Class of {CLASS_META.graduationYear}</p>
               <p className="text-lg lg:text-xl opacity-70 leading-relaxed text-neutral font-medium">
                 Kami adalah keluarga besar {CLASS_META.name} dari {CLASS_META.school}. 
                 Web ini adalah <span className="font-bold highlight-marker cursor-default">arsip digital perjalanan kami</span>, tempat menyimpan kenangan, 

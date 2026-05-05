@@ -19,7 +19,7 @@ const ChatBubble = ({ isOpen, setIsOpen }) => {
 
   useEffect(() => {
     fetchMessages();
-    const interval = setInterval(fetchMessages, 10000);
+    const interval = setInterval(fetchMessages, 1000);
     return () => clearInterval(interval);
   }, []);
 

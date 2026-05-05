@@ -172,7 +172,7 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                   <h4 className="text-xs font-black uppercase tracking-widest text-primary mb-1 text-base-content">Panduan Admin</h4>
                   <p className="text-[10px] leading-relaxed opacity-60 text-base-content">
                     {activeTab === 'gallery'
-                      ? 'Anda bisa menambah foto melalui Link atau pilih langsung dari HP/Laptop. Batas maksimal adalah 15 foto.'
+                      ? 'Anda bisa menambah foto melalui Link atau pilih langsung dari HP/Laptop. Batas maksimal adalah 20 foto.'
                       : 'Anda dapat mengelola pesan yang masuk dan menghapusnya jika diperlukan.'}
                   </p>
                 </div>
@@ -202,12 +202,12 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                             className="input input-bordered join-item w-full bg-base-100 border-base-content/10 focus:border-primary !rounded-l-2xl text-base-content"
                             value={newItem.src}
                             onChange={(e) => setNewItem({ ...newItem, src: e.target.value })}
-                            disabled={gallery.length >= 15}
+                            disabled={gallery.length >= 20}
                           />
                           <button
                             onClick={addGallery}
                             className="btn btn-primary join-item !rounded-r-2xl px-6"
-                            disabled={gallery.length >= 15}
+                            disabled={gallery.length >= 20}
                           >
                             <PlusCircle size={20} weight="bold" />
                           </button>
@@ -221,12 +221,12 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                             ref={fileInputRef}
                             accept="image/*"
                             onChange={handleFileUpload}
-                            disabled={gallery.length >= 15}
+                            disabled={gallery.length >= 20}
                           />
                           <button
                             onClick={() => fileInputRef.current.click()}
                             className="btn btn-neutral !rounded-2xl flex-1 sm:flex-none whitespace-nowrap px-6 border-none text-white"
-                            disabled={gallery.length >= 15}
+                            disabled={gallery.length >= 20}
                           >
                             <UploadSimple size={20} weight="bold" className="mr-2" /> Pilih dari File
                           </button>
@@ -237,10 +237,10 @@ const AdminDashboard = ({ isOpen, onClose }) => {
                     <div className="flex items-center justify-between px-2">
                       <h3 className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 text-base-content">Daftar Aset Foto</h3>
                       <div className="flex items-center gap-2">
-                        <span className={`text-[10px] font-bold ${gallery.length >= 15 ? 'text-error' : 'opacity-40 text-base-content'}`}>
-                          {gallery.length} / 15 Foto
+                        <span className={`text-[10px] font-bold ${gallery.length >= 20 ? 'text-error' : 'opacity-40 text-base-content'}`}>
+                          {gallery.length} / 20 Foto
                         </span>
-                        <div className={`w-2 h-2 rounded-full ${gallery.length >= 15 ? 'bg-error animate-pulse' : 'bg-primary/40'}`}></div>
+                        <div className={`w-2 h-2 rounded-full ${gallery.length >= 20 ? 'bg-error animate-pulse' : 'bg-primary/40'}`}></div>
                       </div>
                     </div>
 

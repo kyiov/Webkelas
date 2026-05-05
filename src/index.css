@@ -24,6 +24,23 @@
   }
 
 /* Scrapbook Utilities */
+.film-grain-overlay {
+  animation: noise 0.5s infinite linear;
+}
+
+@keyframes noise {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-1%, -1%); }
+  20% { transform: translate(1%, 1%); }
+  30% { transform: translate(-2%, 1%); }
+  40% { transform: translate(1%, -1%); }
+  50% { transform: translate(-1%, 2%); }
+  60% { transform: translate(2%, 1%); }
+  70% { transform: translate(1%, -2%); }
+  80% { transform: translate(-1%, -1%); }
+  90% { transform: translate(2%, 2%); }
+}
+
 .scrapbook-font {
   font-family: "Gochi Hand", cursive;
 }
