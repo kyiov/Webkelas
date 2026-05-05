@@ -92,7 +92,6 @@ const App = () => {
       <main className="relative z-10 pointer-events-none">
         <div id="Home" className="bg-base-200/30 pointer-events-auto relative">
           <Hero />
-          <TornPaperEdge fill="var(--fallback-b1,oklch(var(--b1)))" />
         </div>
 
         <div className="container mx-auto px-4 lg:px-10 xl:px-20 space-y-32 pb-20 pointer-events-auto relative">

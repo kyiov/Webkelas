@@ -25,10 +25,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative mt-32 bg-base-200/50 pb-12 overflow-hidden z-10 pointer-events-auto">
-      {/* Improved Torn Paper Divider */}
-      <TornPaperEdge top={true} fill="var(--fallback-b1,oklch(var(--b1)))" className="-translate-y-[1px]" />
-
+    <footer className="relative mt-32 bg-base-200/50 pb-12 overflow-hidden z-10 pointer-events-auto border-t-2 border-dashed border-base-content/10">
       <div className="container mx-auto px-6 lg:px-20 pt-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:items-start text-center md:text-left">
           
@@ -41,7 +38,7 @@ const Footer = () => {
               whileTap={{ scale: 0.9, rotate: -2 }}
               className="avatar group"
             >
-              <div className="w-20 h-20 rounded-3xl border-[3px] border-white shadow-xl shadow-primary/5 bg-white p-1 overflow-hidden transition-colors group-hover:border-primary/20">
+              <div className="w-20 h-20 rounded-3xl border-[3px] border-white shadow-xl shadow-primary/5 bg-white p-3 overflow-hidden transition-colors group-hover:border-primary/20 flex items-center justify-center">
                 <img 
                   src={CLASS_META.logo} 
                   alt="Logo" 
