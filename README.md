@@ -1,91 +1,140 @@
-# Webkelas: XII A1 Digital Archive
+<div align="center">
 
-Webkelas is a professional-grade web application designed as a digital scrapbook and community hub for the XII A1 graduating class of SMAN 1 Rasau Jaya. This platform serves as a persistent archive for collective memories, community interactions, and visual documentation.
+<img src="public/hero.png" alt="Webkelas Hero" width="800">
 
-## Core Features
+# 📔 Webkelas: XII A1 Digital Archive
+### *Arsip Digital & Hub Komunitas XII A1 SMAN 1 Rasau Jaya*
 
-### 1. Interactive Digital Scrapbook
-The application features a unique scrapbook-inspired user interface, utilizing floating doodles and hand-drawn SVG elements to create an authentic, personal atmosphere. It also includes:
-- **Interactive Canvas:** Users can click and draw temporary, fading doodles directly on the background.
-- **Physical Ornaments:** Visual elements like paperclips, pushpins, and randomized washi tape add 3D depth to the page.
-- **Highlighter Effects:** Text hovering triggers realistic marker highlights.
+[![GitHub license](https://img.shields.io/github/license/Har404-err/Webkelas?style=for-the-badge&color=blue)](https://github.com/Har404-err/Webkelas/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Har404-err/Webkelas?style=for-the-badge&color=gold)](https://github.com/Har404-err/Webkelas/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Har404-err/Webkelas?style=for-the-badge&color=orange)](https://github.com/Har404-err/Webkelas/network)
+[![GitHub issues](https://img.shields.io/github/issues/Har404-err/Webkelas?style=for-the-badge&color=red)](https://github.com/Har404-err/Webkelas/issues)
 
-### 2. Dynamic Memory Gallery
-A high-performance image gallery displaying photos in a polaroid-style grid. Each entry is uniquely decorated with procedural doodle elements. Admins can upload images via direct file selection (base64) or external URL links.
-- **Shake to Develop (Kocok Polaroid):** When viewing a photo in full screen, the image starts blank/undeveloped. Users must move their cursor or finger across the image to "develop" it, simulating a real polaroid experience.
+<p align="center">
+  <a href="#core-features">Features</a> •
+  <a href="#technology-stack">Tech Stack</a> •
+  <a href="#getting-started">Getting Started</a> •
+  <a href="#configuration">Config</a> •
+  <a href="#license">License</a>
+</p>
 
-### 3. Community Communication System
-A persistent message board that allows students to share public notes and greetings. The system handles optional authorship, defaulting to anonymous entries when identity is not provided.
+---
 
-### 4. Administrative Control Panel
-A secure, password-protected dashboard for content management. Authorized administrators can manage the photo gallery, upload new assets, and moderate community messages.
+</div>
 
-### 5. Adaptive User Experience
-Full support for dark and light theme profiles, with state persistence. The interface is fully responsive, ensuring accessibility across mobile, tablet, and desktop devices.
+## 🌟 Overview
 
-## Technology Stack
+**Webkelas** adalah aplikasi web modern yang dirancang sebagai buku kenangan digital (scrapbook) dan pusat interaksi bagi alumni kelas **XII A1 SMAN 1 Rasau Jaya**. Platform ini berfungsi sebagai arsip persisten untuk kenangan kolektif, interaksi komunitas, dan dokumentasi visual dengan estetika yang personal dan interaktif.
+
+## 🚀 Core Features
+
+### 1. 🎨 Interactive Digital Scrapbook
+Antarmuka terinspirasi dari buku tempel nyata, menggunakan coretan (doodles) melayang dan elemen SVG gambar tangan.
+- **Interactive Canvas:** Coret-coret langsung di background yang akan memudar secara otomatis.
+- **Physical Ornaments:** Ornamen seperti klip kertas, pin, dan washi tape acak memberikan kedalaman visual 3D.
+- **Highlighter Effects:** Efek stabilo otomatis saat kursor diarahkan ke teks tertentu.
+
+### 2. 📸 Dynamic Memory Gallery
+Grid foto gaya polaroid dengan dekorasi doodle prosedural yang unik.
+- **Shake to Develop (Kocok Polaroid):** Simulasi foto polaroid asli! Gambar awalnya kosong, gerakkan kursor atau jari Anda di atas foto untuk "memunculkan" gambarnya.
+
+### 3. 💬 Community Communication System
+Papan pesan persisten bagi siswa untuk berbagi catatan publik dan sapaan, mendukung anonimitas atau identitas opsional.
+
+### 4. 🔐 Administrative Control Panel
+Dashboard aman dengan proteksi password untuk manajemen konten (Upload foto, moderasi pesan, dll).
+
+### 5. 🌗 Adaptive User Experience
+Dukungan penuh untuk Dark/Light mode dengan persistensi state dan desain yang sepenuhnya responsif.
+
+---
+
+## 🛠 Technology Stack
+
+<div align="center">
 
 ### Frontend
-- React 19: Component-based architecture with modern hooks.
-- Vite: Optimized build tooling and development environment.
-- Tailwind CSS: Utility-first styling for precise layout control.
-- DaisyUI 5: Semantic UI components.
-- Framer Motion: Hardware-accelerated animations and gesture handling.
-- Phosphor Icons: Consistent, high-quality iconography.
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
+![daisyUI](https://img.shields.io/badge/daisyui-5500FF?style=for-the-badge&logo=daisyui&logoColor=white)
 
-### Backend
-- Express.js: Lightweight and scalable Node.js server framework.
-- SawitDB: A file-based database system utilizing the Palm Oil Query Language (AQL) for efficient data management.
-- Bcrypt.js: Secure hashing for administrative credential protection.
+### Backend & Database
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![SawitDB](https://img.shields.io/badge/SawitDB-Green?style=for-the-badge&logo=google-cloud&logoColor=white)
 
-## Project Structure
+</div>
 
-- /api: Backend server implementation and API routes.
-- /src: React application source code.
-- /src/components/layout: Global layout components (Navbar, Footer, FloatingDock).
-- /src/components/sections: Feature-specific sections (Hero, Gallery, Admin).
-- /src/components/ui: Reusable atom components (ChatBubble, GlassCard).
-- /src/lib: Utility libraries, API helpers, and constants.
-- /public: Static assets and icons.
+---
 
-## Getting Started
+## 📂 Project Structure
+
+```text
+├── api/                # Backend server & API routes
+├── src/                # React application source
+│   ├── components/     # UI & Layout components
+│   ├── lib/            # Utilities, API helpers, & Constants
+│   └── assets/         # Images, Icons, & Global styles
+├── public/             # Static assets
+└── database.sawit      # Persistent file-based database
+```
+
+---
+
+## ⚙️ Getting Started
 
 ### Prerequisites
-- Node.js (version 18 or higher)
-- npm (Node Package Manager)
+- Node.js (v18+)
+- npm
 
 ### Installation
-1. Clone the repository:
+1. **Clone & Enter**
    ```bash
    git clone https://github.com/Har404-err/Webkelas.git
    cd Webkelas
    ```
-2. Install dependencies:
+2. **Install Deps**
    ```bash
    npm install
    ```
 
 ### Development
-Start both the frontend and backend servers in development mode:
 ```bash
 npm run dev
 ```
 
 ### Production Build
-Generate an optimized production build:
 ```bash
 npm run build
 ```
 
-## Configuration
+---
 
-The application uses environment variables for security. Create a .env file based on .env.example:
-- VITE_ADMIN_PASSWORD: The secure password for Administrative Dashboard access.
+## 🔐 Configuration
 
-## Data Persistence
+Buat file `.env` di root direktori (gunakan `.env.example` sebagai referensi):
+- `VITE_ADMIN_PASSWORD`: Password aman untuk akses Dashboard Admin.
 
-This project utilizes a persistent file-based database located at ./database.sawit. For local development and private server deployments, this file ensures that gallery assets and messages remain intact across server restarts.
+---
 
-## License
+## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Project ini dilisensikan di bawah **MIT License**. Lihat file [LICENSE](LICENSE) untuk detail lebih lanjut.
+
+---
+
+## 📊 Analytics
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=Har404-err&show_icons=true&theme=radical&count_private=true" alt="Har404-err Stats" />
+  <br/>
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Har404-err&layout=compact&theme=radical" alt="Top Langs" />
+</div>
+
+---
+
+<div align="center">
+  Made with ❤️ by <a href="https://github.com/Har404-err">Har404-err</a>
+</div>

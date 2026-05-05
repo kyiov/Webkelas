@@ -18,7 +18,6 @@ const GlassCard = ({ children, className = '', hover = true, onClick, initial, w
       onClick={onClick}
       className={baseClasses}
     >
-      {/* Decorative gradient blur in background from @har style */}
       <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-transparent blur opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
       
       <div className="relative z-10">
