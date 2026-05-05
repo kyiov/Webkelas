@@ -2,13 +2,13 @@
   "name": "webkelas",
   "version": "1.0.0",
   "description": "Platform arsip digital dan interaksi komunitas untuk keluarga besar XII A1 SMAN 1 Rasau Jaya.",
-  "author": "Har404-err <abdulmuhar564@gmail.com>",
+  "author": "kyiov <abdulmuhar564@gmail.com>",
   "license": "MIT",
   "private": true,
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Har404-err/Webkelas.git"
+    "url": "https://github.com/kyiov/Webkelas.git"
   },
   "keywords": [
     "scrapbook",

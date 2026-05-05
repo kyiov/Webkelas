@@ -5,10 +5,10 @@
 # 📔 Webkelas: XII A1 Digital Archive
 ### *Arsip Digital & Hub Komunitas XII A1 SMAN 1 Rasau Jaya*
 
-[![GitHub license](https://img.shields.io/github/license/Har404-err/Webkelas?style=for-the-badge&color=blue)](https://github.com/Har404-err/Webkelas/blob/main/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/Har404-err/Webkelas?style=for-the-badge&color=gold)](https://github.com/Har404-err/Webkelas/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Har404-err/Webkelas?style=for-the-badge&color=orange)](https://github.com/Har404-err/Webkelas/network)
-[![GitHub issues](https://img.shields.io/github/issues/Har404-err/Webkelas?style=for-the-badge&color=red)](https://github.com/Har404-err/Webkelas/issues)
+[![GitHub license](https://img.shields.io/github/license/kyiov/Webkelas?style=for-the-badge&color=blue)](https://github.com/kyiov/Webkelas/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/kyiov/Webkelas?style=for-the-badge&color=gold)](https://github.com/kyiov/Webkelas/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/kyiov/Webkelas?style=for-the-badge&color=orange)](https://github.com/kyiov/Webkelas/network)
+[![GitHub issues](https://img.shields.io/github/issues/kyiov/Webkelas?style=for-the-badge&color=red)](https://github.com/kyiov/Webkelas/issues)
 
 <p align="center">
   <a href="#core-features">Features</a> •
@@ -92,7 +92,7 @@ Dukungan penuh untuk Dark/Light mode dengan persistensi state dan desain yang se
 ### Installation
 1. **Clone & Enter**
    ```bash
-   git clone https://github.com/Har404-err/Webkelas.git
+   git clone https://github.com/kyiov/Webkelas.git
    cd Webkelas
    ```
 2. **Install Deps**
@@ -128,13 +128,13 @@ Project ini dilisensikan di bawah **MIT License**. Lihat file [LICENSE](LICENSE)
 ## 📊 Analytics
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Har404-err&show_icons=true&theme=radical&count_private=true" alt="Har404-err Stats" />
+  <img src="https://github-readme-stats.vercel.app/api?username=kyiov&show_icons=true&theme=radical&count_private=true" alt="kyiov Stats" />
   <br/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Har404-err&layout=compact&theme=radical" alt="Top Langs" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=kyiov&layout=compact&theme=radical" alt="Top Langs" />
 </div>
 
 ---
 
 <div align="center">
-  Made with ❤️ by <a href="https://github.com/Har404-err">Har404-err</a>
+  Made with ❤️ by <a href="https://github.com/kyiov">kyiov</a>
 </div>
