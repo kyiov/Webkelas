@@ -1,5 +1,5 @@
 import React from 'react';
-import { InstagramLogo, TiktokLogo, MapPin, Heart, BookBookmark } from '@phosphor-icons/react';
+import { InstagramLogo, TiktokLogo, MapPin, Heart } from '@phosphor-icons/react';
 import { CLASS_META } from '../../lib/constants';
 
 const Footer = () => {
