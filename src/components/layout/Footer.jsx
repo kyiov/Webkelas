@@ -39,7 +39,7 @@ const Footer = () => {
               <img 
                 src={CLASS_META.logo} 
                 alt="Logo" 
-                className="w-24 h-24 object-contain filter drop-shadow-md"
+                className="w-14 h-14 object-contain filter drop-shadow-md rounded-2xl"
               />
             </motion.button>
 
