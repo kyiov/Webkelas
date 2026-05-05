@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useTransition } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import { Gear, Paperclip, PushPin } from '@phosphor-icons/react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Paperclip, PushPin } from '@phosphor-icons/react';
 
-import Navbar from './components/layout/Navbar';
 import FloatingDock from './components/layout/FloatingDock';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
@@ -36,7 +35,6 @@ const App = () => {
     const handleGlobalHover = (e) => {
       const target = e.target;
       if (target.closest('button') || target.closest('a') || target.closest('.paper-card')) {
-
         if (target.dataset.hovered === 'true') return;
         target.dataset.hovered = 'true';
         sfx.playHover();
@@ -82,23 +80,6 @@ const App = () => {
       <ParallaxDoodles />
       <InteractiveCanvas />
       
-      {/* Scroll-Triggered Scribble Line - Synchronized */}
-      <svg 
-        className="fixed top-0 left-[2%] sm:left-[5%] lg:left-[8%] w-8 sm:w-12 h-screen pointer-events-none z-[1] opacity-30"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-      >
-        <motion.path
-          d="M 50 0 Q 90 10 50 20 T 50 40 T 50 60 T 50 80 T 50 100"
-          style={{ pathLength: scaleY }}
-          className="stroke-primary fill-none"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
-
       <header>
         <FloatingDock 
           currentTheme={theme} 
@@ -109,14 +90,12 @@ const App = () => {
       </header>
 
       <main className="relative z-10 pointer-events-none">
-        {/* Child elements that need interaction must have pointer-events-auto */}
         <div id="Home" className="bg-base-200/30 pointer-events-auto relative">
           <Hero />
           <TornPaperEdge fill="var(--fallback-b1,oklch(var(--b1)))" />
         </div>
 
         <div className="container mx-auto px-4 lg:px-10 xl:px-20 space-y-32 pb-20 pointer-events-auto relative">
-          {/* About Section */}
           <motion.section 
             id="about" 
             className="pt-24 pb-10 will-change-transform"
@@ -128,7 +107,6 @@ const App = () => {
             <div className="max-w-5xl xl:max-w-6xl mx-auto text-center space-y-8 paper-card p-10 lg:p-20 irregular-border border-2 border-black/5 relative">
               <div className="tape"></div>
               
-              {/* Physical Ornaments */}
               <div className="absolute -top-4 -left-4 -rotate-12 text-base-content/40">
                 <Paperclip size={48} weight="duotone" />
               </div>
