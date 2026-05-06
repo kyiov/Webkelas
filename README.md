@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="public/hero.png" alt="Webkelas Hero" width="800">
-
 # 📔 Webkelas: XII A1 Digital Archive
 ### *Arsip Digital & Hub Komunitas XII A1 SMAN 1 Rasau Jaya*
 
@@ -63,7 +61,7 @@ Dukungan penuh untuk Dark/Light mode dengan persistensi state dan desain yang se
 ### Backend & Database
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
-![SawitDB](https://img.shields.io/badge/SawitDB-Green?style=for-the-badge&logo=google-cloud&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 
 </div>
 
@@ -77,8 +75,7 @@ Dukungan penuh untuk Dark/Light mode dengan persistensi state dan desain yang se
 │   ├── components/     # UI & Layout components
 │   ├── lib/            # Utilities, API helpers, & Constants
 │   └── assets/         # Images, Icons, & Global styles
-├── public/             # Static assets
-└── database.sawit      # Persistent file-based database
+└── public/             # Static assets
 ```
 
 ---
@@ -116,6 +113,7 @@ npm run build
 
 Buat file `.env` di root direktori (gunakan `.env.example` sebagai referensi):
 - `VITE_ADMIN_PASSWORD`: Password aman untuk akses Dashboard Admin.
+- `MONGODB_URI`: Connection string untuk database MongoDB Atlas.
 
 ---
 
