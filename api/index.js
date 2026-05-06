@@ -9,8 +9,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// MongoDB Connection Configuration based on Official Atlas Snippet
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://Jrheveh746:uebeue837ryh@cluster0.278kf40.mongodb.net/webkelas?retryWrites=true&w=majority&appName=Cluster0";
+// MongoDB Connection Configuration
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) {
+  console.error("FATAL ERROR: MONGODB_URI is not defined in environment variables.");
+  process.exit(1);
+}
 
 const client = new MongoClient(MONGODB_URI, {
   serverApi: {
