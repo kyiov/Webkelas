@@ -2,23 +2,36 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
-import { MongoClient } from 'mongodb';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// MongoDB Connection
+// MongoDB Connection Configuration based on Official Atlas Snippet
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://Jrheveh746:uebeue837ryh@cluster0.278kf40.mongodb.net/webkelas?retryWrites=true&w=majority&appName=Cluster0";
-const client = new MongoClient(MONGODB_URI);
+
+const client = new MongoClient(MONGODB_URI, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
 let db;
 
 async function connectDB() {
   try {
+    // Connect the client to the server
     await client.connect();
+    
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB Atlas!");
+    
     db = client.db('webkelas');
-    console.log("Connected to MongoDB Atlas");
     await setupAdmin();
   } catch (e) {
     console.error("MongoDB connection error:", e);
@@ -59,7 +72,7 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ success: false, message: 'Admin belum terdaftar.' });
     }
 
-    const hash = results.password_hash;
+    const hash = results[0]?.password_hash || results.password_hash;
     const match = await bcrypt.compare(password, hash);
     
     if (match) {
